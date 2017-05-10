@@ -49,16 +49,91 @@ The goal of this project is to explore, compare and extend embedded Linux build 
 \chapter{Literature review}
 \label{chapter:literature-review}
 
+There are two important issues, that I faced while making literature review: firstly what kind of materials should I analyze and secondly how to extend my searches, to get a full overview of current state of knowledge on this topic.  \\
+
+First issue was very clear in previous (XX) century - literature review was about analyzing two kind of printed materials: longer ones which were just specialist books and shorter ones which were peed reviewed articles in scientific or industry magazines.
+Right now they are also available and easy accessible in electronic form and still they are most reliable sources for literature review, but not every IT engineer is using it.
+Open Source Software and Open Source Hardware movement, beside creating loot of tools, also created a lot of written knowledge materials, but they are distributed in very different ways: project documentation, presentations, tutorials, source code comments, README s, How To s, FAQs, wiki's, finally blog and forum posts, but also in other forms.
+Hopefully, because they are all available through Internet, there exist one unified way to reference them: URL (Unified Resource Locator) also known as web address or link. Because of that, this and most of other bibliographies are filled with URLs, not ISBN s. I tried to divide all of those into groups as clearly as possible.
+
+Second thing is how to be sure that I covered everything, at least by mentioning. Search results are personalized, both by searchers behavior who is choosing keywords and also Search Engine Optimization. Nobody could tell, that this is complete, but sources are cross referenced, so after some research, the loop closed. Most important factor for choosing materials is their universality and chance that they will be not so fast outdated.
+
 \section{elinux.org}
+
+The Embedded Linux Developer wiki elinux.org is undeniably the most extensive source of knowledge about all aspects of Embedded Linux.
+In this form it was possible to consolidate powerful community which extend its contests.
+From one side it is greatly filled with a lot of technical details and still extended, but from the other the content is not always universal and some pages are lying not maintained.\\
+
+The elinux.org domain was registered on 1999-11-04 (\url{https://who.is/whois/elinux.org}) and used by a Linux specialist Tim Riker (\url{http://rikers.org}) just as a placeholder (\url{https://web.archive.org/web/20010721180347/elinux.org}).
+About 2003 the Embedded Linux wiki was initiated here using MoinMoin framework (\url{https://web.archive.org/web/20030220110526/http://www.elinux.org:80/wiki/}).
+In 2007 it was moved into Media Wiki engine, in which it still exists today.
+On the top level, its contents are divided into two main parts: "Development Portals" about various aspects of embedded Linux and "Hardware Pages" for different development boards.
+The most relevant page for this thesis is \url{http://elinux.org/Build_Systems}\\
+
+Currently it is maintained by the Core Embedded Linux Project which belongs to Linux foundation (\url{https://www.linuxfoundation.org/projects/core-embedded-linux}).
+CELP is also coordinator of other important Embedded Linux activities.
 
 \section{wikipedia.org}
 
-\section{Marcin Bis}
+\begin{itemize}
+  \item \url{https://en.wikipedia.org/wiki/Category:Embedded_Linux}
+  \item \url{http://dbpedia.org/page/Category:Embedded_Linux}
+  \item \url{https://en.wikipedia.org/wiki/Linux_on_embedded_systems}
+  \item \url{http://dbpedia.org/page/Linux_on_embedded_systems}
+  \item \url{https://en.wikipedia.org/wiki/OpenEmbedded}
+  \item \url{https://en.wikipedia.org/wiki/List_of_build_automation_software}
+  \item \url{https://en.wikipedia.org/wiki/Cross_compiler}
+\end{itemize}
+
+\section{Marcin Bis publications}
+
+In Poland, the most extensive source of written knowledge is provided by Mr Marcin Bis.
+He has published two books so far: "Linux in embedded systems" (pol. "Linux w systemach embedded") in 2011 and "Linux in i.MX 6 series systems" (pol. "Linux w systemach i.MX6 series") in 2015.
+The company BIS-LINUX.COM is also offering various paid workshops and consultations.
+
+\section{Conferences and workshops}
+
+One part of it are public, like Embedded Linux Conferences organized by CELP, from which slides and recordings are available on elinux.org:
+
+\begin{itemize}
+  \item \url{http://elinux.org/Category:ELC} (Embedded Linux Conference)
+  \item \url{http://elinux.org/Category:ELCE} (Embedded Linux Conference Europe)
+\end{itemize}
+
+Embedded Linux issues connected to build systems are also present on Linux Sessions (\url{sesja.linuksowa.pl}) organized each year by Academic IT Association (http://asi.wroclaw.pl) each year on Wroclaw university of Technology. \\
+
+Another ones are organized by private companies and they are mostly consisting of interactive workshop sessions. The paid ones are organized i.e. by Marcin Bis (http://www.bis-linux.com/szkolenia). There are also free of charge workshops i.e. ones organized by EBV in 2016, where I participated.
+
+\section{Search results}
+
+\subsection{WrUST search}
+
+\subsection{scholar.google.com}
+
+\url{https://scholar.google.pl/scholar?q="embedded+linux+build+systems"}
+
+The phrase "embedded linux build systems" gives only 2 results (as for 2017--). First of them is presentation "Embedded Linux system development" by Thomas Petazzoni from year 2004. It describes only Open Embedded which is currently included as a part of Yocto Project. Second one is book "Mastering embedded Linux programming" by Chris Simmonds from year 2015. It differentiates only Buildroot and Yocto Project. \\
+
+\url{https://scholar.google.pl/scholar?q="embedded+linux+build+system"}
+
+The phrase "embedded linux build system" gives 24 results (as for 2017--). Most of recent works enumerates Buildroot, Yocto Project, OpenWrt without comparison between them. Materials prior to 2010 are mostly using therm "embedded linux distribution", rather than "embedded linux build system".
+
+\url{https://www.researchgate.net/profile/Angel_Varela_Vaca/publication/296678719_Embedded_Kernel_customization_to_optimize_performance_and_power_management_An_application_to_IoT/links/56d80d5a08aee1aa5f76df8f.pdf}
+
+\subsection{google.com}
+
+\url{https://www.google.com/?q=embedded+linux+build+systems} (opera + incognito + VPN USA)
+
+\subsection{duckduckgo.com}
 
 \section{official documentation}
 
+The most valuable source of technical information is and should be always official documentation.
+
 \chapter{Development boards}
 \label{chapter:development-boards}
+
+prices
 
 \section{Grinn liteboard}
 
@@ -66,27 +141,58 @@ The goal of this project is to explore, compare and extend embedded Linux build 
 
 \section{PandaBoard}
 
+- no serial response\\
+- not visible in network\\
+after power connection:\\
+- LED's are blinking\\
+- HDMI black screen\\
+after stabilization\\
+- LED's are blinking in another way\\
+- Ethernet LED's are blinking\\
+\\
+drawbacks:\\
+- poor support from community\\
+- "big" SD card\\
+- size: large surface + high audio and Ethernet/USB connectors\\
+- Ethernet over USB\\
+- serial db-9 connector\\
+- strange USB type ab connector\\
+- strange graphics solutions (two HDMI s)\\
+
 \section{Wandboard Quad}
 
 \section{Raspberry Pi 2 Model B}
 
+\section{x86\_64 (Asus Eee PC 1215n)}
+
 \chapter{Build systems}
 \label{chapter:build systems}
 
+history\\
+package management\\
+adding own software: packages, configuration\\
+
 \section{Build system vs Linux distributions vs Distribution Creators}
+There is much confusion in semantic layer here. Linux is just a operating system kernel, it is not providing any user space.
+In the beginning, when Linux was created, there was no distributions, so if anybody want to utilize it, it had to be compiled and configured in a way later described in Linux From Scratch.
+After some conceptual projects, the two still most important distributions were created: Debian and Red Hat which provides not only fully working solution, but also their own way to adding software - package management systems: deb and rpm. 
 
 \section{Linux From Scratch}
 
+\url{http://www.linuxfromscratch.org}\\
+\url{http://trac.clfs.org}\\
+\url{http://intestinate.com/pilfs/}\\
+\url{https://raspberrypi.stackexchange.com/questions/25/is-there-a-linux-from-scratch-lfs-arm-equivalent}
+
 \section{Buildroot}
 
-\section{OpenWrt}
+\section{OpenWrt / LEDE}
 
-\section{Yocto Project}
+\section{Yocto Project / Open Embedded}
 
 \section{LTIB}
 
-\section{Pengutronix barebox}
-
+\section{Pengutronix / PTXdist / barebox}
 
 \chapter{Software}
 \label{chapter:software}
@@ -103,8 +209,15 @@ The goal of this project is to explore, compare and extend embedded Linux build 
 \label{chapter:methodology}
 
 \section{Build servers}
+minimal requirements vs maximum usable resources\\
+1. local machine (laptop)\\
+2. cloud server (payed m1.2 x large - count time on various sizes + cost + servery.pl vs Amazon AWS)\\
+3. dedicated server (own... Intel Xeon)\\
+4. dedicated server (payed)\\
+count costs in comparison to... big mac / salary?
 
 \section{Data storage}
+WARNING: DEGRADATION OF SD CARDS! (ram file system... and other mechanisms)
 
 \chapter{Conclusions}
 \label{chapter:conclusions}
