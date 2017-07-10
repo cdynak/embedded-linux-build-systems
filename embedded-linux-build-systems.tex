@@ -358,12 +358,49 @@ count costs in comparison to... big mac / salary?
   \item Attach volume to instance
   \item Create partition on volume (\verb|sudo mkfs.ext4 /dev/sdb|)
   \item Mount volume (\verb|sudo mount /dev/sdb /mnt/|)
+  \item (\verb|sudo chown debian:debian /mnt/|)
   \item Navigate to mounted directory (\verb|cd /mnt/|)
 \end{enumerate}
 
 \subsection{Buildroot procedure}
 
+\paragraph{Avalible configs}
+
+\begin{verbatim}
+wandboard_defconfig                 - Build for wandboard
+raspberrypi_defconfig               - Build for raspberrypi
+raspberrypi2_defconfig              - Build for raspberrypi2
+pandaboard_defconfig                - Build for pandaboard
+grinn_liteboard_defconfig           - Build for grinn_liteboard
+beaglebone_defconfig                - Build for beaglebone
+beaglebone_qt5_defconfig            - Build for beaglebone_qt5
+pc_x86_64_bios_defconfig            - Build for pc_x86_64_bios
+pc_x86_64_efi_defconfig             - Build for pc_x86_64_efi
+qemu_x86_64_defconfig               - Build for qemu_x86_64
+qemu_x86_defconfig                  - Build for qemu_x86
+\end{verbatim}
+
+https://buildroot.org/downloads/buildroot-2017.02.4.tar.gz
+
+\paragraph{Build procedure}
+
+\begin{verbatim}
+sudo apt install libncurses-dev (libdt4-dev?) unzip git make gcc g++
+git clone --depth 1 git://git.busybox.net/buildroot
+cd buildroot/
+make X_defconfig
+make
+\end{verbatim}
+
 \subsection{Yocto procedure}
+
+
+\subsection{Deploy image}
+
+\begin{itemize}
+  \item \verb|scp|
+  \item \verb!pv sdcard.img | dd of=/dev/sdb bs=4M oflag=dsync!
+\end{itemize}
 
 \section{Data storage}
 WARNING: DEGRADATION OF SD CARDS! (ram file system... and other mechanisms)
