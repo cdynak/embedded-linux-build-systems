@@ -342,6 +342,29 @@ minimal requirements vs maximum usable resources\\
 4. dedicated server (payed)\\
 count costs in comparison to... big mac / salary?
 
+\subsection{OpenStack test procedure}
+
+\begin{enumerate}
+  \item Login to Horizon panel (https://horizon.serwery.pl)
+  \item Select "instances" and "launch instance"
+  \item Choose instance name (mgr-builder-X), type (m1.2xlarge), image (Debian 8.4)
+  \item Choose or create key pair
+  \item Launch instance
+  \item Login with (\verb|ssh -i .ssh/host-keys.pem debian@host-ip|)
+  \item Update system (\verb|sudo apt update && sudo apt upgrade|)
+  \item Select "volumes" and "create volume"
+  \item Choose volume name (mgr-volume-X), type (SAS), size (100 GB)
+  \item Create volume
+  \item Attach volume to instance
+  \item Create partition on volume (\verb|sudo mkfs.ext4 /dev/sdb|)
+  \item Mount volume (\verb|sudo mount /dev/sdb /mnt/|)
+  \item Navigate to mounted directory (\verb|cd /mnt/|)
+\end{enumerate}
+
+\subsection{Buildroot procedure}
+
+\subsection{Yocto procedure}
+
 \section{Data storage}
 WARNING: DEGRADATION OF SD CARDS! (ram file system... and other mechanisms)
 
