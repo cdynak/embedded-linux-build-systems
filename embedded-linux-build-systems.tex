@@ -3,6 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
+\usepackage{listings}
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{subcaption}
@@ -256,9 +257,7 @@ At minimum, each platform have:
 prices
 nice big table
 
-\section{Raspberry Pi 2 Model B}
-
-\section{BeagleBone Black}
+\section{Raspberry Pi 1}
 
 \section{PandaBoard}
 
@@ -280,6 +279,8 @@ drawbacks:\\
 - strange USB type ab connector\\
 - strange graphics solutions (two HDMI s)\\
 
+\section{BeagleBone Black}
+
 \section{Wandboard Quad}
 
 \section{Grinn liteboard}
@@ -288,6 +289,10 @@ drawbacks:\\
 
 \chapter{Build systems}
 \label{chapter:build systems}
+% https://www.embarcados.com.br/embedded-linux-build-systems/
+
+% https://en.wikipedia.org/wiki/Menuconfig
+
 
 history\\
 package management\\
@@ -298,6 +303,29 @@ There is much confusion in semantic layer here. Linux is just a operating system
 In the beginning, when Linux was created, there was no distributions, so if anybody want to utilize it, it had to be compiled and configured in a way later described in Linux From Scratch.
 After some conceptual projects, the two still most important distributions were created: Debian and Red Hat which provides not only fully working solution, but also their own way to adding software - package management systems: deb and rpm. 
 
+\section{Buildroot}
+% https://www.slideshare.net/tpetazzoni/buildroot-building-embedded-linux-systems-made-easy-linux-conf-australia-2014
+
+\section{OpenWrt / LEDE}
+
+\section{LTIB}
+% http://ltib.org/home-intro 
+
+\section{PTXdist / DistroKit}
+% http://elinux.org/PTXdist
+% http://public.pengutronix.de/oselas/bsp/pengutronix/OSELAS.BSP-Pengutronix-Generic-arm-Quickstart.pdf
+% http://public.pengutronix.de/oselas/toolchain/
+% http://public.pengutronix.de/software/ptxdist/
+% http://public.pengutronix.de/software/ptxdist/appnotes/
+% https://git.pengutronix.de/cgit/DistroKit
+
+% https://www.mail-archive.com/ptxdist@pengutronix.de/msg10260.html
+% Difference between DIstroKit and OSELAS.BSP-Pengutronix-Generic
+
+
+
+\section{Yocto Project / OpenEmbedded}
+
 \section{Linux From Scratch}
 
 \url{http://www.linuxfromscratch.org}\\
@@ -305,18 +333,119 @@ After some conceptual projects, the two still most important distributions were 
 \url{http://intestinate.com/pilfs/}\\
 \url{https://raspberrypi.stackexchange.com/questions/25/is-there-a-linux-from-scratch-lfs-arm-equivalent}
 
-\section{Buildroot}
-
-\section{OpenWrt / LEDE}
-
-\section{Yocto Project / Open Embedded}
-
-\section{LTIB}
-
-\section{Pengutronix / PTXdist / barebox}
-
-\chapter{Software}
+\chapter{Use cases and testing}
 \label{chapter:software}
+
+\section{Building default configuration}
+
+\paragraph{OpenStack}
+
+\begin{enumerate}
+  \item Login to Horizon panel (https://horizon.serwery.pl)
+  \item Select "instances" and "launch instance"
+  \item Choose instance name (mgr-builder-X), type (m1.2xlarge), image (Debian 8.4)
+  \item Choose or create key pair
+  \item Launch instance
+  \item Select "volumes" and "create volume"
+  \item Choose volume name (mgr-volume-X), type (SAS), size (100 GB)
+  \item Create volume
+  \item Attach volume to instance
+\end{enumerate}
+
+\paragraph{ssh}
+
+\begin{enumerate}
+  \item identify (\verb|$HOST_KEYS $HOST_USER $HOST_IP $VOLUME_ID|)
+  \item Login with (\verb|ssh -i $HOST_KEYS $HOST_USER@$HOST_IP|)
+  \item Update system (\verb|sudo apt update && sudo apt upgrade|)
+  \item Create partition on volume (\verb|sudo mkfs.ext4 /dev/sdb|)
+  \item Mount volume (\verb|sudo mount /dev/sdb /mnt/|)
+  \item (\verb|sudo chown debian:debian /mnt/|)
+  \item Navigate to mounted directory (\verb|cd /mnt/|)
+\end{enumerate}
+
+\subsection{Deploy image}
+
+\begin{itemize}
+  \item \verb|scp|
+  \item \verb!pv sdcard.img | dd of=/dev/sdb bs=4M oflag=dsync!
+\end{itemize}
+
+\subsection{Buildroot}
+
+\paragraph{Available configs}
+
+\begin{verbatim}
+wandboard_defconfig                 - Build for wandboard
+raspberrypi_defconfig               - Build for raspberrypi
+raspberrypi2_defconfig              - Build for raspberrypi2
+pandaboard_defconfig                - Build for pandaboard
+grinn_liteboard_defconfig           - Build for grinn_liteboard
+beaglebone_defconfig                - Build for beaglebone
+beaglebone_qt5_defconfig            - Build for beaglebone_qt5
+pc_x86_64_bios_defconfig            - Build for pc_x86_64_bios
+pc_x86_64_efi_defconfig             - Build for pc_x86_64_efi
+qemu_x86_64_defconfig               - Build for qemu_x86_64
+qemu_x86_defconfig                  - Build for qemu_x86
+\end{verbatim}
+
+\paragraph{Build procedure}
+
+\begin{verbatim}
+sudo apt install libncurses-dev (libdt4-dev?) unzip git make gcc g++
+#git clone --depth 1 git://git.busybox.net/buildroot
+wget https://buildroot.org/downloads/buildroot-2017.02.4.tar.gz
+cd buildroot/
+make X_defconfig
+time make
+cp output/images/sdcard.img /mnt
+\end{verbatim}
+
+\subsection{OpenWrt / LEDE}
+% https://lede-project.org/toh/hwdata/raspberrypifoundation/raspberrypifoundation_raspberrypi_bplus
+% https://lede-project.org/docs/guide-developer/quickstart-build-images
+% https://wiki.openwrt.org/toh/raspberry_pi_foundation/raspberry_pi
+
+\subsection{LTIB}
+% http://download.savannah.nongnu.org/releases/ltib/
+% https://midnightyell.wordpress.com
+
+% https://github.com/midnightyell/RPi-LTIB
+% rpm -ivh ... (missing ltib rpi tools)
+% http://nongnu.13855.n7.nabble.com/Raspberrypi-toolchain-is-missing-from-gpp-td78878.html
+
+% bash "No such file or directory" (32 / 64 bit...)
+% https://askubuntu.com/questions/133389/no-such-file-or-directory-but-the-file-exists
+% sudo dpkg --add-architecture i386 , etc...
+% debian install 32 bit libz
+% 64-bit Debian or Ubuntu : apt-get install zlib1g:i386
+
+% ti_3410.fw ltib
+% https://github.com/raspberrypi/linux/issues/112
+% https://github.com/raspberrypi/linux/commit/e6ef7f6bbc05fdcd7b1f115bb55a32c176663296
+% apply patch... for arch/arm/mach-bcm2708/bcm2708.c and drivers/usb/host/dwc_otg/dwc_otg_driver.c
+
+% no bootable flag/not working...
+% "wrong fs type, bad option, bad superblock"
+% mount sdcard image locally ...
+% https://askubuntu.com/questions/445979/how-to-mount-sd-card-image-created-with-dd
+% https://en.wikibooks.org/wiki/QEMU/Images#Mounting_an_image_on_the_host
+
+\subsection{PTXdist / DistroKit}
+% https://debian.pkgs.org/sid/rt-preempt-nonfree-i386/oselas.toolchain-2013.12.1-arm-1136jfs-linux-gnueabihf-gcc-4.8.2-glibc-2.18-binutils-2.24-kernel-3.12-sanitized_2013.12.1_i386.deb.html
+% https://debian.pkgs.org/sid/rt-preempt-nonfree-i386/oselas.toolchain-2016.06.0-arm-1136jfs-linux-gnueabihf-gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitized_2016.06.0_.deb.html
+
+% http://ptxdist.pengutronix.narkive.com/iZ6AhfNp/pull-request-oselas-toolchain-for-upstream-update-for-gcc-4-4-1-and-binutils-2-20
+% ln -s /usr/local/bin/ptxdist p
+
+% http://www.friendlyarm.net/forum/topic/4535 (OSELAS Toolchain)
+
+% (missing) lzop barebox
+
+\subsection{Yocto / OpenEmbedded}
+% https://github.com/lukaszgard/sesja-manifest
+
+\subsection{Linux From Scratch}
 
 \section{POSIX Test Suites}
 
@@ -342,65 +471,7 @@ minimal requirements vs maximum usable resources\\
 4. dedicated server (payed)\\
 count costs in comparison to... big mac / salary?
 
-\subsection{OpenStack test procedure}
 
-\begin{enumerate}
-  \item Login to Horizon panel (https://horizon.serwery.pl)
-  \item Select "instances" and "launch instance"
-  \item Choose instance name (mgr-builder-X), type (m1.2xlarge), image (Debian 8.4)
-  \item Choose or create key pair
-  \item Launch instance
-  \item Login with (\verb|ssh -i .ssh/host-keys.pem debian@host-ip|)
-  \item Update system (\verb|sudo apt update && sudo apt upgrade|)
-  \item Select "volumes" and "create volume"
-  \item Choose volume name (mgr-volume-X), type (SAS), size (100 GB)
-  \item Create volume
-  \item Attach volume to instance
-  \item Create partition on volume (\verb|sudo mkfs.ext4 /dev/sdb|)
-  \item Mount volume (\verb|sudo mount /dev/sdb /mnt/|)
-  \item (\verb|sudo chown debian:debian /mnt/|)
-  \item Navigate to mounted directory (\verb|cd /mnt/|)
-\end{enumerate}
-
-\subsection{Buildroot procedure}
-
-\paragraph{Avalible configs}
-
-\begin{verbatim}
-wandboard_defconfig                 - Build for wandboard
-raspberrypi_defconfig               - Build for raspberrypi
-raspberrypi2_defconfig              - Build for raspberrypi2
-pandaboard_defconfig                - Build for pandaboard
-grinn_liteboard_defconfig           - Build for grinn_liteboard
-beaglebone_defconfig                - Build for beaglebone
-beaglebone_qt5_defconfig            - Build for beaglebone_qt5
-pc_x86_64_bios_defconfig            - Build for pc_x86_64_bios
-pc_x86_64_efi_defconfig             - Build for pc_x86_64_efi
-qemu_x86_64_defconfig               - Build for qemu_x86_64
-qemu_x86_defconfig                  - Build for qemu_x86
-\end{verbatim}
-
-https://buildroot.org/downloads/buildroot-2017.02.4.tar.gz
-
-\paragraph{Build procedure}
-
-\begin{verbatim}
-sudo apt install libncurses-dev (libdt4-dev?) unzip git make gcc g++
-git clone --depth 1 git://git.busybox.net/buildroot
-cd buildroot/
-make X_defconfig
-make
-\end{verbatim}
-
-\subsection{Yocto procedure}
-
-
-\subsection{Deploy image}
-
-\begin{itemize}
-  \item \verb|scp|
-  \item \verb!pv sdcard.img | dd of=/dev/sdb bs=4M oflag=dsync!
-\end{itemize}
 
 \section{Data storage}
 WARNING: DEGRADATION OF SD CARDS! (ram file system... and other mechanisms)
