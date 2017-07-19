@@ -3,7 +3,13 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
+% https://en.wikibooks.org/wiki/LaTeX/Source_Code_Listings
 \usepackage{listings}
+\lstset{
+  frame=single,
+  language=Bash
+}
+
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{subcaption}
@@ -293,6 +299,8 @@ drawbacks:\\
 
 % https://en.wikipedia.org/wiki/Menuconfig
 
+% official repository / github mirror / download directory
+
 
 history\\
 package management\\
@@ -310,6 +318,10 @@ After some conceptual projects, the two still most important distributions were 
 
 \section{LTIB}
 % http://ltib.org/home-intro 
+% http://ltib.org/pages/LTIB_generic_v1.4_-_version_6.4.1.pdf
+
+% http://www.bitshrine.org/autodocs/LtibFaq.html#ref_10
+% What is required on your host before installing LTIB
 
 \section{PTXdist / DistroKit}
 % http://elinux.org/PTXdist
@@ -338,6 +350,18 @@ After some conceptual projects, the two still most important distributions were 
 
 \section{Building default configuration}
 
+% wget https://raw.githubusercontent.com/tbird20d/grabserial/v1.9.3/grabserial
+% chmod +x grabserial
+% sudo cp grabserial /usr/local/bin/
+% pip install pyserial
+
+% sudo apt install pv
+
+% table stats
+% build time (toolchain / rootfs / image...)
+% image size (free space... df -h)
+% boot time (dhcpd...?)
+
 \paragraph{OpenStack}
 
 \begin{enumerate}
@@ -346,7 +370,7 @@ After some conceptual projects, the two still most important distributions were 
   \item Choose instance name (mgr-builder-X), type (m1.2xlarge), image (Debian 8.4)
   \item Choose or create key pair
   \item Launch instance
-  \item Select "volumes" and "create volume"
+  \item Select "volumes" and "create volume" or... just select "Boot from image (creates a new volume)" 
   \item Choose volume name (mgr-volume-X), type (SAS), size (100 GB)
   \item Create volume
   \item Attach volume to instance
@@ -358,6 +382,7 @@ After some conceptual projects, the two still most important distributions were 
   \item identify (\verb|$HOST_KEYS $HOST_USER $HOST_IP $VOLUME_ID|)
   \item Login with (\verb|ssh -i $HOST_KEYS $HOST_USER@$HOST_IP|)
   \item Update system (\verb|sudo apt update && sudo apt upgrade|)
+  \item rest is possibly not needed... using home directory
   \item Create partition on volume (\verb|sudo mkfs.ext4 /dev/sdb|)
   \item Mount volume (\verb|sudo mount /dev/sdb /mnt/|)
   \item (\verb|sudo chown debian:debian /mnt/|)
@@ -389,22 +414,63 @@ qemu_x86_64_defconfig               - Build for qemu_x86_64
 qemu_x86_defconfig                  - Build for qemu_x86
 \end{verbatim}
 
-\paragraph{Build procedure}
+\subsubsection{Build procedure}
 
-\begin{verbatim}
-sudo apt install libncurses-dev (libdt4-dev?) unzip git make gcc g++
-#git clone --depth 1 git://git.busybox.net/buildroot
+Buildroot build procecure is the simplest from every point of view.
+The only difference between different boards is only \verb|defconfig| name.
+
+\begin{lstlisting}
+sudo apt install make gcc g++ libncurses-dev unzip git
 wget https://buildroot.org/downloads/buildroot-2017.02.4.tar.gz
-cd buildroot/
-make X_defconfig
-time make
-cp output/images/sdcard.img /mnt
-\end{verbatim}
+tar -zxf buildroot-2017.02.4.tar.gz
+cd buildroot-2017.02.4/
+make raspberrypi_defconfig
+make
+cp output/images/sdcard.img ..
+\end{lstlisting}
+
+% build time
+
+% grabserial -d /dev/ttyUSB0 -m RomBOOT -t -e 30
+% ...
+% [13.247127 0.001591] buildroot login: 
+
+% # df -h
+% Filesystem                Size      Used Available Use% Mounted on
+% /dev/root                58.2M     49.6M      4.5M  92% /
+
+% $ du -sh sdcard.img 
+% 92M     sdcard.img
+
+% $ du -sh buildroot-2017.02.4
+% 4.8G    buildroot-2017.02.4
+
 
 \subsection{OpenWrt / LEDE}
 % https://lede-project.org/toh/hwdata/raspberrypifoundation/raspberrypifoundation_raspberrypi_bplus
 % https://lede-project.org/docs/guide-developer/quickstart-build-images
 % https://wiki.openwrt.org/toh/raspberry_pi_foundation/raspberry_pi
+% https://lede-project.org/docs/guide-developer/compile_packages_for_lede_with_the_sdk
+
+\begin{lstlisting}
+sudo apt install make gcc g++ libncurses-dev unzip git
+sudo apt install gawk zlib1g-dev
+git clone https://git.lede-project.org/source.git lede
+cd lede
+git checkout v17.01.2
+./scripts/feeds update -a
+./scripts/feeds install -a
+make defconfig
+make menuconfig
+Target System (Broadcom BCM27xx)
+Target Profile (Raspberry Pi B/B+/CM/Zero/ZeroW)
+make -j 12
+cp build_dir/target-arm_arm1176jzf-s+vfp_musl-1.1.16_eabi/\
+linux-brcm2708_bcm2708/tmp/\
+lede-brcm2708-bcm2708-rpi-ext4-sdcard.img ..
+\end{lstlisting}
+
+
 
 \subsection{LTIB}
 % http://download.savannah.nongnu.org/releases/ltib/
@@ -424,6 +490,13 @@ cp output/images/sdcard.img /mnt
 % https://github.com/raspberrypi/linux/issues/112
 % https://github.com/raspberrypi/linux/commit/e6ef7f6bbc05fdcd7b1f115bb55a32c176663296
 % apply patch... for arch/arm/mach-bcm2708/bcm2708.c and drivers/usb/host/dwc_otg/dwc_otg_driver.c
+%
+% rpm/BUILD/raspberrypi-linux-118e2d3/drivers/usb/host/dwc_otg/dwc_otg_driver.c
+
+% on ubuntu 14.04 32 bit...
+% https://stackoverflow.com/questions/25438455/ltib-installation-woes
+% http://nongnu.13855.n7.nabble.com/Linux-Mint-1-6-Can-t-get-rpm-4-0-4-tar-gz-at-ltib-line-834-td75924.html
+% http://ftp.rpm.org/releases/historical/rpm-4.0.x/rpm-4.0.4.tar.gz
 
 % no bootable flag/not working...
 % "wrong fs type, bad option, bad superblock"
@@ -431,16 +504,74 @@ cp output/images/sdcard.img /mnt
 % https://askubuntu.com/questions/445979/how-to-mount-sd-card-image-created-with-dd
 % https://en.wikibooks.org/wiki/QEMU/Images#Mounting_an_image_on_the_host
 
+\begin{lstlisting}
+sudo apt install make gcc g++ libncurses-dev unzip
+sudo apt install rpm bison tcl zlib1g-dev
+
+
+wget https://github.com/downloads/midnightyell/RPi-LTIB/raspberrypi-tools-9c3d7b6-1.i386.rpm
+sudo mkdir -p /opt/ltib/pkgs/
+sudo cp raspberrypi-tools-9c3d7b6-1.i386.rpm /opt/ltib/pkgs/
+
+sudo dpkg --add-architecture i386
+sudo apt update
+sudo apt upgrade
+sudo apt install zlib1g:i386
+sudo apt install libstdc++6-4.8-dbg:i386
+
+
+wget http://download.savannah.nongnu.org/releases/ltib/ltib-13-2-1-sv.tar.gz
+tar -zxf ltib-13-2-1-sv.tar.gz
+cd ltib-13-2-1-sv/
+./ltib
+Platform choice (Raspberry Pi with BCM2835 SoC)
+
+https://github.com/raspberrypi/linux/commit/e6ef7f6bbc05fdcd7b1f115bb55a32c176663296
+rpm/BUILD/raspberrypi-linux-118e2d3/arch/arm/mach-bcm2708/bcm2708.c
+rpm/BUILD/raspberrypi-linux-118e2d3/drivers/usb/host/dwc_otg/dwc_otg_driver.c
+\end{lstlisting}
+
 \subsection{PTXdist / DistroKit}
 % https://debian.pkgs.org/sid/rt-preempt-nonfree-i386/oselas.toolchain-2013.12.1-arm-1136jfs-linux-gnueabihf-gcc-4.8.2-glibc-2.18-binutils-2.24-kernel-3.12-sanitized_2013.12.1_i386.deb.html
 % https://debian.pkgs.org/sid/rt-preempt-nonfree-i386/oselas.toolchain-2016.06.0-arm-1136jfs-linux-gnueabihf-gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitized_2016.06.0_.deb.html
 
+% only when building all with ./build_all_v2.mk
 % http://ptxdist.pengutronix.narkive.com/iZ6AhfNp/pull-request-oselas-toolchain-for-upstream-update-for-gcc-4-4-1-and-binutils-2-20
 % ln -s /usr/local/bin/ptxdist p
 
 % http://www.friendlyarm.net/forum/topic/4535 (OSELAS Toolchain)
 
 % (missing) lzop barebox
+
+\begin{lstlisting}
+sudo apt install make gcc g++ libncurses-dev unzip git
+sudo apt install gawk flex bison gettext python-dev lzop
+
+wget http://public.pengutronix.de/software/ptxdist/ptxdist-2017.06.0.tar.bz2
+tar -xjf ptxdist-2017.06.0.tar.bz2
+cd ptxdist-2017.06.0
+./configure
+make
+sudo make install
+cd ..
+
+# wget http://public.pengutronix.de/oselas/toolchain/OSELAS.Toolchain-2016.06.1.tar.bz2
+# tar -xjf OSELAS.Toolchain-2016.06.1.tar.bz2
+# cd OSELAS.Toolchain-2016.06.1/
+# ptxdist select ptxconfigs/arm-1136jfs-linux-gnueabihf_gcc-5.4.0_glibc-2.23_binutils-2.26_kernel-4.6-sanitized.ptxconfig
+# sudo mkdir -p /opt/OSELAS.Toolchain-2016.06.1/
+# sudo chown debian:debian /opt/OSELAS.Toolchain-2016.06.1/
+# ptxdist go
+
+wget http://debian.pengutronix.de/debian/pool/main/o/oselas.toolchain/oselas.toolchain-2016.06.1-arm-1136jfs-linux-gnueabihf-gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitized_2016.06.1_amd64.deb
+sudo dpkg -i oselas.toolchain-2016.06.1-arm-1136jfs-linux-gnueabihf-gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitized_2016.06.1_amd64.deb
+
+
+git clone https://git.pengutronix.de/cgit/DistroKit/
+cd DistroKit/
+ptxdist platform configs/platform-rpi/platformconfig
+ptxdist images
+\end{lstlisting}
 
 \subsection{Yocto / OpenEmbedded}
 % https://github.com/lukaszgard/sesja-manifest
@@ -450,6 +581,22 @@ cp output/images/sdcard.img /mnt
 \section{POSIX Test Suites}
 
 \section{Node.js and IoT}
+
+\subsection{Buildroot}
+
+\begin{lstlisting}
+cd buildroot-2017.02.4/
+make clean # because of wchar...
+make menuconfig
+Toolchain -> Enable WCHAR support
+Toolchain -> Enable C++ support
+Target packages
+Interpreter languages and scripting -> nodejs -> NPM for the target
+Networking applications -> openssh
+Networking applications -> ntp -> ntpd
+Libraries -> Database
+mysql support -> mysql variant (mariadb) -> mariadb server
+\end{lstlisting}
 
 \section{CAN and CANopen}
 
