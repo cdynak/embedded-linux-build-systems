@@ -3,6 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
+\usepackage{pdflscape}
 % https://en.wikibooks.org/wiki/LaTeX/Source_Code_Listings
 \usepackage{listings}
 \lstset{
@@ -143,8 +144,6 @@ From another side, private companies make mostly interactive workshops. The paid
 
 \section{scholar.google.com}
 
-
-
 The phrase "embedded linux build systems" gives only 2 results  \cite{web:scholar-1}. First of them is presentation "Embedded Linux system development" by Thomas Petazzoni from year 2004. It describes only Open Embedded which is currently included as a part of Yocto Project. Second one is book "Mastering embedded Linux programming" by Chris Simmonds from year 2015. It differentiates only Buildroot and Yocto Project. \\
 
 The phrase "embedded linux build system" gives 24 results \cite{web:scholar-2}. Most of recent works enumerates Buildroot, Yocto Project, OpenWrt without comparison between them. Materials prior to 2010 are mostly using therm "embedded linux distribution", rather than "embedded linux build system".
@@ -160,22 +159,22 @@ The most valuable source of technical information is and always should be offici
 
 From the beginning of embedded systems history, microprocessor development boards were just a training resource for engineers.
 Usually they were designed and produced by companies that have created certain chip and costs a lot of money, that it was not affordable for hobbyists or students.
-In recent years this state was changed by a few factors:
+In recent years this state has been changed by a few factors:
 \begin{itemize}
   \item the spread of ARM architecture micro-controllers with efficiency comparable to personal computers (1GHz),
-  \item creating development boards by community as open hardware, that led to cost reduction,
+  \item creating development boards by community as open hardware, that resulted in cost reduction,
   \item adding peripherals specific not for embedded systems but for personal computers.
 \end{itemize}
 This led to discovering totally new use cases for development boards which explode due to widespread success of Raspberry Pi platform. \\
-I've selected some of most popular devices with ARM to compare them, but also include my personal laptop computer as a reference for x86 architecture. Because of very low popularity, I don't investigate other chips with SPARC or Power Architecture. \\
+I have selected some of most popular devices with ARM to compare them, but also included my personal laptop computer as a reference for x86 architecture. Because of very low popularity, I  haven't investigated other chips with SPARC or Power Architecture. \\
 
-At minimum, each platform have:
+At minimum, each platform has:
 \begin{itemize}
-  \item powered by low voltage (5V-24V)
   \item at least one UART, for serial console
   \item at least one Ethernet port, 100 MB/s or higher
   \item at least one USB port, 2.0 or higher
   \item SD card interface
+  \item low voltage (5V-24V) power supply
 \end{itemize}
 
 \renewcommand{\arraystretch}{2}
@@ -210,22 +209,11 @@ At minimum, each platform have:
   \end{tabular}
   \caption{Development boards comparison}
 \end{table}
-prices
-nice big table
 
 \section{Raspberry Pi 1}
 
 \section{PandaBoard}
 
-- no serial response\\
-- not visible in network\\
-after power connection:\\
-- LED's are blinking\\
-- HDMI black screen\\
-after stabilization\\
-- LED's are blinking in another way\\
-- Ethernet LED's are blinking\\
-\\
 drawbacks:\\
 - poor support from community\\
 - "big" SD card\\
@@ -246,27 +234,48 @@ drawbacks:\\
 \chapter{Build systems}
 \label{chapter:build systems}
 % https://www.embarcados.com.br/embedded-linux-build-systems/
-
 % https://en.wikipedia.org/wiki/Menuconfig
-
 % official repository / github mirror / download directory
 
 
-history\\
-package management\\
-adding own software: packages, configuration\\
+\section{Problem of definition}
+There is much confusion in semantic layer here. Linux is just a operating system kernel, it doesn't providing any user space.
+In the beginning, when it was created, there was no distributions, so if anybody want to utilize it, it had to be compiled and configured in a way later described in Linux From Scratch. After some conceptual projects, the two still most important distributions were created: Debian and Red Hat. They provides not only fully working solution, but also their own way to adding software - package management systems: deb and rpm. \\
+It could be clearly said, that Linux distribution is a complete operating system, which includes certain set of software and distribution maintainers take care about preparing release version for certain hardware. Nevertheless, distributions are mostly used on personal computers, that have very standardized x86-based hardware, while embedded platforms differ very much between each other. The base idea behind distributions is that user is able to extend it and tune to own needs, while embedded systems mostly cope with non-human interfaces and need to be strongly pre-configured. \\
+The lines are blurred in this area, but I will suggest using therm "embedded Linux build systems" for every set of tools, that makes it possible to create complete operating system with Linux kernel on embedded device - starting with building from source for another CPU architecture and ending with complete disk image containing bootloader, kernel and root file system. Within this umbrella therm some project identifies themselves differently as "distribution creators" or "executable documentation", but they share the same goal.
 
-\section{Build system vs Linux distributions vs Distribution Creators}
-There is much confusion in semantic layer here. Linux is just a operating system kernel, it is not providing any user space.
-In the beginning, when Linux was created, there was no distributions, so if anybody want to utilize it, it had to be compiled and configured in a way later described in Linux From Scratch.
-After some conceptual projects, the two still most important distributions were created: Debian and Red Hat which provides not only fully working solution, but also their own way to adding software - package management systems: deb and rpm. 
+\section{Common aspects}
+
+\begin{landscape}
+
+\begin{table}
+  \begin{tabular}{| p{2.5cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} |}
+    \hline
+    name & Raspberry Pi 1 & BeagleBone Black & PandaBoard & Wandboard Quad & Grinn liteboard & Asus Eee PC 1215n \\
+    \hline
+    Buildroot & raspberrypi \_defconfig &  beaglebone \_defconfig & pandaboard \_defconfig & wandboard \_defconfig & grinn\_liteboard \_defconfig & pc\_x86\_64\_efi \_defconfig \\
+    \hline
+    LEDE & & & & & & \\
+    \hline
+    LTIB & & & & & & \\
+    \hline
+    Pengutronix & & & & & & \\
+    \hline
+    Yocto & & & & & & \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\end{landscape}
+
+
 
 \section{Buildroot}
 % https://www.slideshare.net/tpetazzoni/buildroot-building-embedded-linux-systems-made-easy-linux-conf-australia-2014
 
 Buildroot is a simple and fast tool that enables to build a complete Linux embedded system by means of cross-compilation. During the building process a cross-compilation toolchain, a root filesystem, a Linux kernel and a boot loader can be generated.  Furthermore, each of these steps can be performed separately.
 
-\section{OpenWrt / LEDE}
+\section{LEDE}
 
 OpenWrt is a Linux distribution designed for embedded devices, commonly used on home routers. It gives users a possibility to make a fully customized operating system that is not dependent on firmware suplied by vendor. However, in May 2016  a group of developers decided to fork the project and create LEDE - Linux Embedded Development Environment.
 
@@ -279,7 +288,7 @@ OpenWrt is a Linux distribution designed for embedded devices, commonly used on 
 
 Linux Target Image Builder is a tool which allows to develop and deploy BSPs on target platforms. It was launched and financed by Freescale Seminconductor as  and then transfered to Savannah. According to that, a Linux system can be built with a use of packages from the common pool.
 
-\section{PTXdist / DistroKit}
+\section{Pengutronix}
 % http://elinux.org/PTXdist
 % http://public.pengutronix.de/oselas/bsp/pengutronix/OSELAS.BSP-Pengutronix-Generic-arm-Quickstart.pdf
 % http://public.pengutronix.de/oselas/toolchain/
@@ -290,11 +299,13 @@ Linux Target Image Builder is a tool which allows to develop and deploy BSPs on 
 % https://www.mail-archive.com/ptxdist@pengutronix.de/msg10260.html
 % Difference between DIstroKit and OSELAS.BSP-Pengutronix-Generic
 
-PTXdist is a build system that creates Linux 
+PTXdist is a build system that creates embedded Linux distributions directly from the source code. It is led by German company Pengutronix and supposed to maximize control and long-term maintainability. It starts with a cross toolchain and then next steps lead to packed binary image.
 
-\section{Yocto Project / OpenEmbedded}
+\section{Yocto}
 
-\section{Linux From Scratch}
+Yocto is a set of tools and templates that enables to generate an operating system images for embedded Linux systems. The process is independent of the hardware architecture. Yocto includes core system components such as BitBake, OpenEmbedded-Core and Poky. 
+
+\section{LFS}
 
 \url{http://www.linuxfromscratch.org}\\
 \url{http://trac.clfs.org}\\
@@ -354,21 +365,7 @@ PTXdist is a build system that creates Linux
 
 \subsection{Buildroot}
 
-\paragraph{Available configs}
 
-\begin{verbatim}
-wandboard_defconfig                 - Build for wandboard
-raspberrypi_defconfig               - Build for raspberrypi
-raspberrypi2_defconfig              - Build for raspberrypi2
-pandaboard_defconfig                - Build for pandaboard
-grinn_liteboard_defconfig           - Build for grinn_liteboard
-beaglebone_defconfig                - Build for beaglebone
-beaglebone_qt5_defconfig            - Build for beaglebone_qt5
-pc_x86_64_bios_defconfig            - Build for pc_x86_64_bios
-pc_x86_64_efi_defconfig             - Build for pc_x86_64_efi
-qemu_x86_64_defconfig               - Build for qemu_x86_64
-qemu_x86_defconfig                  - Build for qemu_x86
-\end{verbatim}
 
 \subsubsection{Build procedure}
 
