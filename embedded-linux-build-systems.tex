@@ -314,7 +314,11 @@ After some conceptual projects, the two still most important distributions were 
 \section{Buildroot}
 % https://www.slideshare.net/tpetazzoni/buildroot-building-embedded-linux-systems-made-easy-linux-conf-australia-2014
 
+Buildroot is a simple and fast tool that enables to build a complete Linux embedded system by means of cross-compilation. During the building process a cross-compilation toolchain, a root filesystem, a Linux kernel and a boot loader can be generated.  Furthermore, each of these steps can be performed separately.
+
 \section{OpenWrt / LEDE}
+
+
 
 \section{LTIB}
 % http://ltib.org/home-intro 
@@ -579,6 +583,14 @@ ptxdist images
 \begin{lstlisting}
 sudo apt install make gcc g++ unzip git
 sudo apt install gawk diffstat texinfo build-essential chrpath
+
+mkdir raspberrypi-yocto
+repo init -u ...
+repo synch
+source poky/oe-init-build-env
+vi conf/bblayers.conf
+export MACHINE=raspberrypi
+bitbake core-image-minimal
 \end{lstlisting}
 
 \subsection{Linux From Scratch}
