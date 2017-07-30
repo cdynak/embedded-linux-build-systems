@@ -177,11 +177,14 @@ At minimum, each platform has:
   \item low voltage (5V-24V) power supply
 \end{itemize}
 
+\begin{landscape}
+
 \renewcommand{\arraystretch}{2}
 \begin{table}
-  \begin{tabular}{| p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} |}
+%  \begin{tabular}{| p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} |}
+  \begin{tabular}{| p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} |}
     \hline
-    name & Raspberry Pi 2 Model B & BeagleBone Black & PandaBoard & Wandboard Quad & Grinn liteboard & Asus Eee PC 1215n \\
+    name & Raspberry Pi 1 & BeagleBone Black & PandaBoard & Wandboard Quad & Grinn liteboard & Asus Eee PC 1215n \\
     \hline
     release date & February 2015 & April 2013 & October 2010 & February 2013 & August 2016 & August 2010\\
     \hline
@@ -189,19 +192,19 @@ At minimum, each platform has:
     \hline
     word size & 32-bit & 32-bit & 32-bit & 32-bit & 32-bit & 32-bit/64-bit \\
     \hline
-    SoC & Broadcom BCM2836 & Texas Instruments AM3358/9 & Texas Instruments OMAP4430 & Freescale i.MX6 Quad & i.MX 6Ultra Light & Intel Atom\\
+    SoC & Broadcom BCM2835 & Texas Instruments AM3358/9 & Texas Instruments OMAP4430 & Freescale i.MX6 Quad & i.MX 6Ultra Light & Intel Atom\\
     \hline
     CPU & ARM Cortex-A7 & ARM Cortex-A8 & ARM Cortex-A9 & ARM Cortex-A9 & ARM Cortex-A7 & x86\\
     \hline
-    frequency & 900 MHz & 1000 MHz & 1000 MHz & 1000 MHz & 528 MHz & 1800 MHz\\
+    frequency & 700 MHz & 1000 MHz & 1000 MHz & 1000 MHz & 528 MHz & 1800 MHz\\
     \hline
-    RAM & 1 GB (shared with GPU) & 512 MiB DDR3 & 1 GB & 2GB DDR3 & 512MB SDRAM DDR3  & 2GB DDR3\\
+    RAM & 512 GB (GPU...) & 512 MiB DDR3 & 1 GB & 2GB DDR3 & 512MB DDR3  & 2GB DDR3\\
     \hline
-    Power source (consumption) & 5 V via Micro USB or GPIO header & Mini USB or 2.1 mm x 5.5 mm 5 V jack & 5V & 5V & 5V/micro USB & 19V? tiny connector?\\
+    Power source (consumption) & 5 V (Micro USB/GPIO) & Mini USB / 5 V jack & 5V & 5V & 5V/micro USB & 19V? tiny connector?\\
     \hline
     USB & 4 (via the on-board 5-port USB hub) & USB 2.0 & two USB host ports and one USB On-The-Go & USB 2.0 & USB 2.0 & USB 2.0\\
     \hline
-    Network & 10/100 Mbit/s Ethernet (8P8C) USB adapter on the USB hub & Ethernet Fast Ethernet (MII based) & 10/100 Ethernet on USB hub & GbE & 10/100 half duplex & 10/100 Ethernet\\
+    Network & 10/100 Mbit/s Ethernet on the USB hub & Ethernet Fast Ethernet (MII based) & 10/100 Ethernet on USB hub & GbE & 10/100 half duplex & 10/100 Ethernet\\
     \hline
     storage & MicroSDHC slot & 4GB eMMC / MicroSDHC slot & SDHC slot & MicroSDHC & 2GB
     eMMC & SATA (i.e. 500 GB HDD)\\
@@ -210,18 +213,37 @@ At minimum, each platform has:
   \caption{Development boards comparison}
 \end{table}
 
+\end{landscape}
+
 \section{Raspberry Pi 1}
+% https://www.raspberrypi.org/products/raspberry-pi-1-model-b/
+% http://elinux.org/File:RpiFront.jpg
+% wget http://elinux.org/images/thumb/9/96/RpiFront.jpg/800px-RpiFront.jpg
+% mv 800px-RpiFront.jpg raspberrypi-front.jpg
+
+This is the board that have changed rules of the game.
+It was designed to be pocket size and "very low cost".
+Additionaly it was initiated ad an OpenSource project, which helps to organize big community around it.
 
 \begin{figure}[htbp]
   \centering
-    \includegraphics[width=0.5\textwidth]{Raspberry-Pi-Model-B-1-462x322.jpg}
-  \caption{Raspberry Pi 1 Model B+}
+    \includegraphics[width=0.5\textwidth]{raspberrypi-front.jpg}
+  \caption{Raspberry Pi 1 Model B}
   \label{fig:devboard-raspberrypi}
 \end{figure}
-% https://www.raspberrypi.org/products/raspberry-pi-1-model-b/
-% https://www.raspberrypi.org/app/uploads/2017/05/Raspberry-Pi-Model-B-1-462x322.jpg
 
 \section{PandaBoard}
+% http://pandaboard.org/
+% http://elinux.org/File:PandaBoard_front.png
+% wget http://elinux.org/images/4/48/PandaBoard_front.png
+% mv PandaBoard_front.png pandaboard-front.png
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.5\textwidth]{pandaboard-front.png}
+  \caption{Pandaboard}
+  \label{fig:devboard-pandaboard}
+\end{figure}
 
 drawbacks:\\
 - poor support from community\\
@@ -233,12 +255,56 @@ drawbacks:\\
 - strange graphics solutions (two HDMI s)\\
 
 \section{BeagleBone Black}
+% https://beagleboard.org/black
+% http://elinux.org/File:BeagleBone-Black-A5_product_detail_black_sm.jpg
+% wget http://elinux.org/images/a/ac/BeagleBone-Black-A5_product_detail_black_sm.jpg
+% mv BeagleBone-Black-A5_product_detail_black_sm.jpg beaglebone-front.jpg
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.25\textwidth]{beaglebone-front.jpg}
+  \caption{BeagleBone Black}
+  \label{fig:devboard-beaglebone}
+\end{figure}
 
 \section{Wandboard Quad}
+% https://www.wandboard.org/products/wandboard/WB-IMX6Q-BW/
+% http://elinux.org/File:Wandboard-dual.jpg
+% wget http://elinux.org/images/7/7b/Wandboard-dual.jpg
+% mv Wandboard-dual.jpg wandboard-front.jpg
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.5\textwidth]{wandboard-front.jpg}
+  \caption{Wandboard}
+  \label{fig:devboard-wandboard}
+\end{figure}
 
 \section{Grinn liteboard}
+% http://wiki.litesom.grinn-global.com
+% http://linuxgizmos.com/open-spec-sandwich-style-sbc-runs-linux-on-i-mx6ul-based-com/
+% wget http://files.linuxgizmos.com/grinn_liteboard.jpg
+% mv grinn_liteboard.jpg liteboard-front.jpg
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.5\textwidth]{liteboard-front.jpg}
+  \caption{Liteboard}
+  \label{fig:devboard-liteboard}
+\end{figure}
 
 \section{x86\_64 (Asus Eee PC 1215n)}
+% https://www.asus.com/Laptops/Eee_PC_1215N/
+% https://www.ifixit.com/Guide/Asus+Eee+PC+1215N+Hard+Drive+Replacement/12291
+% wget https://d3nevzfk7ii3be.cloudfront.net/igi/eKGfAILyYUfWpePd.medium
+% mv eKGfAILyYUfWpePd.medium 1215n-front.jpg
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.5\textwidth]{1215n-front.jpg}
+  \caption{Asus Eee PC 1215n}
+  \label{fig:devboard-liteboard}
+\end{figure}
 
 \chapter{Build systems}
 \label{chapter:build systems}
