@@ -126,7 +126,7 @@ During this project, I worked on extending enumerated categories and writing fir
 \section{Marcin Bis publications}
 
 In Poland, the most extensive source of written knowledge is provided by Mr Marcin Bis.
-He has published two books so far: "Linux in embedded systems" (pol. "Linux w systemach embedded") in 2011 and "Linux in i.MX 6 series systems" (pol. "Linux w systemach i.MX6 series") in 2015.
+He has published two books so far: "Linux w systemach embedded" (eng. "Linux in embedded systems") in 2011 and "Linux w systemach i.MX6 series" (eng. "Linux in i.MX 6 series systems") in 2015.
 The company BIS-LINUX.COM also offers various paid workshops and consultations.
 
 \section{Conferences and workshops}
@@ -225,6 +225,8 @@ This is the board that have changed rules of the game.
 It was designed to be pocket size and "very low cost".
 Additionaly it was initiated ad an OpenSource project, which helps to organize big community around it.
 
+% https://pi-top.com/products/pi-top
+
 \begin{figure}[htbp]
   \centering
     \includegraphics[width=0.5\textwidth]{raspberrypi-front.jpg}
@@ -303,7 +305,7 @@ drawbacks:\\
   \centering
     \includegraphics[width=0.5\textwidth]{1215n-front.jpg}
   \caption{Asus Eee PC 1215n}
-  \label{fig:devboard-liteboard}
+  \label{fig:devboard-1215n}
 \end{figure}
 
 \chapter{Build systems}
@@ -347,6 +349,8 @@ The lines are blurred in this area, but I will suggest using therm "embedded Lin
 
 \section{Buildroot}
 % https://www.slideshare.net/tpetazzoni/buildroot-building-embedded-linux-systems-made-easy-linux-conf-australia-2014
+% https://events.linuxfoundation.org/sites/events/files/slides/belloni-petazzoni-buildroot-oe_0.pdf
+% http://linuxgizmos.com/free-embedded-linux-training-materials-demystify-buildroot/
 
 Buildroot is a simple and fast tool that enables to build a complete Linux embedded system by means of cross-compilation. During the building process a cross-compilation toolchain, a root filesystem, a Linux kernel and a boot loader can be generated.  Furthermore, each of these steps can be performed separately.
 
@@ -406,6 +410,12 @@ Yocto is a set of tools and templates that enables to generate an operating syst
 
 \paragraph{OpenStack}
 
+% m1.tiny - VCPUs: 1, RAM: 512 MB
+% m1.2xlarge - VCPUs: 12, RAM: 16,384 MB
+
+% s1-2 - VCPUs: 1, RAM: 2,000 MB
+% b2-30-flex - VCPUs: 8, RAM: 29.3 GB / 30,000 MB
+
 \begin{enumerate}
   \item Login to Horizon panel (https://horizon.serwery.pl)
   \item Select "instances" and "launch instance"
@@ -448,10 +458,10 @@ Buildroot build procedure is the simplest from every point of view.
 The only difference between different boards is only \verb|defconfig| name.
 
 \begin{lstlisting}
-sudo apt install make gcc g++ libncurses-dev unzip git
-wget https://buildroot.org/downloads/buildroot-2017.02.4.tar.gz
-tar -zxf buildroot-2017.02.4.tar.gz
-cd buildroot-2017.02.4/
+sudo apt install make gcc g++ libncurses-dev unzip git % patch python rsync bc bzip2 (bzcat)
+wget https://buildroot.org/downloads/buildroot-2017.02.5.tar.gz
+tar -zxf buildroot-2017.02.5.tar.gz
+cd buildroot-2017.02.5/
 make raspberrypi_defconfig
 make
 cp output/images/sdcard.img ..
@@ -526,6 +536,7 @@ lede-brcm2708-bcm2708-rpi-ext4-sdcard.img ..
 % http://nongnu.13855.n7.nabble.com/Linux-Mint-1-6-Can-t-get-rpm-4-0-4-tar-gz-at-ltib-line-834-td75924.html
 % http://ftp.rpm.org/releases/historical/rpm-4.0.x/rpm-4.0.4.tar.gz
 
+% /sbin/fdisk -l output/images/sdcard.img
 % no bootable flag/not working...
 % "wrong fs type, bad option, bad superblock"
 % mount sdcard image locally ...
@@ -661,6 +672,11 @@ mysql support -> mysql variant (mariadb) -> mariadb server
 
 \section{Real time / Xenomai}
 
+\section{Building containers}
+
+% http://michaelcoyote.github.io/2015/08/02/lean-container-tricks/
+% https://blog.docker.com/2013/06/create-light-weight-docker-containers-buildroot/
+
 meta-eldk/linux-xenomai
 \url{https://layers.openembedded.org/layerindex/recipe/8333/}
 
@@ -675,10 +691,20 @@ minimal requirements vs maximum usable resources\\
 4. dedicated server (payed)\\
 count costs in comparison to... big mac / salary?
 
+% https://github.com/pkgcloud/pkgcloud
+% https://www.alibabacloud.com/
+% http://kb.arubacloud.com/en/computing/creating-and-configuring-a-cloud-server/partitioning-and-formatting-an-added-hard-drive-linux-debian.aspx
+
 
 
 \section{Data storage}
 WARNING: DEGRADATION OF SD CARDS! (ram file system... and other mechanisms)
+
+% vi board/grinn/liteboard/genimage.cfg
+% rm output/images/*
+% make uboot-rebuild
+% make linux-rebuild
+% make
 
 \chapter{Conclusions}
 \label{chapter:conclusions}
