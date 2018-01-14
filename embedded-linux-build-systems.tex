@@ -43,8 +43,12 @@
 
 \tableofcontents
 
-\chapter{Introduction}
-\section{Goals of the project}
+\chapter*{Introduction}
+%\addcontentsline{toc}{}{Introduction}
+% tasks to be done / the main problems to be solved
+
+% opisać założenie - sprecyzować lepiej niż temat - opisanie i porównanie systemów, benchmark'ow
+
 The goal of this project is to explore, compare and extend embedded Linux build systems. \cite{web:bis-org-pl}
 \begin{figure}[htbp]
   \centering
@@ -64,21 +68,28 @@ The goal of this project is to explore, compare and extend embedded Linux build 
 
 \section{Basic definitions}
 
-Despite that every aspect of computing could be described by numbers and mathematical operations, unfortunately the naming conventions could be misleading, especially in the area which I'm describing. People understand the word "Linux" differently in different context, as there is also never ending debate about the term "GNU/Linux". Sometimes some buzzwords like "cloud" and "IoT" are strongly promotes by the business, which makes common understanding even more blurred. Therefore, I would like to explain how to interpret the key wording.
+Despite that every aspect of computing could be described by numbers and mathematical operations, unfortunately the naming conventions could be misleading, especially in the area which I'm describing. People understand the word ``Linux'' differently in different contexts, as there is also never ending debate about the term "GNU/Linux". Sometimes some buzzwords like "cloud" and "IoT" are strongly promotes by the business, which makes common understanding even more messed up. Therefore, I would like to explain how to interpret the key wording.
 
-\paragraph{Operating system}
+\paragraph{Operating system} is a software that manage hardware resources and provide interface to run other programs.
 
-\paragraph{Operating system kernel}
+\paragraph{Operating system kernel} is a core part of operating system, that provides  basic low level interfaces.\\
+% Implementing Operating Systems without Kernels ???
+% https://dl.acm.org/citation.cfm?id=902543
 
-\paragraph{Linux} is an open source operating system kernel, that follow the POSIX standards. Initial release takes place in 1991 and since then it is being developed by thousands of voluntary collaborators as well as major IT companies. Formerly it was compatible only with x86 standard processor architecture for personal computers, but to others, especially ARM that is used by the most of mobile and embedded devices. The work of its creator Linux Torvalds and lead maintainer Greg Kroah-Hartman is currently sponsored by the Linux Foundation. As for 2018, all of the world fastest supercomputers from TOP 500 ranking are using this kernel.
+\paragraph{Linux} is an open source operating system kernel, that was inspired by Unix tradition. Initial release took place in 1991 and since then it is being developed by thousands of voluntary collaborators as well as major IT companies. Formerly it was compatible only with x86 standard processor architecture for personal computers, but to others, especially ARM that is used by the most of mobile and embedded devices. The work of its creator Linux Torvalds and lead maintainer Greg Kroah-Hartman is currently sponsored by the Linux Foundation. As for 2018, all of the world fastest supercomputers from TOP 500 ranking are using this kernel.
 
-\paragraph{Linux distribution} is an operating system, that uses he Linux kernel.
+\paragraph{Linux distribution} is an operating system, that is build uppon the Linux kernel.
+% /is using the Linux kernel? - to avoid i.e. "Windows subsystem for Linux" case)
 
-\paragraph{Embedded device}
+\paragraph{Note:} Based on those definitions we could say that $kernel \ge OS$, so $Linux > OS$ or $Linux = OS$ depending on case.
 
-\paragraph{Cross-compilation}
+\paragraph{Embedded device} is an micro-controller based device, that has a fixed purpose and strictly limited user interface.
+
+\paragraph{Cross-compilation} is a compilation that creates executable code for system architecture that is different from it's own.
 
 \paragraph{Embedded Linux build system} is a set of software development tools, that enables creation of Linux distribution within the process of cross-compilation and produces complete operating system image, to be deployed on an embedded device.
+
+% Host OS / Target OS + Host machine / Target machine
 
 \section{Problem of definition}
 There is much confusion in semantic layer here. Linux is just a operating system kernel, it doesn't providing any user space.
@@ -86,236 +97,6 @@ In the beginning, when it was created, there was no distributions, so if anybody
 It could be clearly said, that Linux distribution is a complete operating system, which includes certain set of software and distribution maintainers take care about preparing release version for certain hardware. Nevertheless, distributions are mostly used on personal computers, that have very standardized x86-based hardware, while embedded platforms differ very much between each other. The base idea behind distributions is that user is able to extend it and tune to own needs, while embedded systems mostly cope with non-human interfaces and need to be strongly pre-configured. \\
 The lines are blurred in this area, but I will suggest using therm "embedded Linux build systems" for every set of tools, that makes it possible to create complete operating system with Linux kernel on embedded device - starting with building from source for another CPU architecture and ending with complete disk image containing bootloader, kernel and root file system. Within this umbrella therm some project identifies themselves differently as "distribution creators" or "executable documentation", but they share the same goal.
 
-\section{Common aspects}
-
-\begin{landscape}
-
-\begin{table}
-  \begin{tabular}{| p{2.5cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} |}
-    \hline
-    name & Raspberry Pi 1 & BeagleBone Black & PandaBoard & Wandboard Quad & Grinn liteboard & Asus Eee PC 1215n \\
-    \hline
-    Buildroot & raspberrypi \_defconfig &  beaglebone \_defconfig & pandaboard \_defconfig & wandboard \_defconfig & grinn\_liteboard \_defconfig & pc\_x86\_64\_efi \_defconfig \\
-    \hline
-    LEDE & & & & & & \\
-    \hline
-    LTIB & & & & & & \\
-    \hline
-    Pengutronix & & & & & & \\
-    \hline
-    Yocto & & & & & & \\
-    \hline
-  \end{tabular}
-\end{table}
-
-\end{landscape}
-
-\section{Differences}
-
-\subsection{Buildroot}
-% https://www.slideshare.net/tpetazzoni/buildroot-building-embedded-linux-systems-made-easy-linux-conf-australia-2014
-% https://events.linuxfoundation.org/sites/events/files/slides/belloni-petazzoni-buildroot-oe_0.pdf
-% http://linuxgizmos.com/free-embedded-linux-training-materials-demystify-buildroot/
-
-Buildroot is a simple and fast tool that enables to build a complete Linux embedded system by means of cross-compilation. During the building process a cross-compilation toolchain, a root filesystem, a Linux kernel and a boot loader can be generated.  Furthermore, each of these steps can be performed separately.
-
-\subsection{OpenWRT / LEDE}
-
-OpenWrt is a Linux distribution designed for embedded devices, commonly used on home routers. It gives users a possibility to make a fully customized operating system that is not dependent on firmware supplied by vendor. However, in May 2016  a group of developers decided to fork the project and create LEDE - Linux Embedded Development Environment.
-
-\subsection{LTIB}
-% http://ltib.org/home-intro 
-% http://ltib.org/pages/LTIB_generic_v1.4_-_version_6.4.1.pdf
-
-% http://www.bitshrine.org/autodocs/LtibFaq.html#ref_10
-% What is required on your host before installing LTIB
-
-Linux Target Image Builder is a tool which allows to develop and deploy BSPs on target platforms. It was launched and financed by Freescale Seminconductor as  and then transferred to Savannah. According to that, a Linux system can be built with a use of packages from the common pool.
-
-\subsection{Pengutronix / PTXdist}
-% http://elinux.org/PTXdist
-% http://public.pengutronix.de/oselas/bsp/pengutronix/OSELAS.BSP-Pengutronix-Generic-arm-Quickstart.pdf
-% http://public.pengutronix.de/oselas/toolchain/
-% http://public.pengutronix.de/software/ptxdist/
-% http://public.pengutronix.de/software/ptxdist/appnotes/
-% https://git.pengutronix.de/cgit/DistroKit
-
-% https://www.mail-archive.com/ptxdist@pengutronix.de/msg10260.html
-% Difference between DIstroKit and OSELAS.BSP-Pengutronix-Generic
-
-PTXdist is a build system that creates embedded Linux distributions directly from the source code. It is led by German company Pengutronix and supposed to maximize control and long-term maintainability. It starts with a cross toolchain and then next steps lead to packed binary image.
-
-\subsection{Yocto}
-
-Yocto is a set of tools and templates that enables to generate an operating system images for embedded Linux systems. The process is independent of the hardware architecture. Yocto includes core system components such as BitBake, OpenEmbedded-Core and Poky. 
-
-\subsection{LFS}
-
-\url{http://www.linuxfromscratch.org}\\
-\url{http://trac.clfs.org}\\
-\url{http://intestinate.com/pilfs/}\\
-\url{https://raspberrypi.stackexchange.com/questions/25/is-there-a-linux-from-scratch-lfs-arm-equivalent}
-
-\subsection{Distribution custom systems}
-
-multistrap?
-
-\subsection{Comercial / Closed Source}
-
-windriver?
-
-\section{Development boards}
-\label{section:development-boards}
-
-From the beginning of embedded systems history, microprocessor development boards were just a training resource for engineers.
-Usually they were designed and produced by companies that have created certain chip and costs a lot of money, that it was not affordable for hobbyists or students.
-In recent years this state has been changed by a few factors:
-\begin{itemize}
-  \item the spread of ARM architecture micro-controllers with efficiency comparable to personal computers (1GHz),
-  \item creating development boards by community as open hardware, that resulted in cost reduction,
-  \item adding peripherals specific not for embedded systems but for personal computers.
-\end{itemize}
-This led to discovering totally new use cases for development boards which explode due to widespread success of Raspberry Pi platform. \\
-I have selected some of most popular devices with ARM to compare them, but also included my personal laptop computer as a reference for x86 architecture. Because of very low popularity, I  haven't investigated other chips with SPARC or Power Architecture. \\
-
-At minimum, each platform has:
-\begin{itemize}
-  \item at least one UART, for serial console
-  \item at least one Ethernet port, 100 MB/s or higher
-  \item at least one USB port, 2.0 or higher
-  \item SD card interface
-  \item low voltage (5V-24V) power supply
-\end{itemize}
-
-\begin{landscape}
-
-\renewcommand{\arraystretch}{2}
-\begin{table}
-  \begin{tabular}{| p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} |}
-    \hline
-    name & Raspberry Pi 1 & BeagleBone Black & PandaBoard & Wandboard Quad & Grinn liteboard & Asus Eee PC 1215n \\
-    \hline
-    release date & February 2015 & April 2013 & October 2010 & February 2013 & August 2016 & August 2010\\
-    \hline
-    target price & \$35 & \$45 & \$174 & \$129 & \$120 & \$499\\
-    \hline
-    word size & 32-bit & 32-bit & 32-bit & 32-bit & 32-bit & 32-bit/64-bit \\
-    \hline
-    SoC & Broadcom BCM2835 & Texas Instruments AM3358/9 & Texas Instruments OMAP4430 & Freescale i.MX6 Quad & i.MX 6Ultra Light & Intel Atom\\
-    \hline
-    CPU & ARM Cortex-A7 & ARM Cortex-A8 & ARM Cortex-A9 & ARM Cortex-A9 & ARM Cortex-A7 & x86\\
-    \hline
-    frequency & 700 MHz & 1000 MHz & 1000 MHz & 1000 MHz & 528 MHz & 1800 MHz\\
-    \hline
-    RAM & 512 GB (GPU...) & 512 MiB DDR3 & 1 GB & 2GB DDR3 & 512MB DDR3  & 2GB DDR3\\
-    \hline
-    Power source (consumption) & 5 V (Micro USB/GPIO) & Mini USB / 5 V jack & 5V & 5V & 5V/micro USB & 19V? tiny connector?\\
-    \hline
-    USB & 4 (via the on-board 5-port USB hub) & USB 2.0 & two USB host ports and one USB On-The-Go & USB 2.0 & USB 2.0 & USB 2.0\\
-    \hline
-    Network & 10/100 Mbit/s Ethernet on the USB hub & Ethernet Fast Ethernet (MII based) & 10/100 Ethernet on USB hub & GbE & 10/100 half duplex & 10/100 Ethernet\\
-    \hline
-    storage & MicroSDHC slot & 4GB eMMC / MicroSDHC slot & SDHC slot & MicroSDHC & 2GB
-    eMMC & SATA (i.e. 500 GB HDD)\\
-    \hline
-  \end{tabular}
-  \caption{Development boards comparison}
-\end{table}
-
-\end{landscape}
-
-\subsection{Raspberry Pi 1}
-% https://www.raspberrypi.org/products/raspberry-pi-1-model-b/
-% http://elinux.org/File:RpiFront.jpg
-% wget http://elinux.org/images/thumb/9/96/RpiFront.jpg/800px-RpiFront.jpg
-% mv 800px-RpiFront.jpg raspberrypi-front.jpg
-
-This is the board that have changed rules of the game.
-It was designed to be pocket size and "very low cost".
-Additionaly it was initiated ad an OpenSource project, which helps to organize big community around it.
-
-% https://pi-top.com/products/pi-top
-
-\begin{figure}[htbp]
-  \centering
-    \includegraphics[width=0.5\textwidth]{raspberrypi-front.jpg}
-  \caption{Raspberry Pi 1 Model B}
-  \label{fig:devboard-raspberrypi}
-\end{figure}
-
-\subsection{PandaBoard}
-% http://pandaboard.org/
-% http://elinux.org/File:PandaBoard_front.png
-% wget http://elinux.org/images/4/48/PandaBoard_front.png
-% mv PandaBoard_front.png pandaboard-front.png
-
-\begin{figure}[htbp]
-  \centering
-    \includegraphics[width=0.5\textwidth]{pandaboard-front.png}
-  \caption{Pandaboard}
-  \label{fig:devboard-pandaboard}
-\end{figure}
-
-drawbacks:\\
-- poor support from community\\
-- "big" SD card\\
-- size: large surface + high audio and Ethernet/USB connectors\\
-- Ethernet over USB\\
-- serial db-9 connector\\
-- strange USB type ab connector\\
-- strange graphics solutions (two HDMI s)\\
-
-\subsection{BeagleBone Black}
-% https://beagleboard.org/black
-% http://elinux.org/File:BeagleBone-Black-A5_product_detail_black_sm.jpg
-% wget http://elinux.org/images/a/ac/BeagleBone-Black-A5_product_detail_black_sm.jpg
-% mv BeagleBone-Black-A5_product_detail_black_sm.jpg beaglebone-front.jpg
-
-\begin{figure}[htbp]
-  \centering
-    \includegraphics[width=0.25\textwidth]{beaglebone-front.jpg}
-  \caption{BeagleBone Black}
-  \label{fig:devboard-beaglebone}
-\end{figure}
-
-\subsection{Wandboard Quad}
-% https://www.wandboard.org/products/wandboard/WB-IMX6Q-BW/
-% http://elinux.org/File:Wandboard-dual.jpg
-% wget http://elinux.org/images/7/7b/Wandboard-dual.jpg
-% mv Wandboard-dual.jpg wandboard-front.jpg
-
-\begin{figure}[htbp]
-  \centering
-    \includegraphics[width=0.5\textwidth]{wandboard-front.jpg}
-  \caption{Wandboard}
-  \label{fig:devboard-wandboard}
-\end{figure}
-
-\subsection{Grinn liteboard}
-% http://wiki.litesom.grinn-global.com
-% http://linuxgizmos.com/open-spec-sandwich-style-sbc-runs-linux-on-i-mx6ul-based-com/
-% wget http://files.linuxgizmos.com/grinn_liteboard.jpg
-% mv grinn_liteboard.jpg liteboard-front.jpg
-
-\begin{figure}[htbp]
-  \centering
-    \includegraphics[width=0.5\textwidth]{liteboard-front.jpg}
-  \caption{Liteboard}
-  \label{fig:devboard-liteboard}
-\end{figure}
-
-\subsection{x86\_64 (Asus Eee PC 1215n)}
-% https://www.asus.com/Laptops/Eee_PC_1215N/
-% https://www.ifixit.com/Guide/Asus+Eee+PC+1215N+Hard+Drive+Replacement/12291
-% wget https://d3nevzfk7ii3be.cloudfront.net/igi/eKGfAILyYUfWpePd.medium
-% mv eKGfAILyYUfWpePd.medium 1215n-front.jpg
-
-\begin{figure}[htbp]
-  \centering
-    \includegraphics[width=0.5\textwidth]{1215n-front.jpg}
-  \caption{Asus Eee PC 1215n}
-  \label{fig:devboard-1215n}
-\end{figure}
 
 
 \section{Sources of knowledge}
@@ -416,9 +197,288 @@ The phrase "embedded linux build system" gives 24 results \cite{web:scholar-2}. 
 The most valuable source of technical information is and always should be official documentation. URLs are situated in the bibliography and direct to the websites where more information about each project can be found.
 
 
+
+\section{OS build systems structure}
+
+% add introduction here...
+% add generalized strucutre figure / diagram
+
+\subsection{Source code}
+
+The key of Linux great success is the easy accessible source code and the free software license. Possibility to engage unlimited number of people to add new functionality and fix bugs is something closer to science than to merchandising, which is the best way for engineers to make things done. Exactly the same rule apply to creating Linux based OS'es for embedded devices. Because there is a lot of subtle differences between microcontrollers, it's essential to be able to modify or just analyze every line of code. \\
+
+However, the way of obtaining whole build system is not that obvious and even differ a lot from one to another. The most convenient way seems to be just downloading archives version as one file through HTTP and then decompress it on our host machine. But in some cases it would be better to get it through version control system as it is convenient for browsing history and sharing our changes. It's also worth to mention that all the tools I'm describing are versioned also with the use of open source software tools: mostly git, which itself also came from Linus Torvalds and sometimes subversion. Things are getting harder when build system are split into independent parts or we need additional meta tools to get each of them. I'm clarifying it step by step in section X. % add link to section X
+
+% repository links / vcs - table / comparison ...
+
+\subsection{Host OS requirements}
+
+\paragraph{Host Operating System} is the operating system where the build process is executed.
+
+As you could guess, it need to be Unix-like, preferably Linux-based and with rpm or deb package manager. Whenever source code is under free licence, you could run it anywhere, but it may need some more manual tweaking. For the first time Debian or Red Hat or their derivatives, like Ubuntu or Fedora are only reasonable choices. Whenever I'm mentioning Host OS here, I mean Debian GNU/Linux, because that's the one, that I'm the most familiar with and to be precise it is stable version 9 (code name Stretch). As a result, please notice, that I refer to all packages with their deb name as default. In most cases there are equivalents in rpm packages, sometimes with different naming convention like -devel instead of -dev for so called "development packages", that contain source code. \\
+
+The software requirements are easy to satisfy, because we could get Linux distribution with no cost and deploy it within minutes on virtual machine, but the hardware resources are more crucial. I prefer to use cheep laptops and last time I tried, the compilation of Linux kernel take whole night, so It's worth to notice, because it was only kernel compilation, excluding any packages. For modern machines it's not such a big problem, but anyway most tutorials are suggesting to stand up from computer and enjoy a "large hot drink". Whenever it's not explicitly noted otherwise, I'm using externally hosted virtual machine with 8 CPUs at 2.4 Hz and 30 GB RAM . The comparison of resources usage could be found in chapter X. % add link to chapter X
+
+% table: os requirements / packages + hardware requirements + download rates! + google analitics popularity! + how did they name themselves... + nr of packages available + main site + documentation site
+
+\subsection{Cross-compilation toolchain}
+
+As mentioned on the beginning of this chapter, cross-compilation is essential the whole process, because embedded devices have different processor architecture than host OS in all considered cases. Before cross-compilation could started, the cross-compiler must already exist on the system or it will be created at the beginning. It need to be done only once, but I'm treating it as a part of the complete build process. \\
+
+The default compiler is obviously GCC in all cases, because it fits perfectly to open source / unix-like ecosystem and it is its base building block. There is also possibility to select other one in configuration, like i.e. clang. We could choose different linker as well. The default one is GNU linker (or GNU ld), but because of enormous number of linking operations, the other one like ``gold linker'' could be considered, which seems to be faster. That one is also a part of GNU Project. At the begining we will choose the most basic setup, to make things easily comparable. % ask dr paluszynski about form: we will or will be (also remember about isn't -> is not)
+
+\subsection{Target OS configuration}
+
+As wasn't mentioned before, Linux kernel isn't evoked directly by micro-controller at power on. The program which main purpose it to load other system is called ``boot loader'' and embedded device or any other device is not limited to have only one bootloader. They could start each other sequentially, so the first one is hardcoded into microcontroller and it envokes the next one, which reside on the same external memory as our Linux distribution. Examples include coreboot, Libreboot, Das U-Boot and barebox (initially called U-Boot-NG).
+\\
+One of the most problematic issues when dealing with embedded devices software is handling its hardware diversity. Even if the microcontroller architecure is exactly the same, let's say ARM Cortex-A9 (why not A7?) or even the same SoC (System on a Chip) like TI OMAP4430, but devices differs greatly with issues like IO pins configurations and interfaces. Fortunately, there is unified hardware description data structure called ``device tree''. It was initially developed within U-Boot project, but currently (as of 2018) it is de-facto standard for both bootloaders and Linux kernel.
+\\
+Device tree is rescuing Linux kernel from using weird and complicated mechanism of applying patches, but there is much more things to configure there beside hardware. Core security options as well as device drivers couldn't be provided in upper layers of operating system, but need to be compiled into kernel. Linux has its well established configuration system based on Makefiles, which could be managed text-based or graphicly with envoking commands like \verb|make config|, \verb|make menuconfig| or \verb|make xconfig|. This is also available from each embedded Linux build system, where we also have ability to choose separate and independently compiled kernel.
+\\
+The highest layer of target OS configuration is managing software packages and this is where we see nobleness of described tools. Most of systems borrow the Makefile style from Linux kernel and Yocto project is notable exception and is using it's own system named ``bitbake''. Every system gives a possibility to choose from variety of prepared packages, but makes it also quite easy to add own software, which is the essence of whole process.
+
+\subsection{Produced output}
+
+For real-life rapid-prototyping and also for purpose of this publication, the most desired output is just one file with image, that could be flashed to SD card and making our Linux distribution run on target embedded device. Nevertheless, it's the final product and also other useful semi-finished products becomes available.
+
+\begin{itemize}
+    \item cross-compilation toolchain
+    \item compiled kernel
+    \item compiled bootloader
+    \item compiled packages
+    \item root filesystem image
+    \item SD-card image
+\end{itemize}
+
+\section{Differences}
+
+\subsection{Buildroot}
+% https://www.slideshare.net/tpetazzoni/buildroot-building-embedded-linux-systems-made-easy-linux-conf-australia-2014
+% https://events.linuxfoundation.org/sites/events/files/slides/belloni-petazzoni-buildroot-oe_0.pdf
+% http://linuxgizmos.com/free-embedded-linux-training-materials-demystify-buildroot/
+
+Buildroot is officially called a simple, efficient and easy-to-use tool to generate embedded Linux systems through cross-compilation. The name came from the process of building the root filesystem.
+
+\subsection{OpenWRT}
+
+OpenWrt is officially called a Linux distribution for embedded devices. The name came from open source firmware for WRT54G series of wireless router.
+
+OpenWrt is a Linux distribution designed for embedded devices, commonly used on home routers. It gives users a possibility to make a fully customized operating system that is not dependent on firmware supplied by vendor. However, in May 2016  a group of developers decided to fork the project and create LEDE - Linux Embedded Development Environment.
+
+\subsection{LTIB}
+% http://ltib.org/home-intro 
+% http://ltib.org/pages/LTIB_generic_v1.4_-_version_6.4.1.pdf
+
+% http://www.bitshrine.org/autodocs/LtibFaq.html#ref_10
+% What is required on your host before installing LTIB
+
+LTIB is officially called a tool that can be used to develop and deploy BSPs (Board Support Packages) for a number of embedded target platforms. The name came from Linux Target Image Builder.
+
+Linux Target Image Builder is a tool which allows to develop and deploy BSPs on target platforms. It was launched and financed by Freescale Seminconductor as  and then transferred to Savannah. According to that, a Linux system can be built with a use of packages from the common pool.
+
+\subsection{PTXdist}
+
+
+% http://elinux.org/PTXdist
+% http://public.pengutronix.de/oselas/bsp/pengutronix/OSELAS.BSP-Pengutronix-Generic-arm-Quickstart.pdf
+% http://public.pengutronix.de/oselas/toolchain/
+% http://public.pengutronix.de/software/ptxdist/
+% http://public.pengutronix.de/software/ptxdist/appnotes/
+% https://git.pengutronix.de/cgit/DistroKit
+
+% https://www.mail-archive.com/ptxdist@pengutronix.de/msg10260.html
+% Difference between DIstroKit and OSELAS.BSP-Pengutronix-Generic
+
+PTXdist is a build system for firmware images.
+
+PTXdist is a build system that creates embedded Linux distributions directly from the source code. It is led by German company Pengutronix and supposed to maximize control and long-term maintainability. It starts with a cross toolchain and then next steps lead to packed binary image.
+
+\subsection{Yocto}
+
+The Yocto Project is an open source collaboration project that provides templates, tools and methods to help you create custom Linux-based systems for embedded products. Its name came from the smallest metric system unit prefix ``yocto'' that emphasize possibility to create tiny distributions.
+
+
+\subsection{LFS}
+
+LFS is a project that provides you with step-by-step instructions for building your own custom Linux system, entirely from source code.
+
+\url{http://www.linuxfromscratch.org}\\
+\url{http://trac.clfs.org}\\
+\url{http://intestinate.com/pilfs/}\\
+\url{https://raspberrypi.stackexchange.com/questions/25/is-there-a-linux-from-scratch-lfs-arm-equivalent}
+
+\subsection{Distribution custom systems}
+
+multistrap?
+
+\subsection{Non-free / Closed Source}
+
+windriver? \\
+Horrible, awkward situation - like you need to call a special service to fix your hammer, instead of making it yourself. \\
+There is a lot of companies, that provides comercial support like: free-electrons, ...
+
+
+
+
+
+
+\chapter{Development boards}
+\label{section:development-boards}
+
+From the beginning of embedded systems history, microprocessor development boards were just a training resource for engineers.
+Usually they were designed and produced by companies that have created certain chip and costs a lot of money, that it was not affordable for hobbyists or students.
+In recent years this state has been changed by a few factors:
+\begin{itemize}
+  \item the spread of ARM architecture micro-controllers with efficiency comparable to personal computers (1GHz),
+  \item creating development boards by community as open hardware, that resulted in cost reduction,
+  \item adding peripherals specific not for embedded systems but for personal computers.
+\end{itemize}
+This led to discovering totally new use cases for development boards which explode due to widespread success of Raspberry Pi platform. \\
+I have selected some of most popular devices with ARM to compare them, but also included my personal laptop computer as a reference for x86 architecture. Because of very low popularity, I  haven't investigated other chips with SPARC or Power Architecture. \\
+
+At minimum, each device has:
+\begin{itemize}
+  \item at least one UART, for serial console
+  \item at least one Ethernet port, 100 MB/s or higher
+  \item at least one USB port, 2.0 or higher
+  \item at least one GPIO (?)
+  \item SD card interface
+  \item low voltage (5V-24V) power supply
+\end{itemize}
+
+\begin{landscape}
+
+\renewcommand{\arraystretch}{2}
+\begin{table}
+  \begin{tabular}{| p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} |}
+    \hline
+    name & Raspberry Pi 1 & BeagleBone Black & PandaBoard & Wandboard Quad & Grinn liteboard & Asus Eee PC 1215n \\
+    \hline
+    release date & February 2015 & April 2013 & October 2010 & February 2013 & August 2016 & August 2010\\
+    \hline
+    target price & \$35 & \$45 & \$174 & \$129 & \$120 & \$499\\
+    \hline
+    word size & 32-bit & 32-bit & 32-bit & 32-bit & 32-bit & 32-bit/64-bit \\
+    \hline
+    SoC & Broadcom BCM2835 & Texas Instruments AM3358/9 & Texas Instruments OMAP4430 & Freescale i.MX6 Quad & i.MX 6Ultra Light & Intel Atom\\
+    \hline
+    CPU & ARM Cortex-A7 & ARM Cortex-A8 & ARM Cortex-A9 & ARM Cortex-A9 & ARM Cortex-A7 & x86\\
+    \hline
+    frequency & 700 MHz & 1000 MHz & 1000 MHz & 1000 MHz & 528 MHz & 1800 MHz\\
+    \hline
+    RAM & 512 GB (GPU...) & 512 MiB DDR3 & 1 GB & 2GB DDR3 & 512MB DDR3  & 2GB DDR3\\
+    \hline
+    Power source (consumption) & 5 V (Micro USB/GPIO) & Mini USB / 5 V jack & 5V & 5V & 5V/micro USB & 19V? tiny connector?\\
+    \hline
+    USB & 4 (via the on-board 5-port USB hub) & USB 2.0 & two USB host ports and one USB On-The-Go & USB 2.0 & USB 2.0 & USB 2.0\\
+    \hline
+    Network & 10/100 Mbit/s Ethernet on the USB hub & Ethernet Fast Ethernet (MII based) & 10/100 Ethernet on USB hub & GbE & 10/100 half duplex & 10/100 Ethernet\\
+    \hline
+    storage & MicroSDHC slot & 4GB eMMC / MicroSDHC slot & SDHC slot & MicroSDHC & 2GB
+    eMMC & SATA (i.e. 500 GB HDD)\\
+    \hline
+  \end{tabular}
+  \caption{Development boards comparison}
+\end{table}
+
+\end{landscape}
+
+\section{Raspberry Pi 1}
+% https://www.raspberrypi.org/products/raspberry-pi-1-model-b/
+% http://elinux.org/File:RpiFront.jpg
+% wget http://elinux.org/images/thumb/9/96/RpiFront.jpg/800px-RpiFront.jpg
+% mv 800px-RpiFront.jpg raspberrypi-front.jpg
+
+This is the board that have changed rules of the game.
+It was designed to be pocket size and "very low cost".
+Additionaly it was initiated ad an OpenSource project, which helps to organize big community around it.
+
+% https://pi-top.com/products/pi-top
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.5\textwidth]{raspberrypi-front.jpg}
+  \caption{Raspberry Pi 1 Model B}
+  \label{fig:devboard-raspberrypi}
+\end{figure}
+
+\section{PandaBoard}
+% http://pandaboard.org/
+% http://elinux.org/File:PandaBoard_front.png
+% wget http://elinux.org/images/4/48/PandaBoard_front.png
+% mv PandaBoard_front.png pandaboard-front.png
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.5\textwidth]{pandaboard-front.png}
+  \caption{Pandaboard}
+  \label{fig:devboard-pandaboard}
+\end{figure}
+
+drawbacks:\\
+- poor support from community\\
+- "big" SD card\\
+- size: large surface + high audio and Ethernet/USB connectors\\
+- Ethernet over USB\\
+- serial db-9 connector\\
+- strange USB type ab connector\\
+- strange graphics solutions (two HDMI s)\\
+
+\section{BeagleBone Black}
+% https://beagleboard.org/black
+% http://elinux.org/File:BeagleBone-Black-A5_product_detail_black_sm.jpg
+% wget http://elinux.org/images/a/ac/BeagleBone-Black-A5_product_detail_black_sm.jpg
+% mv BeagleBone-Black-A5_product_detail_black_sm.jpg beaglebone-front.jpg
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.25\textwidth]{beaglebone-front.jpg}
+  \caption{BeagleBone Black}
+  \label{fig:devboard-beaglebone}
+\end{figure}
+
+\section{Wandboard Quad}
+% https://www.wandboard.org/products/wandboard/WB-IMX6Q-BW/
+% http://elinux.org/File:Wandboard-dual.jpg
+% wget http://elinux.org/images/7/7b/Wandboard-dual.jpg
+% mv Wandboard-dual.jpg wandboard-front.jpg
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.5\textwidth]{wandboard-front.jpg}
+  \caption{Wandboard}
+  \label{fig:devboard-wandboard}
+\end{figure}
+
+\section{Grinn liteboard}
+% http://wiki.litesom.grinn-global.com
+% http://linuxgizmos.com/open-spec-sandwich-style-sbc-runs-linux-on-i-mx6ul-based-com/
+% wget http://files.linuxgizmos.com/grinn_liteboard.jpg
+% mv grinn_liteboard.jpg liteboard-front.jpg
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.5\textwidth]{liteboard-front.jpg}
+  \caption{Liteboard}
+  \label{fig:devboard-liteboard}
+\end{figure}
+
+\section{x86\_64 (Asus Eee PC 1215n)}
+% https://www.asus.com/Laptops/Eee_PC_1215N/
+% https://www.ifixit.com/Guide/Asus+Eee+PC+1215N+Hard+Drive+Replacement/12291
+% wget https://d3nevzfk7ii3be.cloudfront.net/igi/eKGfAILyYUfWpePd.medium
+% mv eKGfAILyYUfWpePd.medium 1215n-front.jpg
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.5\textwidth]{1215n-front.jpg}
+  \caption{Asus Eee PC 1215n}
+  \label{fig:devboard-1215n}
+\end{figure}
+
+
 \chapter{Creating a basic Linux system}
 \label{chapter:basic-system}
-
 
 
 \section{Buildroot}
@@ -603,6 +663,29 @@ bitbake core-image-minimal
 
 \section{Linux From Scratch}
 
+\begin{landscape}
+
+\begin{table}
+  \begin{tabular}{| p{2.5cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} |}
+    \hline
+    name & Raspberry Pi 1 & BeagleBone Black & PandaBoard & Wandboard Quad & Grinn liteboard & Asus Eee PC 1215n \\
+    \hline
+    Buildroot & raspberrypi \_defconfig &  beaglebone \_defconfig & pandaboard \_defconfig & wandboard \_defconfig & grinn\_liteboard \_defconfig & pc\_x86\_64\_efi \_defconfig \\
+    \hline
+    LEDE & & & & & & \\
+    \hline
+    LTIB & & & & & & \\
+    \hline
+    Pengutronix & & & & & & \\
+    \hline
+    Yocto & & & & & & \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\end{landscape}
+
+
 \chapter{Build process comparison}
 \label{chapter:methodology}
 
@@ -709,19 +792,26 @@ mysql support -> mysql variant (mariadb) -> mariadb server
 % http://michaelcoyote.github.io/2015/08/02/lean-container-tricks/
 % https://blog.docker.com/2013/06/create-light-weight-docker-containers-buildroot/
 
-meta-eldk/linux-xenomai
-\url{https://layers.openembedded.org/layerindex/recipe/8333/}
+
 
 
 
 \chapter{Conclusions}
 \label{chapter:conclusions}
 
+The need for diversity! It's dangerous when one kernel becomes a hegemon There should be just ``embedded unix build systems'' - also for MINIX, BSD, Darvin and HURD - I wish I could name this work in this way one day. I could compare it to something like Ubuntu Bug \# 1 https://bugs.launchpad.net/ubuntu/+bug/1 for me - like ``Microsoft has a majority market share''; (i just scheduled an event for 2028 - to make presentation under that title - with unix - at \# osseu28)... the diversity is not about sociology - technology also
+\\
+cdynak.github.io/elbs, github.com/elbs, github.com/embedded-linux-build-systems
+\\
+http://os.builders
 %\chapter{CAN and CANopen}
 
 %\chapter{MIPI CSI and OpenCV}
 
 %\chapter{Real time / Xenomai}
+
+% meta-eldk/linux-xenomai
+% \url{https://layers.openembedded.org/layerindex/recipe/8333/}
 
 %\chapter{POSIX Test Suites}
 %https://www.linuxbase.org/download/
