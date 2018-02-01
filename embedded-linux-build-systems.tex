@@ -221,7 +221,7 @@ The most valuable source of technical information is and always should be offici
 
 \subsection*{Source code}
 
-The key of the Linux great success is the easy accessible source code and the free software license. The possibility to engage unlimited number of people to add new functionality and fix bugs is something closer to science than to merchandising, which is the best way for engineers to get things done. Exactly the same rule apply to creating Linux based OS'es for embedded devices. Because there is a lot of subtle differences between microcontrollers, it is essential to be able to modify or just analyze every line of code.
+The key of the Linux great success is the easy accessible source code and the free software license. The possibility to engage unlimited number of people to add new functionality and fix bugs is something closer to science than to merchandising, which is the best way for engineers to get things done. Exactly the same rule apply to creating Linux based OS'es for embedded devices. Because there is a lot of subtle differences between micro-controllers, it is essential to be able to modify or just analyze every line of code.
 
 However, the way of obtaining the whole build system is not that obvious and even differ a lot from one, to another. The most convenient way seems to be just downloading the archival version as one file through HTTP and then decompress it on our host machine. But in some cases it would be better to get it through a version control system as it is convenient for browsing history and sharing our changes. It's also worth mentioning that all the tools I am describing are versioned also with the use of open source software tools: mostly git, which itself also came from Linus Torvalds, and sometimes subversion. Things are getting harder when the build system is split into independent parts or we need additional meta tools to get each of them. I am clarifying it step by step in Chapter \ref{chapter:build-systems}.
 
@@ -249,15 +249,15 @@ The default compiler is obviously GCC in all cases, because it fits perfectly in
 
 \paragraph{Target Operating System} is the operating system of embedded device.
 
-\subsubsection{Bootloader}
-It is important to notice, that Linux kernel is not invoked directly by micro-controller at power on. The program whose main purpose it to load another system is called ``boot loader'' and in embedded device or any other device is not limited to have only one bootloader. They could start each other sequentially, so the first one is hardcoded into the microcontroller and it envokes the next one, which reside on the same external memory as Linux distribution. Examples include: coreboot, Libreboot, Das U-Boot and barebox (initially called U-Boot-NG).
+\subsubsection{Boot loader}
+It is important to notice, that Linux kernel is not invoked directly by micro-controller at power on. The program whose main purpose it to load another system is called ``boot loader'' and in embedded device or any other device is not limited to have only one boot loader. They could start each other sequentially, so the first one is hard-coded into the micro-controller and it evokes the next one, which reside on the same external memory as Linux distribution. Examples include: coreboot, Libreboot, Das U-Boot and barebox (initially called U-Boot-NG).
 
 \subsubsection{Device tree}
-One of the most problematic issues when dealing with embedded device software is handling its hardware diversity. Even if the microcontroller architecture is exactly the same, let's say ARM Cortex-A9 or even the same SoC (System on a Chip) like TI OMAP4430, but devices differ greatly with issues like IO pins configurations and interfaces. Fortunately, there is an unified hardware description data structure called the ``device tree''. It was initially developed within the U-Boot project, but currently (as of 2018) it is a de-facto standard for both bootloaders and the Linux kernel.
+One of the most problematic issues when dealing with embedded device software is handling its hardware diversity. Even if the micro-controller architecture is exactly the same, lets say ARM Cortex-A9 or even the same SoC (System on a Chip) like TI OMAP4430, but devices differ greatly with issues like IO pins configurations and interfaces. Fortunately, there is an unified hardware description data structure called the ``device tree''. It was initially developed within the U-Boot project, but currently (as of 2018) it is a de facto standard for both boot loaders and the Linux kernel.
 
 \subsubsection{Kernel}
 % https://en.wikipedia.org/wiki/Menuconfig
-Device tree is rescuing Linux kernel from using weird and complicated mechanism of applying patches, but there is much more things to configure there beside hardware. Core security options as well as device drivers could not be provided in upper layers of operating system, but need to be compiled into kernel. Linux has its well established configuration system based on Makefiles, which could be managed text-based or graphicly with envoking commands like \verb|make config|, \verb|make menuconfig| or \verb|make xconfig|. This is also available from each embedded Linux build system, where we also have ability to choose separate and independently compiled kernel.
+Device tree is rescuing Linux kernel from using weird and complicated mechanism of applying patches, but there is much more things to configure there beside hardware. Core security options as well as device drivers could not be provided in upper layers of operating system, but need to be compiled into kernel. Linux has its well established configuration system based on Makefiles, which could be managed text-based or graphically with invoking commands like \verb|make config|, \verb|make menuconfig| or \verb|make xconfig|. This is also available from each embedded Linux build system, where we also have ability to choose separate and independently compiled kernel.
 
 \subsubsection{Init system}
 % TODO: describe each init system
@@ -281,9 +281,9 @@ For real-life rapid-prototyping and also for purpose of this publication, the mo
 \begin{itemize}
     \item cross-compilation toolchain
     \item compiled kernel
-    \item compiled bootloader
+    \item compiled boot loader
     \item compiled packages
-    \item root filesystem image
+    \item root file system image
     \item SD-card image
 \end{itemize}
 
@@ -335,12 +335,12 @@ At minimum, each device has:
 % https://www.raspberrypi.org/products/raspberry-pi-1-model-b/
 
 
-It was designed to be pocket size and ``very low cost''\cite{web:raspberrypi-lowcost}, which together with its educational purpose, resulted in organizing big OpenSource community around it.
+It was designed to be pocket size and ``very low cost''\cite{web:raspberrypi-lowcost}, which together with its educational purpose, resulted in organizing big open source community around it.
 
 The revolutionary approach here is that there is no need to configure any development environment on own host operating system, to start working with this embedded device.
 Special Debian-based distribution with graphical interface called ``Raspbian'' was prepared and its SD card image could be downloaded from \url{raspberrypi.org} website.
 A lot of deb packages were compiled for ARMv6 architecture and are available in binary form, so it is very easy to get familiar with it.\cite{web:raspberrypi-raspbian}
-When standard modern PC devices like USB keyboard and HDMI display are connected, after plugging power through microUSB socket, it could be used as ordinary workstation.
+When standard modern PC devices like USB keyboard and HDMI display are connected, after plugging power through Micro-USB socket, it could be used as ordinary workstation.
 It is definitely not the most efficient way of embedded development, but that is how this board have changed rules of the game.
 
 The initial release of Raspberry Pi in 2012 was so successful, that because of enormous number of orders, people had to wait even a few months to get their one. 
@@ -348,7 +348,7 @@ Beside price and enthusiastic hobbyists, also ``Raspberry Pi Foundation'', which
 The project takes a lot of inspiration from British ``BBC Micro'' educational computers, including the split into reduced Model A and Model B as a full version, which also takes the most attention.
 
 The Broadcom BCM2835 System on a Chip that is used on first version of Raspberry Pi is using Vector Floating Point, which makes a lot of computing operations slower than with full-blown Floating-Point unit, but it also make the production cheaper.
-This is the reason why the same SoC is used in other new Raspberry Pi devices, including Idustrial Compute Module and Raspberry Pi Zero.
+This is the reason why the same SoC is used in other new Raspberry Pi devices, including Industrial Compute Module and Raspberry Pi Zero.
 
 
 
@@ -369,7 +369,7 @@ This is the reason why the same SoC is used in other new Raspberry Pi devices, i
 Despite mostly positive reviews for first version of Raspberry Pi, project was also criticized for some hardware design issues.
 Fragile SD card dock instead of microSD, electrolytic capacitor used for DC stabilization, wrong USB ports placement and unneeded composite video RCA jack was the most commonly complained.\cite{web:raspberrypi-issues}
 Fortunately, all those remarks were taken into consideration and models A+ and B+ were released in 2014 without those drawbacks.
-The iconic hardware layout was established, although it was still ``version 1'' without any further innovations, because all of the core parts, including microcontroller, remains the same.
+The iconic hardware layout was established, although it was still ``version 1'' without any further innovations, because all of the core parts, including micro-controller, remains the same.
 
 In the 2015, version 2 was released, with the same layout, but new Broadcom BCM2836 SoC.
 The most important is that it comes with newer ARMv7-A architecture.
@@ -403,11 +403,11 @@ The ``Black'', that was released in 2013 gains a lot of attention from more adva
 Most appraisal goes to well placed expansion connectors, standard 5V power jack, MII based Ethernet (not through USB) and 2 GB of eMMC flash memory with pre-installed Angstrom Linux distribution.
 From build systems perspective, it is a big plus that TI AM3358 SoC support, is included into Linux kernel mainline, which means that there is no need for special patches.
 
-There are stil more and more boards being developed from this comunity including BeagleBoard X15 (2016), BeagleBone Green, BeagleBoard Blue and competitor to Raspbery Pi Zero: PockerBeagle (2017).
+There are still more and more boards being developed from this community including BeagleBoard X15 (2016), BeagleBone Green, BeagleBoard Blue and competitor to Raspbery Pi Zero: PockerBeagle (2017).
 
 \begin{figure}[htbp]
   \centering
-    \includegraphics[width=0.25\textwidth]{beaglebone-front.jpg}
+    \includegraphics[width=0.35\textwidth,angle=-90,origin=c]{beaglebone-front.jpg}
   \caption{BeagleBone Black}
   \label{fig:devboard-beaglebone}
 \end{figure}
@@ -451,7 +451,7 @@ This board is very large compared to others, and high audio and Ethernet/USB con
 
 This board represents the most powerfull i.MX 6 series SoC that was produced by Freescale (currently NXP, but also acquired by Qualcomm).
 One of the best advantages from this series, is that there are many types (i.e. Solo, Dual, Quad), that are pin to pin compatible.
-That makes it very friendly to mass-scale, but diverse hardware development, so there exists three typed of WandBoard depenting on number of cores.
+That makes it very friendly to mass-scale, but diverse hardware development, so there exists three typed of WandBoard depending on number of cores.
 Many aspects and examples compatible with this board were described in ``Linux w systemach i.MX 6 series'' by Marcin Bis.\cite{book:lws-imx6}
 
 
@@ -534,7 +534,7 @@ There is nothing special about this laptop, I choose it mostly because that is t
     \hline
     Network & 10/100 Mbit/s Ethernet on the USB hub & 10/100 Mbit/s Ethernet on the USB hub  & Ethernet Fast Ethernet (MII based) & 10/100 Ethernet on USB hub & GbE & 10/100 Ethernet (MII based)\\
     \hline
-    storage & MicroSDHC slot & MicroSDHC slot & 4GB eMMC / MicroSDHC slot & SDHC slot & MicroSDHC & SATA (default 320 GB HDD)\\
+    storage & microSDHC slot & microSDHC slot & 4GB eMMC / microSDHC slot & SDHC slot & microSDHC & SATA (default 320 GB HDD)\\
     \hline
   \end{tabular}
   \caption{Development boards comparison}
@@ -592,7 +592,7 @@ sudo apt install make gcc g++ libncurses-dev unzip git \
 
 At the end of each script, the final image is being copied to home directory, to highlight its location.
 It could be especially useful when running build on special server and then downloading it to local machine in order to deploy it on real SD card.
-It could be done in many ways, even on Windows systems, but below I present the one that is most convinient for me:
+It could be done in many ways, even on Windows systems, but below I present the one that is most convenient for me:
 
 \begin{lstlisting}
 pv sdcard.img | sudo dd of=/dev/sdb bs=4M oflag=dsync
@@ -623,13 +623,13 @@ With the use of \verb|pv| tool, the progress of mission-critical \verb|dd| could
 
 \begin{figure}[htbp]
   \centering
-    \includegraphics[width=0.5\textwidth]{buildroot-logo.png}
+    \includegraphics[width=0.4\textwidth]{buildroot-logo.png}
     \caption{Buildroot logo}
   \label{fig:buildroot-logo}
 \end{figure}
 %https://buildroot.org/images/logo.png
 
-Buildroot is named a simple, efficient and easy-to-use tool to generate embedded Linux systems through cross-compilation. The name came from the process of building the root filesystem.
+Buildroot is named a simple, efficient and easy-to-use tool to generate embedded Linux systems through cross-compilation. The name came from the process of building the root file system.
 
 It's initial public release takes place at January 2005. Latest stable release is 2017.11.1. The project is backed by the group of open source developers, not directly by any organization, but gets financial sponsorship from various companies. Especially the involvement of Thomas Petazzoni, the Chief Technical Officer of Free Electrons is worth to notice.\cite{web:buildroot-tpetazzoni}
 
@@ -910,7 +910,7 @@ cp output/images/sdcard.img ~
 
 \subsection*{Source code}
 
-Since LTIB development was moved to Savannah, it is possible to obtain tar.gz compiled code throught HTTP from there, as shown in line 13.
+Since LTIB development was moved to Savannah, it is possible to obtain tar.gz compiled code through HTTP from there, as shown in line 13.
 Source code was maintained with the use of archaic cvs SCM, which shows how long time ago it was initiated.
 In relation to source code, it is also worth to mention, that \verb|./ltib| which is the initiating bash script, have 3000+ lines of code which for sure made it hard to maintain. 
 
@@ -961,7 +961,7 @@ Unfortunately this build system is so old, that it could support only first vers
 
 \begin{figure}[htbp]
   \centering
-    \includegraphics[width=0.75\textwidth]{ptxdist-logo.png}
+    \includegraphics[width=0.6\textwidth]{ptxdist-logo.png}
     \caption{PTXdist logo}
   \label{fig:ptxdist-logo}
 \end{figure}
@@ -974,7 +974,7 @@ Its initial public release dates back to 2010 and the latest stable version is 2
 
 
 
-\subsection*{Basic system}
+
 % https://debian.pkgs.org/sid/rt-preempt-nonfree-i386/oselas.toolchain-2013.12.1-arm-1136jfs-linux-gnueabihf-gcc-4.8.2-glibc-2.18-binutils-2.24-kernel-3.12-sanitized_2013.12.1_i386.deb.html
 % https://debian.pkgs.org/sid/rt-preempt-nonfree-i386/oselas.toolchain-2016.06.0-arm-1136jfs-linux-gnueabihf-gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitized_2016.06.0_.deb.html
 
@@ -1063,7 +1063,7 @@ It is also possible to use binary packages of those toolchain, what is available
 \subsection*{Target OS configuration}
 
 PTXdist command line tool could be used to create so called BSP for any platform, but configurations for popular development boards are available in DistroKit.
-For every other build system ``u-boot'' is chosen as default bootloader, but here it is the ``barebox'', which is being developed by Pengutronix company.
+For every other build system ``u-boot'' is chosen as default boot loader, but here it is the ``barebox'', which is being developed by Pengutronix company.
 
 \subsection*{Produced output}
 
@@ -1081,7 +1081,7 @@ For ARMv7 devices, target configuration it grouped under \verb|platform-v7a|, so
 
 \begin{figure}[htbp]
   \centering
-    \includegraphics[width=0.75\textwidth]{yoctoproject-logo.png}
+    \includegraphics[width=0.6\textwidth]{yoctoproject-logo.png}
     \caption{Yocto Project logo}
   \label{fig:yoctoproject-logo}
 \end{figure}
@@ -1129,7 +1129,7 @@ They are divided into several groups:
     \item Machine (BSP) - responsibility certain platforms support is split in this group, i.e. ``meta-ti'' layer provide configuration for both BeagleBone and PandaBoard and it is maintained with the help of Texas Instruments company
     \item Software - specific pieces of software are divided into layers like ``meta-nodejs'' for nodejs and ``meta-ros'' for Robotic Operating System packages
     \item Distribution - 
-    \item Miscealous - the rest, that do not fit into any other group, i.e. when it could be clasified for more than one group
+    \item Miscealous - the rest, that do not fit into any other group, i.e. when it could be classified for more than one group
 \end{itemize}
 
 \subsection*{Host OS requirements}
@@ -1177,7 +1177,7 @@ Linux raspberrypi 4.4.50 #1 Wed Jan 24 12:00:00 UTC 2018 armv6l GNU/Linux
 
 \begin{figure}[htbp]
   \centering
-    \includegraphics[width=0.75\textwidth]{lfs-logo.png}
+    \includegraphics[width=0.6\textwidth]{lfs-logo.png}
     \caption{Linux From Scratch logo}
   \label{fig:lfs-logo}
 \end{figure}
@@ -1188,7 +1188,7 @@ Linux raspberrypi 4.4.50 #1 Wed Jan 24 12:00:00 UTC 2018 armv6l GNU/Linux
 % http://intestinate.com/pilfs/
 % https://raspberrypi.stackexchange.com/questions/25/is-there-a-linux-from-scratch-lfs-arm-equivalent
 
-In the begining, there was just LFS project that provides step-by-step instructions for building your own custom Linux system, entirely from source code.
+In the beginning, there was just LFS project that provides step-by-step instructions for building your own custom Linux system, entirely from source code.
 Its name came from Linux From Scratch.
 Its initial release was made in December 1999 and its latest stable version is 8.1 from September 2017. The project was initiated by Gerard Beekmans and gains support from many open source enthusiasts.
 
@@ -1239,6 +1239,10 @@ It is also possible to i.e. build new system from within Raspberry Pi using LFS 
     \hline
     official website & \url{https://buildroot.org} & \url{https://openwrt.org} & \url{http://ltib.org} & \url{https://ptxdist.org} & \url{https://yoctoproject.org} & \url{http://clfs.org}\\
     \hline
+    source code repository & \url{https://git.busybox.net/buildroot/} & \url{https://git.openwrt.org} & \url{http://cvs.savannah.gnu.org/viewvc/ltib/} & \url{https://git.pengutronix.de/cgit/ptxdist} & \url{https://git.yoctoproject.org} & \url{http://git.clfs.org} \\
+    \hline
+    license & GPLv2\cite{web:buildroot-license} & GPLv2\cite{web:openwrt-license} & GPLv2\cite{web:ltib-license} & GPLv2\cite{web:ptxdist-license} & GPLv2, MIT and others\cite{web:yoctoproject-license} & OPLv1\cite{web:clfs-license} \\
+    \hline
     last stable release date & 2017.11 & 2017.01 & 2013.02 & 2018.01 & 2017.10 & 2014.10\\
     \hline
     release cycle & three month\cite{web:buildroot-releases} & irregular (approx 1 year) & irregular (approx 2 years)\cite{web:ltib-releases} & one month\cite{web:ptxdist-releases} & six months\cite{web:yoctoproject-releases} & irregular\cite{web:clfs-releases}\\
@@ -1259,13 +1263,22 @@ It is also possible to i.e. build new system from within Raspberry Pi using LFS 
 
 
 
+
+
+% required packages - on freshly installed debian system
+
+
+% TODO: table
+
+% os requirements / packages + hardware requirements + download rates! + google analitics popularity! + how did they name themselves... + nr of packages available + main site + documentation site
+% notes about release process / release cycles / frequency?
+
+
+
 % maybe make it available to download .config file from os.builders ...?
 
 % google trends ...?
 
-% git repo path (for every system)
-
-% license
 
 % https://www.yoctoproject.org/toaster/all-machines.html
 % http://layers.openembedded.org/layerindex/branch/master/machines
@@ -1275,14 +1288,10 @@ It is also possible to i.e. build new system from within Raspberry Pi using LFS 
 
 
 
-% required packages - on freshly installed debian system
 
 
-% TODO: table
-% official repository / github mirror / download directory
-% repository links / vcs - table / comparison ...
-% os requirements / packages + hardware requirements + download rates! + google analitics popularity! + how did they name themselves... + nr of packages available + main site + documentation site
-% notes about release process / release cycles / frequency?
+
+
 
 
 
@@ -1335,7 +1344,7 @@ Even if local PC or laptop have have very good parameters, it is very hard to pr
 To have isolated environment with guaranteed parameters it is reasonable to use external hosting service.
 
 I choose OVH, because it is the one, that I am used to, especially I enjoy user interface, which is even open sources at \url{https://github.com/ovh-ux/ovh-manager-web}.
-More reasonable arguments in favor to OVH is that it have datacenter in Poland (WAW) and enables direc access to OpenStack interface.
+More reasonable arguments in favor to OVH is that it have data center in Poland (WAW) and enables direct access to OpenStack interface.
 For measure basic compilation time for each board and system respectively I use dedicated server, which is the most efficient option.
 Nevertheless, I also made tests with virtual machines through OpenStack, because it is very easy to change their parameters and compare growing build time.
 Initially, I used ``serwery.pl'' (subsidiary of ``nazwa.pl'' / NetArt) which also provides OpenStack platform, but it was removed in the middle of 2017.
@@ -1491,6 +1500,9 @@ Before instructions for building target OS, presented in Chapter \ref{chapter:bu
 \end{landscape}
 
 
+
+
+
 % wget https://raw.githubusercontent.com/tbird20d/grabserial/v1.9.3/grabserial
 % chmod +x grabserial
 % sudo cp grabserial /usr/local/bin/
@@ -1524,15 +1536,13 @@ Before instructions for building target OS, presented in Chapter \ref{chapter:bu
 % PLOTS !!!
 % flavor (price) / time / total cost
 
-
-
-
-
-
 \begin{landscape}
+
 
 \section{Tests in respect to host OS}
 % openstack server create --flavor 'c2-30-flex' --image 'Debian 9' --network 'Ext-Net' --key-name 'cdynak-devmaszyna' 'os.builder'
+
+
 
 \begin{table}
   \begin{tabular}{| p{2.5cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} |}
@@ -1551,6 +1561,8 @@ Before instructions for building target OS, presented in Chapter \ref{chapter:bu
     \hline
     sys & 8m11.556s & 9m15.448s & 7m35.004s & 9m39.060s & 7m41.560s & 9m27.172s \\
     \hline
+    total cost & 0.62 PLN & 0.42 PLN & 0.43 PLN & 0.32 PLN & 0.33 PLN & 0.26 PLN \\
+    \hline
   \end{tabular}
   \caption{Comparison of VM size and build time (CPU instances)}
 \end{table}
@@ -1560,24 +1572,29 @@ Before instructions for building target OS, presented in Chapter \ref{chapter:bu
 \begin{table}
   \begin{tabular}{| p{2.5cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} |}
     \hline
-    name & R2-30 & R2-15 & S1-8 & S1-4 & S1-2 \\
+    name & R2-30 & R2-15 & S1-8 & S1-4 \\
     \hline
-    vCPUs & 2 x 2.4 GHz & 2 x 2.4 GHz & 2 x 2.4 GHz & 1 x 2.4 GHz & 1 x 2.4 GHz \\
+    vCPUs & 2 x 2.4 GHz & 2 x 2.4 GHz & 2 x 2.4 GHz & 1 x 2.4 GHz \\
     \hline
-    RAM & 30 GB & 15 GB & 8 GB & 4 GB & 2 GB \\
+    RAM & 30 GB & 15 GB & 8 GB & 4 GB \\
     \hline
-    price & 0.457 & 0.395 & 0.148 & 0.081 & 0.045 \\
+    price PLN/h& 0.457 & 0.395 & 0.148 & 0.081 \\
     \hline
-    real & 52m33.380s & 53m30.474s & 65m42.849s & 127m16.353s &  \\
+    real & 52m33.380s & 53m30.474s & 65m42.849s & 127m16.353s \\
     \hline
-    user & 77m29.732s & 80m41.752s & 91m34.000s & 101m2.204s &  \\
+    user & 77m29.732s & 80m41.752s & 91m34.000s & 101m2.204s \\
     \hline
-    sys & 7m55.024s & 7m36.960s & 12m8.204s & 15m2.652s &  \\
+    sys & 7m55.024s & 7m36.960s & 12m8.204s & 15m2.652s \\
+    \hline
+    total cost & 0.4 PLN & 0.35 PLN & 0.16 PLN & 0.17 PLN \\
     \hline
   \end{tabular}
   \caption{Comparison of VM size and build time (RAM instances)}
 \end{table}
-
+% TODO: S1-2
+%  & 1 x 2.4 GHz
+%  & 2 GB
+%  & 0.045
 
 \end{landscape}
 
