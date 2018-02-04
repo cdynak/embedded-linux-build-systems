@@ -1128,7 +1128,7 @@ They are divided into several groups:
     \item Base - there are only two core layers: \verb|openembedded-core| and \verb|meta-oe|, which need to be included for all projects
     \item Machine (BSP) - responsibility certain platforms support is split in this group, i.e. ``meta-ti'' layer provide configuration for both BeagleBone and PandaBoard and it is maintained with the help of Texas Instruments company
     \item Software - specific pieces of software are divided into layers like ``meta-nodejs'' for nodejs and ``meta-ros'' for Robotic Operating System packages
-    \item Distribution - 
+    \item Distribution - this layer is responsible for higher level configuration and selecting groups of packages. Most well know is ``Ångström'', but the default one for Yocto Project is ``Pokey'', which is suggested as a reference for others.
     \item Miscealous - the rest, that do not fit into any other group, i.e. when it could be classified for more than one group
 \end{itemize}
 
@@ -1379,7 +1379,7 @@ Before instructions for building target OS, presented in Chapter \ref{chapter:bu
   \item Attach volume to instance
 \end{enumerate}
 
-\subsection{VM provisioning}
+\subsection*{VM provisioning}
 
 \begin{enumerate}
   \item identify (\verb|$HOST_KEYS $HOST_USER $HOST_IP $VOLUME_ID|)
