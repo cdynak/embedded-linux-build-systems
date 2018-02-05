@@ -74,8 +74,8 @@
 % important note - idea of this chapter - not goals, but "tasks to be done" / "the main problems to be solved" - explain title, describe it more precisely 
 
 The main task of this work is to describe and compare tools, that help in the process of creating and deploying Linux-based operating system on embedded devices.
-There are many publications, that prioritize one build system or are focused on low-level problems common for all, but there was a lack of treating them as one type of software.
-I am trying to fill this gap and encourage everybody who is working with embedded Linux, to give a try for all presented tools.
+There are many publications, that prioritize one build system or are focused on low-level problems common for all, but there was a~lack of treating them as one type of software.
+I am trying to fill this gap and encourage everybody who is working with embedded Linux, to give a~try for all presented tools.
 
 It is also worth to emphasize, that this topic is not limited to hobby projects and academic research, but it is essential for commercial and industrial applications.
 Since nowadays micro-controllers are much more powerful and enormously cheaper than yesterdays supercomputers, the main focus has moved from resources optimization to convenient maintaining.
@@ -85,7 +85,7 @@ The overwhelming use of Linux in modern embedded devices, instead of traditional
 \begin{figure}[htbp]
   \centering
     \includegraphics[width=\textwidth]{iot-os.jpg}
-    \caption{Survey results for Operating Systems used for IoT Devices\cite{web:iot-os}}
+    \caption{Survey results for Operating Systems used for IoT Devices \cite{web:iot-os}}
   \label{fig:iot-os}
 \end{figure}
 
@@ -93,57 +93,57 @@ The overwhelming use of Linux in modern embedded devices, instead of traditional
 \section{Basic definitions}
 % TODO: add bibliography sources
 
-Despite that every aspect of computing could be described by numbers and mathematical operations, there could be plenty of definitions for one and the same thing. Unfortunately the naming conventions are sometimes misleading, as it is in the area which I am describing. People understand the word ``Linux'' differently in different contexts, as there is also the never ending debate about the term ``GNU/Linux''.\cite{web:gnu-linux} Sometimes buzzwords like ``cloud'' and ``IoT'' are strongly promoted due to commercial issues, which makes common understanding even more unclear. Therefore, I would like to explain how to interpret the key wording.
+Despite that every aspect of computing could be described by numbers and mathematical operations, there could be plenty of definitions for one and the same thing. Unfortunately the naming conventions are sometimes misleading, as it is in the area which I~am describing. People understand the word ``Linux'' differently in different contexts, as there is also the never ending debate about the term ``GNU/Linux''.\cite{web:gnu-linux} Sometimes buzzwords like ``cloud'' and ``Internet of Things'' (IoT) are strongly promoted due to commercial issues, which makes common understanding even more unclear. Therefore, I~would like to explain how to interpret the key wording.
 
-\paragraph{Operating system} is a software that manages hardware resources and provides interface to run other programs.\cite{web:def-os}
+\paragraph{Operating system} is a~software that manages hardware resources and provides interface to run other programs.\cite{web:def-os}
 
-\paragraph{Operating system kernel} is a core part of operating system, that provides  basic low level interfaces.\cite{web:def-kernel}
+\paragraph{Operating system kernel} is a~core part of operating system, that provides  basic low level interfaces.\cite{web:def-kernel}
 % Implementing Operating Systems without Kernels ???
 % https://dl.acm.org/citation.cfm?id=902543
 
-\paragraph{Linux} is an open source operating system kernel, that was inspired by the Unix tradition. The initial release took place in 1991 and since then it is being developed by thousands of voluntary collaborators as well as major IT companies. Formerly it was compatible only with the x86 standard processors for personal computers, but now it is available for other architectures, especially ARM that is used by most mobile and embedded devices. The work of its creator Linux Torvalds and lead maintainer Greg Kroah-Hartman is currently sponsored by the Linux Foundation. As for 2018, all of the world fastest supercomputers from TOP 500 ranking are using this kernel.
+\paragraph{Linux} is an~open source operating system kernel, that was inspired by the Unix tradition. The initial release took place in 1991 and since then it is being developed by thousands of voluntary collaborators as well as major IT companies. Formerly it was compatible only with the x86 standard processors for personal computers, but now it is available for other architectures, especially ARM that is used by most mobile and embedded devices. The work of its creator Linux Torvalds and lead maintainer Greg Kroah-Hartman is currently sponsored by the Linux Foundation. As for 2018, all of the world fastest supercomputers from TOP~500 ranking are using this kernel.
 
 \paragraph{Linux distribution} is the operating system, that is built upon the Linux kernel.
 % is using the Linux kernel? - be careful with i.e. "Windows subsystem for Linux" case
 
 % \paragraph{Note:} Based on those definitions, it could be said that $kernel \le OS$, so $Linux < OS$ or $Linux = OS$ depending on case.
 
-\paragraph{Embedded device} is a micro-controller based device, that has a fixed purpose and strictly limited user interface.
+\paragraph{Embedded device} is a~micro-controller based device, that has a~fixed purpose and strictly limited user interface.
 
-\paragraph{Cross-compiler} is a compiler that creates executable code for system architecture that is different from its own.
+\paragraph{Cross-compiler} is a~compiler that creates executable code for system architecture that is different from its own.
 
-\paragraph{Embedded Linux build system} is a set of software development tools, that create Linux distribution with the use of cross-compiler and produce complete operating system image, to be deployed on an embedded device.
+\paragraph{Embedded Linux build system} is a~set of software development tools, that create Linux distribution with the use of cross-compiler and produce complete operating system image, to be deployed on an~embedded device.
 
 The umbrella them ``Embedded Linux build system'' is not widely in use, but despite the similarities between described tools, no other was proposed. Different projects identify themselves as ``distribution creators'' or ``executable documentation'', but they share the same goal and they need to be compared in one place.
 
 \section{Sources of knowledge}
 \label{section:sources-of-knowledge}
 
-There are two important issues, that I faced while trying to make literature review: firstly what kind of materials should I analyze and secondly how to extend my searches, to get a full overview of current state of knowledge on this topic.
+There are two important issues, that I~faced while trying to make literature review: firstly what kind of materials should I~analyze and secondly how to extend my searches, to get a~full overview of current state of knowledge on this topic.
 
 The first issue was very clear in the previous (20th) century - making literature review was mostly limited to analyzing two kind of printed materials: longer ones which were just scientific books and shorter ones which were peer reviewed articles in technical journals.
 Right now they are also available and easy accessible in electronic form and still they are the most reliable sources for literature review, but not every IT engineer is using it.
-Open Source Software and Open Source Hardware movement, beside creating lot of tools, also created a lot of written knowledge, but they are distributed in very different ways: project documentation, presentations, tutorials, source code comments, READMEs, How Tos, FAQs, wikis, finally blog and forum posts, but also in other forms.
+Open Source Software and Open Source Hardware movement, beside creating lot of tools, also created a~lot of written knowledge, but they are distributed in very different ways: project documentation, presentations, tutorials, source code comments, READMEs, How Tos, FAQs, wikis, finally blog and forum posts, but also in other forms.
 Because they are all available via Internet, there exists one unified way to reference them: URL (Unified Resource Locator) also known as web address or link.
 Because of that, this and most of other bibliographies are filled with URLs, not ISBNs.
 
-The second thing is how to be sure that I covered every aspect, at least by mentioning. Search results are personalized, both by behavior of searcher, that is choosing keywords and also Search Engine Optimization.
+The second thing is how to be sure that I~covered every aspect, at least by mentioning. Search results are personalized, both by behavior of searcher, that is choosing keywords and also Search Engine Optimization.
 Nobody could tell, that this is complete, but sources are cross referenced, so after some research, the loop closes.
 Most important factor for choosing materials is their universality and chance that they will be not so fast outdated.
 
 \subsection*{elinux.org}
 
 The Embedded Linux Developer wiki elinux.org is undeniably the most extensive source of knowledge about all aspects of Embedded Linux.
-In this form it was possible to consolidate a powerful community which extend its contents.
-From one side it is greatly filled with a lot of technical details and still extended, but from the other the materials are not always universal and some pages are not maintained.
+In this form it was possible to consolidate a~powerful community which extend its contents.
+From one side it is greatly filled with a~lot of technical details and still extended, but from the other the materials are not always universal and some pages are not maintained.
 
-The elinux.org domain was registered on 1999-11-04 \cite{web:whois-elinux} and used by the Linux specialist Tim Riker just as a placeholder.\cite{web:riker}\cite{web:elinux-placeholder}
+The elinux.org domain was registered on 1999-11-04 \cite{web:whois-elinux} and used by the Linux specialist Tim Riker just as a~placeholder.\cite{web:riker}\cite{web:elinux-placeholder}
 About 2003 the Embedded Linux wiki was initiated here using the MoinMoin framework \cite{web:elinux-moinmoin}.
 In 2007 it was moved to the Media Wiki engine, that is still in use.
 On the top level, its contents are divided into two main parts: ``Development Portals'' about various aspects of embedded Linux and ``Hardware Pages'' for different development boards.
 The most relevant page for this thesis is \url{http://elinux.org/Build_Systems}, but build systems are only listed there without any comparison.
 
-Currently it is maintained by the Core Embedded Linux Project which belongs to Linux foundation \cite{web:linuxfoundation-celp}.
+Currently it is maintained by the Core Embedded Linux Project (CELP) which belongs to the Linux Foundation \cite{web:linuxfoundation-celp}.
 CELP is also the coordinator of other important Embedded Linux activities.
 
 \subsection*{wikipedia.org}
@@ -151,7 +151,7 @@ CELP is also the coordinator of other important Embedded Linux activities.
 % http://dbpedia.org/page/Linux_on_embedded_systems
 
 Wikipedia allows anyone to edit articles, so professionalism of every page can not be assured, but it is the largest and most popular general reference work on the Internet.
-The most important thing from my point of view, is that it redirects and groups abstract entities on a high level.
+The most important thing from my point of view, is that it redirects and groups abstract entities on a~high level.
 The Table \ref{table:wikipedia} summarizes pages that are most relevant for this work.
 
 \begin{table}
@@ -176,14 +176,14 @@ The Table \ref{table:wikipedia} summarizes pages that are most relevant for this
     \url{https://en.wikipedia.org/wiki/Embedded_Linux_build_systems} & \\
     \hline
   \end{tabular}
-  \caption{The Wikipedia articles, that I both learned from and extended}
+  \caption{The Wikipedia articles, that I~both learned from and extended}
   \label{table:wikipedia}
 \end{table}
 
 \subsection*{Marcin Bis publications}
 
 In Poland, the most extensive source of written knowledge about this topic is provided by Mr Marcin Bis.
-He has published two books so far: ``Linux w systemach embedded'' (eng. ``Linux in embedded systems'') in 2011 and ``Linux w systemach i.MX6 series'' (eng. ``Linux in i.MX 6 series systems'') in 2015.
+He has published two books so far: ``Linux w~systemach embedded'' (eng. ``Linux in embedded systems'') in 2011 and ``Linux w~systemach i.MX~6 series'' (eng. ``Linux in i.MX~6 series systems'') in 2015.
 The company BIS-LINUX.COM also offers various paid workshops and consultations.
 
 \subsection*{Conferences and workshops}
@@ -197,10 +197,10 @@ From one side there are public events, like Embedded Linux Conferences organized
 
 Embedded Linux issues connected to build systems are also present on Linux Sessions \cite{web:sesja-linuksowa} coordinated by Academic IT Association from Wroclaw University of Science \& Technology.
 
-From another side, private companies make mostly interactive workshops. The paid ones are organized i.e. by Marcin Bis \cite{web:bis-szkolenia}. There are also free of charge workshops i.e. ones organized by EBV in Poland in 2016, in which I was participating.
+From another side, private companies make mostly interactive workshops. The paid ones are organized i.e. by Marcin Bis \cite{web:bis-szkolenia}. There are also free of charge workshops i.e. ones organized by EBV in Poland in 2016, in which I~was participating.
 
 \subsection*{scholar.google.com}
-The phrase ``embedded linux build systems'' gives only 2 results  \cite{web:scholar-1}. First of them is the presentation ``Embedded Linux system development'' by Thomas Petazzoni from year 2004. It describes Open Embedded which is currently included as part of the Yocto Project. The second one is the book ``Mastering embedded Linux programming'' by Chris Simmonds from year 2015. It differentiates only Buildroot and Yocto Project.
+The phrase ``embedded linux build systems'' gives only 2~results  \cite{web:scholar-1}. First of them is the presentation ``Embedded Linux system development'' by Thomas Petazzoni from year~2004. It describes Open Embedded which is currently included as part of the Yocto Project. The second one is the book ``Mastering embedded Linux programming'' by Chris Simmonds from year~2015. It differentiates only Buildroot and Yocto Project.
 
 The phrase ``embedded linux build system'' gives 24 results \cite{web:scholar-2}. Most of recent works enumerates Buildroot, Yocto Project, OpenWrt without comparison between them. Materials prior to 2010 are mostly using the therm ``embedded linux distribution'', rather than ``embedded linux build system''.
 
@@ -208,7 +208,7 @@ The phrase ``embedded linux build system'' gives 24 results \cite{web:scholar-2}
 
 There are some very inspiring materials, that could be found with the help of search engines like Google or DuckDuckGo and they do not fit into any previous categories.
 Most of them, like blog and forum posts, are focused on one specific technical problem.
-In this section I would like to mention one article, that both covers the entire topic and also make use of the term ``Embedded Linux build systems'': \url{https://www.embarcados.com.br/embedded-linux-build-systems/}
+In this section I~would like to mention one article, that both covers the entire topic and also make use of the term ``Embedded Linux build systems'': \url{https://www.embarcados.com.br/embedded-linux-build-systems/}
 
 \subsection*{Official documentation}
 % TODO: URLs are placed in the table...
@@ -221,9 +221,9 @@ The most valuable source of technical information is and always should be offici
 
 \subsection*{Source code}
 
-The key of the Linux great success is the easy accessible source code and the free software license. The possibility to engage unlimited number of people to add new functionality and fix bugs is something closer to science than to merchandising, which is the best way for engineers to get things done. Exactly the same rule apply to creating Linux based OS'es for embedded devices. Because there is a lot of subtle differences between micro-controllers, it is essential to be able to modify or just analyze every line of code.
+The key of the Linux great success is the easy accessible source code and the free software license. The possibility to engage unlimited number of people to add new functionality and fix bugs is something closer to science than to merchandising, which is the best way for engineers to get things done. Exactly the same rule apply to creating Linux based OS'es for embedded devices. Because there is a~lot of subtle differences between micro-controllers, it is essential to be able to modify or just analyze every line of code.
 
-However, the way of obtaining the whole build system is not that obvious and even differ a lot from one, to another. The most convenient way seems to be just downloading the archival version as one file through HTTP and then decompress it on our host machine. But in some cases it would be better to get it through a version control system as it is convenient for browsing history and sharing our changes. It is also worth mentioning that all the tools I am describing are versioned also with the use of open source software tools: mostly git, which itself also came from Linus Torvalds, and sometimes subversion. Things are getting harder when the build system is split into independent parts or additional meta tools ar needed to get each of them. I am clarifying it step by step in Chapter \ref{chapter:build-systems}.
+However, the way of obtaining the whole build system is not that obvious and even differ a~lot from one, to another. The most convenient way seems to be just downloading the archival version as one file through HTTP and then decompress it on our host machine. But in some cases it would be better to get it through a~version control system as it is convenient for browsing history and sharing our changes. It is also worth mentioning that all the tools I~am describing are versioned also with the use of open source software tools: mostly git, which itself also came from Linus Torvalds, and sometimes subversion. Things are getting harder when the build system is split into independent parts or additional meta tools ar needed to get each of them. I~am clarifying it step by step in Chapter \ref{chapter:build-systems}.
 
 
 \subsection*{Host OS requirements}
@@ -231,18 +231,18 @@ However, the way of obtaining the whole build system is not that obvious and eve
 \paragraph{Host Operating System} is the operating system where the cross-compilation is made.
 
 \subsubsection{Software requirements}
-As it seems obvious, host OS need to be Unix-like, preferably Linux-based and with rpm or deb package manager. Whenever source code is under free licence, you could run it anywhere, but it may need some manual tweaking. When running build systems for the first time, Debian or Red Hat or their derivatives, like Ubuntu or Fedora are only reasonable choices. Whenever I am mentioning Host OS here, I mean Debian GNU/Linux, because that is the one, that I am most familiar with and to be precise it is stable version 9 (code name Stretch). As a result, please notice, that I refer to all packages with their deb name as default. In most cases there are equivalents in rpm packages, sometimes with different naming convention like suffix ``-devel'' instead of ``-dev'' for so called ``development packages'', that contain source code.
+As it seems obvious, host OS need to be Unix-like, preferably Linux-based and with rpm or deb package manager. Whenever source code is under free licence, you could run it anywhere, but it may need some manual tweaking. When running build systems for the first time, Debian or Red Hat or their derivatives, like Ubuntu or Fedora are only reasonable choices. Whenever I~am mentioning Host OS here, I~mean Debian GNU/Linux, because that is the one, that I~am most familiar with and to be precise it is stable version 9 (code name Stretch). As a~result, please notice, that I~refer to all packages with their deb name as default. In most cases there are equivalents in rpm packages, sometimes with different naming convention like suffix ``-devel'' instead of ``-dev'' for so called ``development packages'', that contain source code.
 
 \subsubsection{Hardware requirements}
-The software requirements are easy to satisfy, because most useful Linux distribution have no costs and could be deployed within minutes on a virtual machine, but the hardware resources are more crucial. I prefer to use cheap laptops and the last time I tried, the compilation of the Linux kernel took a lot of lime, so It is worth to notice, because it was only kernel compilation, excluding any packages. For modern machines it is not such a big problem, but anyway most tutorials are suggesting to get away from computer and enjoy a ``large hot drink''. Whenever it is not explicitly noted otherwise, I am using externally hosted dedicated server with Intel(R) Xeon(R) CPU E3-1270 v6 @ 3.80GHz (8 cores) and 32 GiB RAM. The comparison of resource usage could be found in Chapter \ref{chapter:build-comparison}.
+The software requirements are easy to satisfy, because most useful Linux distribution have no costs and could be deployed within minutes on a~virtual machine, but the hardware resources are more crucial. I~prefer to use cheap laptops and the last time I~tried, the compilation of the Linux kernel took a~lot of lime, so It is worth to notice, because it was only kernel compilation, excluding any packages. For modern machines it is not such a~big problem, but anyway most tutorials are suggesting to get away from computer and enjoy a~``large hot drink''. Whenever it is not explicitly noted otherwise, I~am using externally hosted dedicated server with Intel(R) Xeon(R) CPU E3-1270 v6 @ 3.80GHz (8~cores) and 32~GiB RAM. The comparison of resource usage could be found in Chapter \ref{chapter:build-comparison}.
 
 \subsection*{Cross-compilation toolchain}
 % https://toolchains.free-electrons.com
 % https://elinux.org/Toolchains
 
-As mentioned at the beginning of this chapter, cross-compilation is essential for the whole process, because embedded devices have different processor architecture than the host system in all considered cases. Before cross-compilation could start, the cross-compiler must already exist on the system or it will be created at the beginning. It needs to be done only once, but I am treating it as part of the complete build process.
+As mentioned at the beginning of this chapter, cross-compilation is essential for the whole process, because embedded devices have different processor architecture than the host system in all considered cases. Before cross-compilation could start, the cross-compiler must already exist on the system or it will be created at the beginning. It needs to be done only once, but I~am treating it as part of the complete build process.
 
-The default compiler is obviously GCC in all cases, because it fits perfectly in the open source / Unix-like ecosystem and it is its base building block. There is also a possibility to select another compiler, like i.e. clang. Different linker could be chosen as well. The default one is the GNU linker (or GNU ld), but because of the enormous number of linking operations, different one like ``gold linker'' could be considered, which seems to be faster. That one is also a part of GNU Project. At the beginning I will choose the most basic setup, to make things easily comparable. 
+The default compiler is obviously GCC in all cases, because it fits perfectly in the open source / Unix-like ecosystem and it is its base building block. There is also a~possibility to select another compiler, like i.e. clang. Different linker could be chosen as well. The default one is the GNU linker (or GNU ld), but because of the enormous number of linking operations, different one like ``gold linker'' could be considered, which seems to be faster. That one is also a~part of GNU Project. At the beginning I~will choose the most basic setup, to make things easily comparable. 
 
 
 \subsection*{Target OS configuration}
@@ -253,7 +253,7 @@ The default compiler is obviously GCC in all cases, because it fits perfectly in
 It is important to notice, that Linux kernel is not invoked directly by micro-controller at power on. The program whose main purpose it to load another system is called ``boot loader'' and in embedded device or any other device is not limited to have only one boot loader. They could start each other sequentially, so the first one is hard-coded into the micro-controller and it evokes the next one, which reside on the same external memory as Linux distribution. Examples include: coreboot, Libreboot, Das U-Boot and barebox (initially called U-Boot-NG).
 
 \subsubsection{Device tree}
-One of the most problematic issues when dealing with embedded device software is handling its hardware diversity. Even if the micro-controller architecture is exactly the same, lets say ARM Cortex-A9 or even the same SoC (System on a Chip) like TI OMAP4430, but devices differ greatly with issues like IO pins configurations and interfaces. Fortunately, there is an unified hardware description data structure called the ``device tree''. It was initially developed within the U-Boot project, but currently (as of 2018) it is a de facto standard for both boot loaders and the Linux kernel.
+One of the most problematic issues when dealing with embedded device software is handling its hardware diversity. Even if the micro-controller architecture is exactly the same, lets say ARM Cortex-A9 or even the same SoC (System on a~Chip) like TI OMAP4430, but devices differ greatly with issues like IO pins configurations and interfaces. Fortunately, there is an~unified hardware description data structure called the ``device tree''. It was initially developed within the U-Boot project, but currently (as of 2018) it is a~de~facto standard for both boot loaders and the Linux kernel.
 
 \subsubsection{Kernel}
 % https://en.wikipedia.org/wiki/Menuconfig
@@ -271,7 +271,7 @@ The first process that is evoked by the kernel is called ``init''; Most popular 
 \end{itemize}
 
 \subsubsection{Software packages}
-The highest layer of target OS configuration is managing software packages and this is where nobleness of described tools is shown. Most of systems borrow the Makefile style from Linux kernel, but Yocto Project is notable exception and is using its own system named ``bitbake''. Every system gives a possibility to choose from variety of prepared packages, but makes it also quite easy to add own software, which is the essence of whole process.
+The highest layer of target OS configuration is managing software packages and this is where nobleness of described tools is shown. Most of systems borrow the Makefile style from Linux kernel, but Yocto Project is notable exception and is using its own system named ``bitbake''. Every system gives a~possibility to choose from variety of prepared packages, but makes it also quite easy to add own software, which is the essence of whole process.
 
 \subsection*{Produced output}
 % TODO: describe each output
@@ -308,21 +308,21 @@ For real-life rapid-prototyping and also for purpose of this publication, the mo
 \chapter{Development boards}
 \label{section:development-boards}
 
-From the beginning of embedded systems history, microprocessor development boards were just a training resource for engineers.
-Usually they were designed and produced by companies that have created certain chip and costs a lot of money, that it was not affordable for hobbyists or students.
-In recent years this state has been changed by a few factors:
+From the beginning of embedded systems history, microprocessor development boards were just a~training resource for engineers.
+Usually they were designed and produced by companies that have created certain chip and costs a~lot of money, that it was not affordable for hobbyists or students.
+In recent years this state has been changed by a~few factors:
 \begin{itemize}
   \item the spread of ARM architecture micro-controllers with efficiency comparable to personal computers (1GHz),
   \item creating development boards by community as open hardware, that resulted in cost reduction,
   \item adding peripherals specific not for embedded systems but for personal computers.
 \end{itemize}
 This led to discovering totally new use cases for development boards which explode due to widespread success of Raspberry Pi platform.
-I have selected some of most popular devices with ARM to compare them, but also included my personal laptop computer as a reference for x86 architecture. Because of very low popularity, I  have not investigated other chips with SPARC or Power Architecture.
+I have selected some of most popular devices with ARM to compare them, but also included my personal laptop computer as a~reference for x86 architecture. Because of very low popularity, I~have not investigated other chips with SPARC or Power Architecture.
 
 At minimum, each device has:
 \begin{itemize}
   \item at least one UART, for serial console
-  \item at least one Ethernet port, 100 MB/s or higher
+  \item at least one Ethernet port, 100~MB/s or higher
   \item at least one USB port, 2.0 or higher
   \item at least one GPIO pin
   \item SD card interface
@@ -343,11 +343,11 @@ A lot of deb packages were compiled for ARMv6 architecture and are available in 
 When standard modern PC devices like USB keyboard and HDMI display are connected, after plugging power through Micro-USB socket, it could be used as ordinary workstation.
 It is definitely not the most efficient way of embedded development, but that is how this board have changed rules of the game.
 
-The initial release of Raspberry Pi in 2012 was so successful, that because of enormous number of orders, people had to wait even a few months to get their one. 
-Beside price and enthusiastic hobbyists, also ``Raspberry Pi Foundation'', which is responsible for designing those boards, makes a big effort with providing documentation, educational materials and online forum.\cite{web:raspberrypi-forum}
-The project takes a lot of inspiration from British ``BBC Micro'' educational computers, including the split into reduced Model A and Model B as a full version, which also takes the most attention.
+The initial release of Raspberry Pi in 2012 was so successful, that because of enormous number of orders, people had to wait even a~few months to get their one. 
+Beside price and enthusiastic hobbyists, also ``Raspberry Pi Foundation'', which is responsible for designing those boards, makes a~big effort with providing documentation, educational materials and online forum.\cite{web:raspberrypi-forum}
+The project takes a~lot of inspiration from British ``BBC Micro'' educational computers, including the split into reduced Model~A and Model~B as a~full version, which also takes the most attention.
 
-The Broadcom BCM2835 System on a Chip that is used on first version of Raspberry Pi is using Vector Floating Point, which makes a lot of computing operations slower than with full-blown Floating-Point unit, but it also make the production cheaper.
+The Broadcom BCM2835 System on a~Chip that is used on first version of Raspberry Pi is using Vector Floating Point, which makes a~lot of computing operations slower than with full-blown Floating-Point unit, but it also make the production cheaper.
 This is the reason why the same SoC is used in other new Raspberry Pi devices, including Industrial Compute Module and Raspberry Pi Zero.
 
 
@@ -369,7 +369,7 @@ This is the reason why the same SoC is used in other new Raspberry Pi devices, i
 Despite mostly positive reviews for first version of Raspberry Pi, project was also criticized for some hardware design issues.
 Fragile SD card dock instead of microSD, electrolytic capacitor used for DC stabilization, wrong USB ports placement and unneeded composite video RCA jack was the most commonly complained.\cite{web:raspberrypi-issues}
 Fortunately, all those remarks were taken into consideration and models A+ and B+ were released in 2014 without those drawbacks.
-The iconic hardware layout was established, although it was still ``version 1'' without any further innovations, because all of the core parts, including micro-controller, remains the same.
+The iconic hardware layout was established, although it was still ``version~1'' without any further innovations, because all of the core parts, including micro-controller, remains the same.
 
 In the 2015, version 2 was released, with the same layout, but new Broadcom BCM2836 SoC.
 The most important is that it comes with newer ARMv7-A architecture.
@@ -396,12 +396,12 @@ More and more project are being inspired by Raspberry Pi: from its expansions li
 \section{BeagleBone Black}
 % https://beagleboard.org/black
 
-BeagleBone Black, together with preceding BeagleBone (White) and BeagleBoard are often named a competitors for the Raspbery Pi series.
+BeagleBone Black, together with preceding BeagleBone (White) and BeagleBoard are often named a~competitors for the Raspbery Pi series.
 Most important difference is that they are build upon Texas Instrument SoCs.
 
-The ``Black'', that was released in 2013 gains a lot of attention from more advanced users, that were able to see some of its advantage points, especially in comparison to first version of Raspberry Pi.
-Most appraisal goes to well placed expansion connectors, standard 5V power jack, MII based Ethernet (not through USB) and 2 GB of eMMC flash memory with pre-installed Angstrom Linux distribution.
-From build systems perspective, it is a big plus that TI AM3358 SoC support, is included into Linux kernel mainline, which means that there is no need for special patches.
+The ``Black'', that was released in 2013 gains a~lot of attention from more advanced users, that were able to see some of its advantage points, especially in comparison to first version of Raspberry Pi.
+Most appraisal goes to well placed expansion connectors, standard 5V power jack, MII based Ethernet (not through USB) and 2~GB of eMMC flash memory with pre-installed Angstrom Linux distribution.
+From build systems perspective, it is a~big plus that TI AM3358 SoC support, is included into Linux kernel mainline, which means that there is no need for special patches.
 
 There are still more and more boards being developed from this community including BeagleBoard X15 (2016), BeagleBone Green, BeagleBoard Blue and competitor to Raspbery Pi Zero: PockerBeagle (2017).
 
@@ -418,7 +418,7 @@ There are still more and more boards being developed from this community includi
 \section{PandaBoard}
 % http://pandaboard.org/
 
-PandaBoard was released in 2010, so it could be called a predecessor of other boards in its class. Despite having very strong ARM Cortex-A9 based TI OMAP4430 chip, that was used also for top class smartphones, everything seems to be very unfortunate.
+PandaBoard was released in 2010, so it could be called a~predecessor of other boards in its class. Despite having very strong ARM Cortex-A9 based TI OMAP4430 chip, that was used also for top class smartphones, everything seems to be very unfortunate.
 
 This board is very large compared to others, and high audio and Ethernet/USB connectors makes it especially unshapely, together with protruding full-size SD card. Ethernet is unfortunately provided just through USB hub chip. RS232 serial DB-9 connector is much less useful, that just making UART pins available, but using totally not popular USB type AB is even more ridiculous. After some initial popularity, most of community has scatted, that is especially painful when dealing with no support for its graphic hardware. The sad last cord happens when the domain \url{pandaboard.org} was not prolonged in 2017 and acquired by bots, which make all links from official documentation unavailable.
 
@@ -449,16 +449,16 @@ This board is very large compared to others, and high audio and Ethernet/USB con
 % wget http://elinux.org/images/7/7b/Wandboard-dual.jpg
 % mv Wandboard-dual.jpg wandboard-front.jpg
 
-This board represents the most powerfull i.MX 6 series SoC that was produced by Freescale (currently NXP, but also acquired by Qualcomm).
+This board represents the most powerfull i.MX~6 series SoC that was produced by Freescale (currently NXP, but also acquired by Qualcomm).
 One of the best advantages from this series, is that there are many types (i.e. Solo, Dual, Quad), that are pin to pin compatible.
 That makes it very friendly to mass-scale, but diverse hardware development, so there exists three typed of WandBoard depending on number of cores.
-Many aspects and examples compatible with this board were described in ``Linux w systemach i.MX 6 series'' by Marcin Bis.\cite{book:lws-imx6}
+Many aspects and examples compatible with this board were described in ``Linux w~systemach i.MX~6 series'' by Marcin Bis.\cite{book:lws-imx6}
 
 
 \section{x86\_64 (Asus Eee PC 1215n)}
 % https://www.asus.com/Laptops/Eee_PC_1215N/
 
-There is nothing special about this laptop, I choose it mostly because that is the x86\_64 device that I own. Because it is quite old and not aiming to be very powerful, its performance is comparable to development boards, like i.e. Wadnboard Quad. Fortunately it also have a SD card slot, so could be booted in the same way as others.
+There is nothing special about this laptop, I~choose it mostly because that is the x86\_64 device that I~own. Because it is quite old and not aiming to be very powerful, its performance is comparable to development boards, like i.e. Wadnboard Quad. Fortunately it also have a~SD card slot, so could be booted in the same way as others.
 
 \begin{figure}[htbp]
   \centering
@@ -562,7 +562,7 @@ There is nothing special about this laptop, I choose it mostly because that is t
 
 \chapter{Linux build systems for embedded devices}
 \label{chapter:build-systems}
-%\section{Creating a basic Linux system}
+%\section{Creating a~basic Linux system}
 %\label{section:basic-system}
 
 
@@ -570,13 +570,13 @@ There is nothing special about this laptop, I choose it mostly because that is t
 
 
 
-In this chapter I will describe all embedded Linux build systems in order of rising complexity.
-Since there is nothing more practical than a good example, the list of all shell commands that are essential to run complete build process, is presented on the beginning of each section.
-It will be then discussed line by line, in a reference to OS build systems structure presented in Section \ref{section:builders-structure}.
+In this chapter I~will describe all embedded Linux build systems in order of rising complexity.
+Since there is nothing more practical than a~good example, the list of all shell commands that are essential to run complete build process, is presented on the beginning of each section.
+It will be then discussed line by line, in a~reference to OS build systems structure presented in Section \ref{section:builders-structure}.
 Suggested way is not to copy and paste entire script, but rather execute commands line by line.
 In some cases input from user is needed, what will be marked with commented lines (using \#).
 
-To run freshly created distribution on Raspberry Pi from SD card in smallest possible number of steps is for distribution builders something like like printing ``Hello world!'' for programming or ``blinking a led'' for electronics project.
+To run freshly created distribution on Raspberry Pi from SD card in smallest possible number of steps is for distribution builders something like like printing ``Hello world!'' for programming or ``blinking a~led'' for electronics project.
 The most generic way seems to be just using Host OS as Target OS, but it excludes cross-compilation and testing system on real embedded device.
 
 Each of the examples assumes, that it is executed on freshly installed Debian instance.
@@ -592,7 +592,7 @@ sudo apt install make gcc g++ libncurses-dev unzip git \
 
 At the end of each script, the final image is being copied to home directory, to highlight its location.
 It could be especially useful when running build on special server and then downloading it to local machine in order to deploy it on real SD card.
-It could be done in many ways, even on Windows systems, but below I present the one that is most convenient for me:
+It could be done in many ways, even on Windows systems, but below I~present the one that is most convenient for me:
 
 \begin{lstlisting}
 pv sdcard.img | sudo dd of=/dev/sdb bs=4M oflag=dsync
@@ -629,9 +629,9 @@ With the use of \verb|pv| tool, the progress of mission-critical \verb|dd| could
 \end{figure}
 %https://buildroot.org/images/logo.png
 
-Buildroot is named a simple, efficient and easy-to-use tool to generate embedded Linux systems through cross-compilation. The name came from the process of building the root file system.
+Buildroot is named a~simple, efficient and easy-to-use tool to generate embedded Linux systems through cross-compilation. The name came from the process of building the root file system.
 
-Its initial public release takes place at January 2005. Latest stable release is 2017.11.1. The project is backed by the group of open source developers, not directly by any organization, but gets financial sponsorship from various companies. Especially the involvement of Thomas Petazzoni, the Chief Technical Officer of Free Electrons is worth to notice.\cite{web:buildroot-tpetazzoni}
+Its initial public release takes place at January~2005. Latest stable release is 2017.11.1. The project is backed by the group of open source developers, not directly by any organization, but gets financial sponsorship from various companies. Especially the involvement of Thomas Petazzoni, the Chief Technical Officer of Free Electrons is worth to notice.\cite{web:buildroot-tpetazzoni}
 
 %  The only difference between boards is \verb|defconfig| name.
 
@@ -656,17 +656,17 @@ cp output/images/sdcard.img ~
 
 Buildroot is the simplest among build systems from every point of view.
 Its source code releases could be downloaded from main website in two popular archive formats: tar.bz2 and tar.gz.
-The example of downloading is shown in line number 3.
+The example of downloading is shown in line number~3.
 Source code that do not belong into buildroot core is downloaded during build process.
 
 \subsection*{Host OS requirements}
 
-This initial package requirements for host OS, visible in line 1, are the smallest among all build systems.
-They seems to be obvious, but because they are only a few, each could be described:
+This initial package requirements for host OS, visible in line~1, are the smallest among all build systems.
+They seems to be obvious, but because they are only a~few, each could be described:
 
 \begin{itemize}
     \item \verb|make| - the main build utility, that run commands specified in \verb|Makefile|s
-    \item \verb|gcc|, \verb|g++| - C and C++ compilers, that will create a specyfic cross-compilation toolchain
+    \item \verb|gcc|, \verb|g++| - C and C++ compilers, that will create a~specyfic cross-compilation toolchain
     \item \verb|libncurses-dev| - library that makes able to create \verb|menuconfig| GUI in terminal
     \item \verb|unzip|, \verb|git| - most basic tools to getting source code and unpack archives
 \end{itemize}
@@ -680,12 +680,12 @@ The buildroot toolchain is based on GCC and could be compiled with use of variou
 As mentioned before, configuration management is borrowed from Linux kernel.
 \verb|make menuconfig| will open terminal GUI and results could be saved in \verb|.config| file.
 It is very convenient to just put that file under version control of target embedded project.
-There is also a lot of base configurations, that could be listed with \verb|make list-defconfig| and applied as shown in line 9.
+There is also a~lot of base configurations, that could be listed with \verb|make list-defconfig| and applied as shown in line~9.
 The configuration of Linux kernel could be accessed via \verb|make linux-menuconfig|
 
 \subsection*{Produced output}
 The login prompt on embedded device is shown on picture below.
-It is a tradition that default and only available admin user is \verb|root| with empty password.
+It is a~tradition that default and only available admin user is \verb|root| with empty password.
 Of course it could stay that way only for development purposes.
 
 \begin{figure}
@@ -733,9 +733,9 @@ Linux buildroot 4.9.52 #1 Sat Wed 24 12:00:00 UTC 2018 armv6l GNU/Linux
 \end{figure}
 %https://openwrt.org/.styles/img/openwrt-logo.png
 
-OpenWrt is named a Linux distribution for embedded devices. The name came from open source firmware for WRT54G series of wireless routers.
+OpenWrt is named a~Linux distribution for embedded devices. The name came from open source firmware for WRT54G series of wireless routers.
 
-Its initial public release takes place at January 2004. In May 2016 a group of its core developers decided to fork the project and create LEDE - Linux Embedded Development Environment. Fortunately in January 2018, it was officially announced that both projects will merge under the ``OpenWrt'' branding.
+Its initial public release takes place at January~2004. In May~2016 a~group of its core developers decided to fork the project and create LEDE - Linux Embedded Development Environment. Fortunately in January~2018, it was officially announced that both projects will merge under the ``OpenWrt'' branding.
 
 
 
@@ -759,17 +759,17 @@ cp build_dir/target-arm_arm1176jzf-s+vfp_musl-1.1.16_eabi/linux-brcm2708_bcm2708
 
 \subsection*{Source code}
 
-To get specific version of OpenWrt code one should get it thought git SCM, eventually pointing to a specific version tag.
+To get specific version of OpenWrt code one should get it thought git SCM, eventually pointing to a~specific version tag.
 Significantly, that from the beginning of 2018, merged source code is available from OpenWrt repository, but in some places still LEDE brand could be seen.
-It is specific for this system, that there is also a need to update and install package definitions, as shown in lines 4 and 5
+It is specific for this system, that there is also a~need to update and install package definitions, as shown in lines 4 and 5
 
 \subsection*{Host OS requirements}
 
-Package preliminary requirements are just a little bigger than in Buildroot.
+Package preliminary requirements are just a~little bigger than in Buildroot.
 
 \subsection*{Cross-compilation toolchain}
 
-Since OpenWrt is a Buildroot-based fork, there is also a possibility to create only toolchain in a very similar way: \verb|make toolchain/install|.
+Since OpenWrt is a~Buildroot-based fork, there is also a~possibility to create only toolchain in a~very similar way: \verb|make toolchain/install|.
 
 \subsection*{Target OS configuration}
 
@@ -779,7 +779,7 @@ As OprnWrt puts primary focus on routers and other networking devices, it is str
 \subsection*{Produced output}
 
 Login prompt could be seen on included figure.
-LEDE logo is still shown, as a result of ongoing merge process.
+LEDE logo is still shown, as a~result of ongoing merge process.
 
 
 \begin{figure}
@@ -846,9 +846,9 @@ Linux LEDE 4.4.92 #0 Wed Oct 24 12:00:00 2017 armv6l GNU/Linux
 %http://ltib.org/graphics/ltib_build.png
 
 
-LTIB is officially called a tool that can be used to develop and deploy BSPs (Board Support Packages) for a number of embedded target platforms. The name came from Linux Target Image Builder.
+LTIB is officially called a~tool that can be used to develop and deploy BSPs (Board Support Packages) for a~number of embedded target platforms. The name came from Linux Target Image Builder.
 
-It was launched and financed by Freescale Seminconductor around 2004-2005. In 2009 project was transferred to Savannah, but its development stopped at 2013 with version 13.2.1.
+It was launched and financed by Freescale Seminconductor around 2004-2005. In 2009 project was transferred to Savannah, but its development stopped at 2013 with version~13.2.1.
 
 
 % echo "cdynak ALL = NOPASSWD: /usr/bin/rpm, /opt/ltib/usr/bin/rpm" >> /etc/sudoers
@@ -910,25 +910,25 @@ cp output/images/sdcard.img ~
 
 \subsection*{Source code}
 
-Since LTIB development was moved to Savannah, it is possible to obtain tar.gz compiled code through HTTP from there, as shown in line 13.
+Since LTIB development was moved to Savannah, it is possible to obtain tar.gz compiled code through HTTP from there, as shown in line~13.
 Source code was maintained with the use of archaic cvs SCM, which shows how long time ago it was initiated.
 In relation to source code, it is also worth to mention, that \verb|./ltib| which is the initiating bash script, have 3000+ lines of code which for sure made it hard to maintain. 
 
 \subsection*{Host OS requirements}
 
 Host requirements are more and more intricate, due to halted LTIB development and rapid development of host systems, like Debian.
-There is a need to add i386 architecture support on host OS (line 7) and then install necessary packages (line 9)
+There is a~need to add i386 architecture support on host OS (line~7) and then install necessary packages (line~9)
 
 \subsection*{Cross-compilation toolchain}
 
 What differs it from previously described systems, is that cross-compilation toolchain is installed globally.
-Because of that, there is a need to have administrative privileges, most preferably just \verb|sudo| permissions.
-Some of platform (Raspberry Pi) specific packages are missing and they need to be prepared separately, as described in lines 3-5.
+Because of that, there is a~need to have administrative privileges, most preferably just \verb|sudo| permissions.
+Some of platform (Raspberry Pi) specific packages are missing and they need to be prepared separately, as described in lines~3-5.
 
 \subsection*{Target OS configuration}
 
 Here configuration is also based on \verb|menconfig|.
-The step with choosing platform need to be performed manually, in the way that is commented on line 16.
+The step with choosing platform need to be performed manually, in the way that is commented on line~16.
 % ./ltib -m imx6q ?
 
 \subsection*{Produced output}
@@ -968,7 +968,7 @@ Unfortunately this build system is so old, that it could support only first vers
 %https://www.ptxdist.org/images/PTXdist_Logo_RGB.svg
 %https://www.rauc.io/images/ptxdist_logo.png
 
-PTXdist is called a build system that creates embedded Linux distributions directly from the source code. The name came from combining shortcut of company Pengutronix and and word ``distribution''.
+PTXdist is called a~build system that creates embedded Linux distributions directly from the source code. The name came from combining shortcut of company Pengutronix and and word ``distribution''.
 
 Its initial public release dates back to 2010 and the latest stable version is 2017.12.0. Its developed and maintained by the German company Pengutronix.
 
@@ -1044,19 +1044,19 @@ For this build system it is not possible to download all its sources, because it
 \begin{itemize}
     \item PTXdist - specific higher level (than i.e. make) build tool, aimed to ``execute documentation''
     \item OSELAS.Toolchain - toolchain suggested by PTXdist
-    \item DistroKit - named a Build Support Package example, it is where default configurations for platforms like i.e. Raspbery Pi came from
+    \item DistroKit - named a~Build Support Package example, it is where default configurations for platforms like i.e. Raspbery Pi came from
 \end{itemize}
 
 \subsection*{Host OS requirements}
 
-There is nothing specific about hot OS requirements, beside that it is written explicitly in documentation, that there is a need to install globally two versions of PTXdist (lines 3-17).
+There is nothing specific about hot OS requirements, beside that it is written explicitly in documentation, that there is a~need to install globally two versions of PTXdist (lines~3-17).
 Latest one will be used for all operations, with the exception for building cross-compilation toolchain, for which the older one is needed.
 
 \subsection*{Cross-compilation toolchain}
 
 The OSELAS.Toolchain has not been updated since 2016 and that is why compatible ptxdist-2016.06.0 is needed.
-There is also a need to make an arbitrary decision about target cross compilation architecture, because it will be installed globally before configuring target.
-Example for Raspberry Pi is shown in lines 19-25.
+There is also a~need to make an~arbitrary decision about target cross compilation architecture, because it will be installed globally before configuring target.
+Example for Raspberry Pi is shown in lines~19-25.
 To create one for each architecture at once the script \verb|./build_all_v2.mk| could be run, but since there are about 16 different, it will take enormous amount of time.
 It is also possible to use binary packages of those toolchain, what is available to download from Pengutronix website.
 
@@ -1087,9 +1087,9 @@ For ARMv7 devices, target configuration it grouped under \verb|platform-v7a|, so
 \end{figure}
 % http://www.yoctoproject.org/docs/current/yocto-project-qs/figures/yocto-project-transp.png
 
-The Yocto Project is named an open source collaboration project that provides templates, tools and methods to help you create custom Linux-based systems for embedded products. Its name came from the smallest metric system unit prefix ``yocto'' that emphasize possibility to create tiny distributions.
+The Yocto Project is named an~open source collaboration project that provides templates, tools and methods to help you create custom Linux-based systems for embedded products. Its name came from the smallest metric system unit prefix ``yocto'' that emphasize possibility to create tiny distributions.
 
-The project under its current name was formed in 2010-2011 and the latest stable version is 2.4 ``Rocko'' released at October 2017. The Yocto Project is a lab workgroup of the Linux Foundation and its developed and maintained by the group of major companies, including ...
+The project under its current name was formed in 2010-2011 and the latest stable version is 2.4 ``Rocko'' released at October~2017. The Yocto Project is a~lab workgroup of the Linux Foundation and its developed and maintained by the group of major companies, including ...
 
 
 
@@ -1128,19 +1128,19 @@ They are divided into several groups:
     \item Base - there are only two core layers: \verb|openembedded-core| and \verb|meta-oe|, which need to be included for all projects
     \item Machine (BSP) - responsibility certain platforms support is split in this group, i.e. ``meta-ti'' layer provide configuration for both BeagleBone and PandaBoard and it is maintained with the help of Texas Instruments company
     \item Software - specific pieces of software are divided into layers like ``meta-nodejs'' for nodejs and ``meta-ros'' for Robotic Operating System packages
-    \item Distribution - this layer is responsible for higher level configuration and selecting groups of packages. Most well know is ``Ångström'', but the default one for Yocto Project is ``Pokey'', which is suggested as a reference for others.
+    \item Distribution - this layer is responsible for higher level configuration and selecting groups of packages. Most well know is ``Ångström'', but the default one for Yocto Project is ``Pokey'', which is suggested as a~reference for others.
     \item Miscealous - the rest, that do not fit into any other group, i.e. when it could be classified for more than one group
 \end{itemize}
 
 \subsection*{Host OS requirements}
 
-There is a need to have only basic packages on host operating systems, because everything else will be created in local directory as needed.
-Specific exception could be a ``repo'' tool, which installation is made in lines 1-3.
+There is a~need to have only basic packages on host operating systems, because everything else will be created in local directory as needed.
+Specific exception could be a~``repo'' tool, which installation is made in lines~1-3.
 It was borrowed from Android project, because it helps in to download multiple git repositories, based on provided XML configuration file.
 Layers could be downloaded and configured manually, but most of Yocto Project developer guides suggests to use this tool.
 
 \subsection*{Cross-compilation toolchain}
-It is also possible to only create a toolchain with command \verb|bitbake meta-toolchain|.
+It is also possible to only create a~toolchain with command \verb|bitbake meta-toolchain|.
 
 \subsection*{Target OS configuration}
 Target configuration is something what makes this tool very different from the others.
@@ -1190,10 +1190,10 @@ Linux raspberrypi 4.4.50 #1 Wed Jan 24 12:00:00 UTC 2018 armv6l GNU/Linux
 
 In the beginning, there was just LFS project that provides step-by-step instructions for building your own custom Linux system, entirely from source code.
 Its name came from Linux From Scratch.
-Its initial release was made in December 1999 and its latest stable version is 8.1 from September 2017. The project was initiated by Gerard Beekmans and gains support from many open source enthusiasts.
+Its initial release was made in December~1999 and its latest stable version is 8.1 from September~2017. The project was initiated by Gerard Beekmans and gains support from many open source enthusiasts.
 
 Then this project grows, the few sub-projects appeared, like Beyond LFS, to instruct future maintaining of custom distribution, as well as Cross LFS.
-LFS is well maintained and often have an official release, but CLFS have no regularity in that regard and no useful automation process, so it could be treated rather as a source of tips and tricks, than a build system.
+LFS is well maintained and often have an~official release, but CLFS have no regularity in that regard and no useful automation process, so it could be treated rather as a~source of tips and tricks, than a~build system.
 
 It is also possible to i.e. build new system from within Raspberry Pi using LFS instructions, but it then would not include the essential cross-compilation process.
 
@@ -1217,8 +1217,8 @@ It is also possible to i.e. build new system from within Raspberry Pi using LFS 
 
 % \section{Non-free and closed Source}
 
-% Horrible, awkward situation - like you need to call a special service to fix your hammer, instead of making it yourself.
-% There is a lot of companies, that provides commercial support like: free-electrons, ...
+% Horrible, awkward situation - like you need to call a~special service to fix your hammer, instead of making it yourself.
+% There is a~lot of companies, that provides commercial support like: free-electrons, ...
 
 % \subsection*{Wind River Linux}
 
@@ -1343,16 +1343,16 @@ In Chapter \ref{chapter:build-systems}, only the software requirements for each 
 Even if local PC or laptop have have very good parameters, it is very hard to provide at home Internet connection with constant bandwidth, which is important to compare time of each build process, because all package sources are being downloaded meanwhile.
 To have isolated environment with guaranteed parameters it is reasonable to use external hosting service.
 
-I choose OVH, because it is the one, that I am used to, especially I enjoy user interface, which is even open sources at \url{https://github.com/ovh-ux/ovh-manager-web}.
+I choose OVH, because it is the one, that I~am used to, especially I~enjoy user interface, which is even open sources at \url{https://github.com/ovh-ux/ovh-manager-web}.
 More reasonable arguments in favor to OVH is that it have data center in Poland (WAW) and enables direct access to OpenStack interface.
-For measure basic compilation time for each board and system respectively I use dedicated server, which is the most efficient option.
-Nevertheless, I also made tests with virtual machines through OpenStack, because it is very easy to change their parameters and compare growing build time.
-Initially, I used ``serwery.pl'' (subsidiary of ``nazwa.pl'' / NetArt) which also provides OpenStack platform, but it was removed in the middle of 2017.
+For measure basic compilation time for each board and system respectively I~use dedicated server, which is the most efficient option.
+Nevertheless, I~also made tests with virtual machines through OpenStack, because it is very easy to change their parameters and compare growing build time.
+Initially, I~used ``serwery.pl'' (subsidiary of ``nazwa.pl'' / NetArt) which also provides OpenStack platform, but it was removed in the middle of 2017.
 
 
 \section{OpenStack configuration}
 
-Before instructions for building target OS, presented in Chapter \ref{chapter:build-systems}, could be executed, there is a need to create and provision virtual machine.
+Before instructions for building target OS, presented in Chapter \ref{chapter:build-systems}, could be executed, there is a~need to create and provision virtual machine.
 
 % https://github.com/pkgcloud/pkgcloud
 % https://www.alibabacloud.com/
@@ -1373,7 +1373,7 @@ Before instructions for building target OS, presented in Chapter \ref{chapter:bu
   \item Choose instance name (build-server), type (c2-30-flex), image (Debian 9)
   \item Choose or create key pair
   \item Launch instance
-  \item Select ``volumes'' and ``create volume'' or... just select ``Boot from image (creates a new volume)'' 
+  \item Select ``volumes'' and ``create volume'' or... just select ``Boot from image (creates a~new volume)'' 
   \item Choose volume name (build-volume), type (SAS), size (50 GB)
   \item Create volume
   \item Attach volume to instance
@@ -1698,10 +1698,10 @@ Before instructions for building target OS, presented in Chapter \ref{chapter:bu
 \subsection*{Application specifications}
 
 It could be very fashionable nowadays to run essential parts of IoT applications ``in the cloud''.
-The most important reason for that is having a possibility to make live updates at any moments, but it results in big maintaining effort after release.
+The most important reason for that is having a~possibility to make live updates at any moments, but it results in big maintaining effort after release.
 It could be more convenient to run everything what is possible locally, because it enforces better software quality and protect from Internet connection problems.
 
-As an example, application from my 2015 engineering project ``System wizualizacji i sterowania obiektami automatyki'' (eng. ``Visualization and control system of automation objects'') was ported from ANSI C/PHP into easy deployable Node.js framework.
+As an~example, application from my 2015 engineering project ``System wizualizacji i~sterowania obiektami automatyki'' (eng. ``Visualization and control system of automation objects'') was ported from ANSI C/PHP into easy deployable Node.js framework.
 
 \subsection*{Building Node.js into target OS}
 
@@ -1757,7 +1757,7 @@ make menuconfig
 
 % containers implementation comparison - w00t?! - so many scientific papers with comparison (mostly about performance)
 
-In therms of software development, container is an instance of isolated user-space, that shares the kernel with its host operating system.\cite{web:what-container}
+In therms of software development, container is an~instance of isolated user-space, that shares the kernel with its host operating system.\cite{web:what-container}
 It could be described as lightweight virtual machine, because while VMs are realizing concepts of hardware abstraction, containers are abstraction for application layer.
 There is no need to emulate whole operating system layer, so they could use even 100-1000 less disk space.
 There are various implementations of container engines, like LXC or CoreOS rkt, but as for 2018 the most resonable choice is Docker, which is most popular, mature and stable.\cite{web:why-docker}
@@ -1846,11 +1846,11 @@ Each of build scripts, that are attached here, should be executed on CI server w
 
 % https://www.google.com/search?q=operating+system+builder
 
-There is a need for diversity. It is dangerous when one kernel becomes hegemonic. In healthy ecosystem, this project should be just ``embedded unix build systems'' - to also include MINIX, BSD, Darvin and HURD kernels. I wish I could name this work in this way one day. I could compare it to something like Ubuntu Bug \# 1 - ``Microsoft has a majority market share''.\cite{web:ubuntu-bug1}
+There is a~need for diversity. It is dangerous when one kernel becomes hegemonic. In healthy ecosystem, this project should be just ``embedded unix build systems'' - to also include MINIX, BSD, Darvin and HURD kernels. I~wish I~could name this work in this way one day. I~could compare it to something like Ubuntu Bug \# 1 - ``Microsoft has a~majority market share''.\cite{web:ubuntu-bug1}
 
 %github.com/cdynak/embedded-linux-build-systems
 
-% (i just scheduled an event for 2028 - to make presentation under that title - with unix - at \# osseu28)... the diversity is not about sociology - technology also
+% (i just scheduled an~event for 2028 - to make presentation under that title - with unix - at \# osseu28)... the diversity is not about sociology - technology also
 
 % cdynak.github.io/elbs, github.com/elbs, http://os.builders
 
@@ -1860,7 +1860,7 @@ There is a need for diversity. It is dangerous when one kernel becomes hegemonic
 
 
 
-% maybe make a course out of that...?
+% maybe make a~course out of that...?
 
 
 
@@ -1959,42 +1959,42 @@ There is a need for diversity. It is dangerous when one kernel becomes hegemonic
 
 \addcontentsline{toc}{chapter}{Streszczenie}
 \chapter*{Streszczenie}
-Celem tej pracy jest opisanie oraz porównanie narzędzi, które są wykorzystywane w procesie tworzenia systemu operacyjnego opartego o jądro Linux'a z przeznaczeniem na urządzenia wbudowane.
-Wszystkie z nich mają otwarty kod źródłowy i korzystają z licencji wolnego oprogramowania.
+Celem tej pracy jest opisanie oraz porównanie narzędzi, które są wykorzystywane w~procesie tworzenia systemu operacyjnego opartego o jądro Linux'a z~przeznaczeniem na urządzenia wbudowane.
+Wszystkie z~nich mają otwarty kod źródłowy i~korzystają z~licencji wolnego oprogramowania.
 
-W rozdziale 1 podawane są definicje najważniejszych pojęć występujących w pracy, takich jak ``system operacyjny'', ``jądro systemu operacyjnego'' oraz ``urządzenie wbudowane''.
+W rozdziale 1 podawane są definicje najważniejszych pojęć występujących w~pracy, takich jak ``system operacyjny'', ``jądro systemu operacyjnego'' oraz ``urządzenie wbudowane''.
 Jako przegląd literatury zostały przedstawione najważniejsze strony internetowe oraz organizacje kształtujące systemy implementacji wbudowanego Linuxa.
-Ze względu na inżynierski charakter oraz bardzo dynamiczny rozwój tej dziedziny, materiały z ogólnopolskich oraz międzynarodowych konferencji środowisk związanych z Linuxem i wolnym oprogramowaniem przeważają nad książkami oraz artykułami naukowymi.
+Ze względu na inżynierski charakter oraz bardzo dynamiczny rozwój tej dziedziny, materiały z~ogólnopolskich oraz międzynarodowych konferencji środowisk związanych z~Linuxem i~wolnym oprogramowaniem przeważają nad książkami oraz artykułami naukowymi.
 Na postawie zgromadzonej wiedzy zaproponowany jest podział systemów budowania na logiczne części.
 
 W rozdziale 2 zaprezentowane są urządzenia wbudowane, które będą wykorzystywane jako cele kross-kompilacji Linuxa.
-Są to zestawy deweloperskie służące do zapoznania się z danym mikrokontrolerem oraz do celów szybkiego prototypowania.
-Najbardziej popularna, a zatem posiadająca najlepsze wsparcie od społeczności jest seria Raspberry Pi, natomiast dla zapewnienia różnorodności wykorzystywane są także BeagleBoard, PandaBoard, WandBoard oraz klasyczny laptop Asus EeePC 1215n z procesorem Intel Atom (x86\_64).
+Są to zestawy deweloperskie służące do zapoznania się z~danym mikrokontrolerem oraz do celów szybkiego prototypowania.
+Najbardziej popularna, a~zatem posiadająca najlepsze wsparcie od społeczności jest seria Raspberry Pi, natomiast dla zapewnienia różnorodności wykorzystywane są także BeagleBoard, PandaBoard, WandBoard oraz klasyczny laptop Asus EeePC 1215n z~procesorem Intel Atom (x86\_64).
 Wobec tego reprezentowane są trzy najpopularniejsze mikroarchitektury ARM (Cortex-A7, Cortex-A8, Cortex-A9).
 Ze względu na posiadanie dużego zbioru wspólnych interfejsów, jak karta SD, USB oraz Ethernet, możliwe jest ich dokładne porównanie.
 
 W rozdziale 3 opisane są tytułowe systemy budowania: Buildroot, OpenWrt, LTIB, PTXdist oraz Yocto Project.
-Po krótkim wstępie dla danego narzędzia podana jest lista poleceń, która wywołuje pełen proces budowy od pobierania źródeł z internetu po przygotowanie gotowego obrazu na kartę SD.
-Każda komenda jest omówiona nawiązując do podziału zaproponowanego w rozdziale 1.
+Po krótkim wstępie dla danego narzędzia podana jest lista poleceń, która wywołuje pełen proces budowy od pobierania źródeł z~internetu po przygotowanie gotowego obrazu na kartę SD.
+Każda komenda jest omówiona nawiązując do podziału zaproponowanego w~rozdziale 1.
 Bez przykładów uruchomienia zaprezentowane są także bardziej oryginalne projekty spełniające definicje, takie jak CLFS (Cross Linux From Scratch) oraz Debian Multistrap.
 
 W rozdziale 4 przedstawione są wyniki eksperymentalnego procesu budowy.
-Ze względu na wielką ilość obliczeń oraz konieczność zapewnienia niezawodnego łącza o stałej prędkości, wszystkie procesy są wykonywane na specjalnie wynajętym do tego celu dedykowanym serwerze z procesorami Intel Xeon.
-Zbierane są metryki takie jak czas i całkowita wielkość folderu budowy, rozmiar systemu operacyjnego i czas od włączenia urządzenia do pojawienia się zachęty logowania.
-Eksperymenty podzielone są na dwie części: w pierwszej dla stałej mocy obliczeniowej wykonywane są procesy budowania dla różnych systemów i urządzeń wbudowanych, natomiast w drugiej pokazana jest zależność między szybkością maszyny a czasem trwania budowania.
+Ze względu na wielką ilość obliczeń oraz konieczność zapewnienia niezawodnego łącza o stałej prędkości, wszystkie procesy są wykonywane na specjalnie wynajętym do tego celu dedykowanym serwerze z~procesorami Intel Xeon.
+Zbierane są metryki takie jak czas i~całkowita wielkość folderu budowy, rozmiar systemu operacyjnego i~czas od włączenia urządzenia do pojawienia się zachęty logowania.
+Eksperymenty podzielone są na dwie części: w~pierwszej dla stałej mocy obliczeniowej wykonywane są procesy budowania dla różnych systemów i~urządzeń wbudowanych, natomiast w~drugiej pokazana jest zależność między szybkością maszyny a~czasem trwania budowania.
 
 W rozdziale 5 znajdują się praktyczne przykłady zastosowania systemów budowania.
-Najpierw omówiona jest aplikacja przygotowana przez autora wcześniej w ramach projektu inżynierskiego oraz metoda jej wdrożenia na urządzenie wbudowane.
-Ponieważ głównym wymaganiem jest zainstalowanie środowiska uruchomieniowego Node.js, w związku z tym przedstawiono sposoby na dodanie go poprzez każdy system budowania.
+Najpierw omówiona jest aplikacja przygotowana przez autora wcześniej w~ramach projektu inżynierskiego oraz metoda jej wdrożenia na urządzenie wbudowane.
+Ponieważ głównym wymaganiem jest zainstalowanie środowiska uruchomieniowego Node.js, w~związku z~tym przedstawiono sposoby na dodanie go poprzez każdy system budowania.
 Tak przygotowane urządzenie może być wykorzystywane jako brama Internetu Rzeczy.
-Następnie ukazany jest sposób tworzenia kontenerów przy użyciu wyników z dowolnego omówionego systemu budowania.
-Kontenery, opisywane jako lekkie maszyny wirtualne, są obecnie coraz częściej wykorzystywane w zastosowaniach produkcyjnych, szczególnie chmurowych.
-Przygotowany obraz systemu operacyjnego jest kompatybilny z popularnymi narzędziami orkiestracji, w tym przede wszystkim z Kubernetesem.
+Następnie ukazany jest sposób tworzenia kontenerów przy użyciu wyników z~dowolnego omówionego systemu budowania.
+Kontenery, opisywane jako lekkie maszyny wirtualne, są obecnie coraz częściej wykorzystywane w~zastosowaniach produkcyjnych, szczególnie chmurowych.
+Przygotowany obraz systemu operacyjnego jest kompatybilny z~popularnymi narzędziami orkiestracji, w~tym przede wszystkim z~Kubernetesem.
 
-W rozdziale 6 wysnute są wnioski i rekomendacje na dalszy rozwój tej publikacji oraz samych narzędzi budowania dystrybucji Linuxa.
-Przede wszystkim zawartość musi być aktualizowana przynajmniej raz do roku ze względu na częste zmiany, jakie zachodzą w wolnym oprogramowaniu.
+W rozdziale 6 wysnute są wnioski i~rekomendacje na dalszy rozwój tej publikacji oraz samych narzędzi budowania dystrybucji Linuxa.
+Przede wszystkim zawartość musi być aktualizowana przynajmniej raz do roku ze względu na częste zmiany, jakie zachodzą w~wolnym oprogramowaniu.
 Finalnie wyrażony jest niepokój, że mimo posiadania szerokiej gamy uniwersalnych narzędzi, wciąż obsługują one jedynie jądra Linuxa.
-Jak w każdym obszarze brak konkurencji może w dłuższej perspektywie doprowadzić do spadku jakości.
-Autor wyraża nadzieję, że wykorzystując te same narzędzia będzie można w przyszłości zbudować systemy oparte o jądra MINIX, BSD, Darvin oraz HURD.
+Jak w~każdym obszarze brak konkurencji może w~dłuższej perspektywie doprowadzić do spadku jakości.
+Autor wyraża nadzieję, że wykorzystując te same narzędzia będzie można w~przyszłości zbudować systemy oparte o jądra MINIX, BSD, Darvin oraz HURD.
 
 \end{document}
