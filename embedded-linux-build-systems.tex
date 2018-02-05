@@ -75,10 +75,10 @@
 
 The main task of this work is to describe and compare tools, that help in the process of creating and deploying Linux-based operating system on embedded devices.
 There are many publications, that prioritize one build system or are focused on low-level problems common for all, but there was a lack of treating them as one type of software.
-I'm trying to fill this gap and encourage everybody who is working with embedded Linux, to give a try for all presented tools.
+I am trying to fill this gap and encourage everybody who is working with embedded Linux, to give a try for all presented tools.
 
-It's also worth to emphasize, that this topic is not limited to hobby projects and academic research, but it's essential for commercial and industrial applications.
-Since nowadays micro-controllers are much more powerful and enormously cheaper than yesterday's supercomputers, the main focus has moved from resources optimization to convenient maintaining.
+It is also worth to emphasize, that this topic is not limited to hobby projects and academic research, but it is essential for commercial and industrial applications.
+Since nowadays micro-controllers are much more powerful and enormously cheaper than yesterdays supercomputers, the main focus has moved from resources optimization to convenient maintaining.
 Growing costs of employment are also forcing companies to shorten time to market with the use of existing software components, especially free and open source ones.
 The overwhelming use of Linux in modern embedded devices, instead of traditional bare-metal programming, is shown on the Figure \ref{fig:iot-os}.
 
@@ -106,7 +106,7 @@ Despite that every aspect of computing could be described by numbers and mathema
 \paragraph{Linux distribution} is the operating system, that is built upon the Linux kernel.
 % is using the Linux kernel? - be careful with i.e. "Windows subsystem for Linux" case
 
-% \paragraph{Note:} Based on those definitions we could say that $kernel \le OS$, so $Linux < OS$ or $Linux = OS$ depending on case.
+% \paragraph{Note:} Based on those definitions, it could be said that $kernel \le OS$, so $Linux < OS$ or $Linux = OS$ depending on case.
 
 \paragraph{Embedded device} is a micro-controller based device, that has a fixed purpose and strictly limited user interface.
 
@@ -223,7 +223,7 @@ The most valuable source of technical information is and always should be offici
 
 The key of the Linux great success is the easy accessible source code and the free software license. The possibility to engage unlimited number of people to add new functionality and fix bugs is something closer to science than to merchandising, which is the best way for engineers to get things done. Exactly the same rule apply to creating Linux based OS'es for embedded devices. Because there is a lot of subtle differences between micro-controllers, it is essential to be able to modify or just analyze every line of code.
 
-However, the way of obtaining the whole build system is not that obvious and even differ a lot from one, to another. The most convenient way seems to be just downloading the archival version as one file through HTTP and then decompress it on our host machine. But in some cases it would be better to get it through a version control system as it is convenient for browsing history and sharing our changes. It's also worth mentioning that all the tools I am describing are versioned also with the use of open source software tools: mostly git, which itself also came from Linus Torvalds, and sometimes subversion. Things are getting harder when the build system is split into independent parts or we need additional meta tools to get each of them. I am clarifying it step by step in Chapter \ref{chapter:build-systems}.
+However, the way of obtaining the whole build system is not that obvious and even differ a lot from one, to another. The most convenient way seems to be just downloading the archival version as one file through HTTP and then decompress it on our host machine. But in some cases it would be better to get it through a version control system as it is convenient for browsing history and sharing our changes. It is also worth mentioning that all the tools I am describing are versioned also with the use of open source software tools: mostly git, which itself also came from Linus Torvalds, and sometimes subversion. Things are getting harder when the build system is split into independent parts or additional meta tools ar needed to get each of them. I am clarifying it step by step in Chapter \ref{chapter:build-systems}.
 
 
 \subsection*{Host OS requirements}
@@ -231,10 +231,10 @@ However, the way of obtaining the whole build system is not that obvious and eve
 \paragraph{Host Operating System} is the operating system where the cross-compilation is made.
 
 \subsubsection{Software requirements}
-As it seems obvious, host OS need to be Unix-like, preferably Linux-based and with rpm or deb package manager. Whenever source code is under free licence, you could run it anywhere, but it may need some manual tweaking. When running build systems for the first time, Debian or Red Hat or their derivatives, like Ubuntu or Fedora are only reasonable choices. Whenever I am mentioning Host OS here, I mean Debian GNU/Linux, because that's the one, that I am most familiar with and to be precise it is stable version 9 (code name Stretch). As a result, please notice, that I refer to all packages with their deb name as default. In most cases there are equivalents in rpm packages, sometimes with different naming convention like suffix ``-devel'' instead of ``-dev'' for so called ``development packages'', that contain source code.
+As it seems obvious, host OS need to be Unix-like, preferably Linux-based and with rpm or deb package manager. Whenever source code is under free licence, you could run it anywhere, but it may need some manual tweaking. When running build systems for the first time, Debian or Red Hat or their derivatives, like Ubuntu or Fedora are only reasonable choices. Whenever I am mentioning Host OS here, I mean Debian GNU/Linux, because that is the one, that I am most familiar with and to be precise it is stable version 9 (code name Stretch). As a result, please notice, that I refer to all packages with their deb name as default. In most cases there are equivalents in rpm packages, sometimes with different naming convention like suffix ``-devel'' instead of ``-dev'' for so called ``development packages'', that contain source code.
 
 \subsubsection{Hardware requirements}
-The software requirements are easy to satisfy, because we could get Linux distribution with no cost and deploy it within minutes on a virtual machine, but the hardware resources are more crucial. I prefer to use cheap laptops and the last time I tried, the compilation of the Linux kernel took a lot of lime, so It is worth to notice, because it was only kernel compilation, excluding any packages. For modern machines it is not such a big problem, but anyway most tutorials are suggesting to get away from computer and enjoy a ``large hot drink''. Whenever it is not explicitly noted otherwise, I am using externally hosted dedicated server with Intel(R) Xeon(R) CPU E3-1270 v6 @ 3.80GHz (8 cores) and 32 GiB RAM. The comparison of resource usage could be found in Chapter \ref{chapter:build-comparison}.
+The software requirements are easy to satisfy, because most useful Linux distribution have no costs and could be deployed within minutes on a virtual machine, but the hardware resources are more crucial. I prefer to use cheap laptops and the last time I tried, the compilation of the Linux kernel took a lot of lime, so It is worth to notice, because it was only kernel compilation, excluding any packages. For modern machines it is not such a big problem, but anyway most tutorials are suggesting to get away from computer and enjoy a ``large hot drink''. Whenever it is not explicitly noted otherwise, I am using externally hosted dedicated server with Intel(R) Xeon(R) CPU E3-1270 v6 @ 3.80GHz (8 cores) and 32 GiB RAM. The comparison of resource usage could be found in Chapter \ref{chapter:build-comparison}.
 
 \subsection*{Cross-compilation toolchain}
 % https://toolchains.free-electrons.com
@@ -242,7 +242,7 @@ The software requirements are easy to satisfy, because we could get Linux distri
 
 As mentioned at the beginning of this chapter, cross-compilation is essential for the whole process, because embedded devices have different processor architecture than the host system in all considered cases. Before cross-compilation could start, the cross-compiler must already exist on the system or it will be created at the beginning. It needs to be done only once, but I am treating it as part of the complete build process.
 
-The default compiler is obviously GCC in all cases, because it fits perfectly in the open source / Unix-like ecosystem and it is its base building block. There is also a possibility to select another compiler, like i.e. clang. We could choose different linker as well. The default one is the GNU linker (or GNU ld), but because of the enormous number of linking operations, different one like ``gold linker'' could be considered, which seems to be faster. That one is also a part of GNU Project. At the beginning I will choose the most basic setup, to make things easily comparable. 
+The default compiler is obviously GCC in all cases, because it fits perfectly in the open source / Unix-like ecosystem and it is its base building block. There is also a possibility to select another compiler, like i.e. clang. Different linker could be chosen as well. The default one is the GNU linker (or GNU ld), but because of the enormous number of linking operations, different one like ``gold linker'' could be considered, which seems to be faster. That one is also a part of GNU Project. At the beginning I will choose the most basic setup, to make things easily comparable. 
 
 
 \subsection*{Target OS configuration}
@@ -257,7 +257,7 @@ One of the most problematic issues when dealing with embedded device software is
 
 \subsubsection{Kernel}
 % https://en.wikipedia.org/wiki/Menuconfig
-Device tree is rescuing Linux kernel from using weird and complicated mechanism of applying patches, but there is much more things to configure there beside hardware. Core security options as well as device drivers could not be provided in upper layers of operating system, but need to be compiled into kernel. Linux has its well established configuration system based on Makefiles, which could be managed text-based or graphically with invoking commands like \verb|make config|, \verb|make menuconfig| or \verb|make xconfig|. This is also available from each embedded Linux build system, where we also have ability to choose separate and independently compiled kernel.
+Device tree is rescuing Linux kernel from using weird and complicated mechanism of applying patches, but there is much more things to configure there beside hardware. Core security options as well as device drivers could not be provided in upper layers of operating system, but need to be compiled into kernel. Linux has its well established configuration system based on Makefiles, which could be managed text-based or graphically with invoking commands like \verb|make config|, \verb|make menuconfig| or \verb|make xconfig|. This is also available from each embedded Linux build system, where it is possible to choose separate and independently compiled kernel.
 
 \subsubsection{Init system}
 % TODO: describe each init system
@@ -271,12 +271,12 @@ The first process that is evoked by the kernel is called ``init''; Most popular 
 \end{itemize}
 
 \subsubsection{Software packages}
-The highest layer of target OS configuration is managing software packages and this is where we see nobleness of described tools. Most of systems borrow the Makefile style from Linux kernel, but Yocto Project is notable exception and is using its own system named ``bitbake''. Every system gives a possibility to choose from variety of prepared packages, but makes it also quite easy to add own software, which is the essence of whole process.
+The highest layer of target OS configuration is managing software packages and this is where nobleness of described tools is shown. Most of systems borrow the Makefile style from Linux kernel, but Yocto Project is notable exception and is using its own system named ``bitbake''. Every system gives a possibility to choose from variety of prepared packages, but makes it also quite easy to add own software, which is the essence of whole process.
 
 \subsection*{Produced output}
 % TODO: describe each output
 
-For real-life rapid-prototyping and also for purpose of this publication, the most desired output is just one file with image, that could be flashed to SD card and making our Linux distribution run on target embedded device. Nevertheless, it's the final product and also other useful semi-finished products becomes available. It could be grouped in the following way:
+For real-life rapid-prototyping and also for purpose of this publication, the most desired output is just one file with image, that could be flashed to SD card and making our Linux distribution run on target embedded device. Nevertheless, it is the final product and also other useful semi-finished products becomes available. It could be grouped in the following way:
 
 \begin{itemize}
     \item cross-compilation toolchain
@@ -631,7 +631,7 @@ With the use of \verb|pv| tool, the progress of mission-critical \verb|dd| could
 
 Buildroot is named a simple, efficient and easy-to-use tool to generate embedded Linux systems through cross-compilation. The name came from the process of building the root file system.
 
-It's initial public release takes place at January 2005. Latest stable release is 2017.11.1. The project is backed by the group of open source developers, not directly by any organization, but gets financial sponsorship from various companies. Especially the involvement of Thomas Petazzoni, the Chief Technical Officer of Free Electrons is worth to notice.\cite{web:buildroot-tpetazzoni}
+Its initial public release takes place at January 2005. Latest stable release is 2017.11.1. The project is backed by the group of open source developers, not directly by any organization, but gets financial sponsorship from various companies. Especially the involvement of Thomas Petazzoni, the Chief Technical Officer of Free Electrons is worth to notice.\cite{web:buildroot-tpetazzoni}
 
 %  The only difference between boards is \verb|defconfig| name.
 
@@ -735,7 +735,7 @@ Linux buildroot 4.9.52 #1 Sat Wed 24 12:00:00 UTC 2018 armv6l GNU/Linux
 
 OpenWrt is named a Linux distribution for embedded devices. The name came from open source firmware for WRT54G series of wireless routers.
 
-It's initial public release takes place at January 2004. In May 2016 a group of its core developers decided to fork the project and create LEDE - Linux Embedded Development Environment. Fortunately in January 2018, it was officially announced that both projects will merge under the ``OpenWrt'' branding.
+Its initial public release takes place at January 2004. In May 2016 a group of its core developers decided to fork the project and create LEDE - Linux Embedded Development Environment. Fortunately in January 2018, it was officially announced that both projects will merge under the ``OpenWrt'' branding.
 
 
 
@@ -1089,7 +1089,7 @@ For ARMv7 devices, target configuration it grouped under \verb|platform-v7a|, so
 
 The Yocto Project is named an open source collaboration project that provides templates, tools and methods to help you create custom Linux-based systems for embedded products. Its name came from the smallest metric system unit prefix ``yocto'' that emphasize possibility to create tiny distributions.
 
-The project under it's current name was formed in 2010-2011 and the latest stable version is 2.4 ``Rocko'' released at October 2017. The Yocto Project is a lab workgroup of the Linux Foundation and its developed and maintained by the group of major companies, including ...
+The project under its current name was formed in 2010-2011 and the latest stable version is 2.4 ``Rocko'' released at October 2017. The Yocto Project is a lab workgroup of the Linux Foundation and its developed and maintained by the group of major companies, including ...
 
 
 
@@ -1524,7 +1524,7 @@ Before instructions for building target OS, presented in Chapter \ref{chapter:bu
 % /dev/root                58.2M     49.6M      4.5M  92% /
 
 % OPTIMIZATION
-% don't making full linux kernel clone
+% do not make full linux kernel clone
 
 % distributed compilation
 % https://github.com/icecc/icecream
@@ -1761,7 +1761,7 @@ In therms of software development, container is an instance of isolated user-spa
 It could be described as lightweight virtual machine, because while VMs are realizing concepts of hardware abstraction, containers are abstraction for application layer.
 There is no need to emulate whole operating system layer, so they could use even 100-1000 less disk space.
 There are various implementations of container engines, like LXC or CoreOS rkt, but as for 2018 the most resonable choice is Docker, which is most popular, mature and stable.\cite{web:why-docker}
-While comparing the Linux build systems, we will not touch the container orchestration topic, that is essential in real deployments\cite{web:container-orchestration}, but the produced containers will be fully compatibile with orchestation tools.
+While comparing the Linux build systems, the container orchestration topic, that is essential in real deployments\cite{web:container-orchestration}, will not be touched, but the produced containers are fully compatibile with orchestation tools.
 
 \subsection*{Docker installation on host OS}
 
@@ -1962,7 +1962,7 @@ There is a need for diversity. It is dangerous when one kernel becomes hegemonic
 Celem tej pracy jest opisanie oraz porównanie narzędzi, które są wykorzystywane w procesie tworzenia systemu operacyjnego opartego o jądro Linux'a z przeznaczeniem na urządzenia wbudowane.
 Wszystkie z nich mają otwarty kod źródłowy i korzystają z licencji wolnego oprogramowania.
 
-W rozdziale 1 podawane są definicje najważniejszych pojęć występujących w pracy, takich jak ''system operacyjny'', ''jądro systemu operacyjnego'' oraz ''urządzenie wbudowane''.
+W rozdziale 1 podawane są definicje najważniejszych pojęć występujących w pracy, takich jak ``system operacyjny'', ``jądro systemu operacyjnego'' oraz ``urządzenie wbudowane''.
 Jako przegląd literatury zostały przedstawione najważniejsze strony internetowe oraz organizacje kształtujące systemy implementacji wbudowanego Linuxa.
 Ze względu na inżynierski charakter oraz bardzo dynamiczny rozwój tej dziedziny, materiały z ogólnopolskich oraz międzynarodowych konferencji środowisk związanych z Linuxem i wolnym oprogramowaniem przeważają nad książkami oraz artykułami naukowymi.
 Na postawie zgromadzonej wiedzy zaproponowany jest podział systemów budowania na logiczne części.
