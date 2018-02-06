@@ -93,7 +93,11 @@ The overwhelming use of Linux in modern embedded devices, instead of traditional
 \section{Basic definitions}
 % TODO: add bibliography sources
 
-Despite that every aspect of computing could be described by numbers and mathematical operations, there could be plenty of definitions for one and the same thing. Unfortunately the naming conventions are sometimes misleading, as it is in the area which I~am describing. People understand the word ``Linux'' differently in different contexts, as there is also the never ending debate about the term ``GNU/Linux''.\cite{web:gnu-linux} Sometimes buzzwords like ``cloud'' and ``Internet of Things'' (IoT) are strongly promoted due to commercial issues, which makes common understanding even more unclear. Therefore, I~would like to explain how to interpret the key wording.
+Despite that every aspect of computing could be described by numbers and mathematical operations, there could be plenty of definitions for one and the same thing.
+Unfortunately the naming conventions are sometimes misleading and it also applies to the area which I~am describing.
+People understand the word ``Linux'' differently in different contexts, as there is also the never ending debate about the term ``GNU/Linux''.\cite{web:gnu-linux}
+Buzzwords like ``cloud'' and ``Internet of Things'' (IoT) are strongly promoted due to commercial issues, which makes common understanding even more unclear.
+Therefore, I~would like to explain how to interpret the key wording.
 
 \paragraph{Operating system} is a~software that manages hardware resources and provides interface to run other programs.\cite{web:def-os}
 
@@ -124,7 +128,7 @@ There are two important issues, that I~faced while trying to make literature rev
 The first issue was very clear in the previous (20th) century - making literature review was mostly limited to analyzing two kind of printed materials: longer ones which were just scientific books and shorter ones which were peer reviewed articles in technical journals.
 Right now they are also available and easy accessible in electronic form and still they are the most reliable sources for literature review, but not every IT engineer is using it.
 Open Source Software and Open Source Hardware movement, beside creating lot of tools, also created a~lot of written knowledge, but they are distributed in very different ways: project documentation, presentations, tutorials, source code comments, READMEs, How Tos, FAQs, wikis, finally blog and forum posts, but also in other forms.
-Because they are all available via Internet, there exists one unified way to reference them: URL (Unified Resource Locator) also known as web address or link.
+Because they are all available via Internet, there exists one unified way to reference them: Unified Resource Locator (URL) also known as web address or link.
 Because of that, this and most of other bibliographies are filled with URLs, not ISBNs.
 
 The second thing is how to be sure that I~covered every aspect, at least by mentioning. Search results are personalized, both by behavior of searcher, that is choosing keywords and also Search Engine Optimization.
@@ -173,8 +177,8 @@ The Table \ref{table:wikipedia} summarizes pages that are most relevant for this
     \hline
     \url{https://en.wikipedia.org/wiki/Comparison_of_single-board_computers} & \\
     \hline
-    \url{https://en.wikipedia.org/wiki/Embedded_Linux_build_systems} & \\
-    \hline
+%    \url{https://en.wikipedia.org/wiki/Embedded_Linux_build_systems} & \\
+%    \hline
   \end{tabular}
   \caption{The Wikipedia articles, that I~both learned from and extended}
   \label{table:wikipedia}
@@ -234,7 +238,7 @@ However, the way of obtaining the whole build system is not that obvious and eve
 As it seems obvious, host OS need to be Unix-like, preferably Linux-based and with rpm or deb package manager. Whenever source code is under free licence, you could run it anywhere, but it may need some manual tweaking. When running build systems for the first time, Debian or Red Hat or their derivatives, like Ubuntu or Fedora are only reasonable choices. Whenever I~am mentioning Host OS here, I~mean Debian GNU/Linux, because that is the one, that I~am most familiar with and to be precise it is stable version 9 (code name Stretch). As a~result, please notice, that I~refer to all packages with their deb name as default. In most cases there are equivalents in rpm packages, sometimes with different naming convention like suffix ``-devel'' instead of ``-dev'' for so called ``development packages'', that contain source code.
 
 \subsubsection{Hardware requirements}
-The software requirements are easy to satisfy, because most useful Linux distribution have no costs and could be deployed within minutes on a~virtual machine, but the hardware resources are more crucial. I~prefer to use cheap laptops and the last time I~tried, the compilation of the Linux kernel took a~lot of lime, so It is worth to notice, because it was only kernel compilation, excluding any packages. For modern machines it is not such a~big problem, but anyway most tutorials are suggesting to get away from computer and enjoy a~``large hot drink''. Whenever it is not explicitly noted otherwise, I~am using externally hosted dedicated server with Intel(R) Xeon(R) CPU E3-1270 v6 @ 3.80GHz (8~cores) and 32~GiB RAM. The comparison of resource usage could be found in Chapter \ref{chapter:build-comparison}.
+The software requirements are easy to satisfy, because most useful Linux distribution have no costs and could be deployed within minutes on a~virtual machine, but the hardware resources are more crucial. I~prefer to use cheap laptops and the last time I~tried, the compilation of the Linux kernel took a~lot of lime, so It is worth to notice, because it was only kernel compilation, excluding any packages. For modern machines it is not such a~big problem, but anyway most tutorials are suggesting to get away from computer and enjoy a~``large hot drink''. The comparison of resource usage could be found in Chapter \ref{chapter:build-comparison}.
 
 \subsection{Cross-compilation toolchain}
 % https://toolchains.free-electrons.com
@@ -454,6 +458,9 @@ One of the best advantages from this series, is that there are many types (i.e. 
 That makes it very friendly to mass-scale, but diverse hardware development, so there exists three typed of WandBoard depending on number of cores.
 Many aspects and examples compatible with this board were described in ``Linux w~systemach i.MX~6 series'' by Marcin Bis.\cite{book:lws-imx6}
 
+%The same community is also very active in exploring latest i.MX series products.
+%In 2018 they are planning to release series of WAND-PI-8M boards based on NXP i.MX8M Quad processor, that contains two types of cores: ARM Cortex-A53 + M4.
+
 
 \section{x86\_64 (Asus Eee PC 1215n)}
 % https://www.asus.com/Laptops/Eee_PC_1215N/
@@ -504,7 +511,7 @@ There is nothing special about this laptop, I~choose it mostly because that is t
 
 
 
-\section{Devices comparison}
+%\section{Devices comparison}
 
 \begin{landscape}
 
@@ -751,7 +758,7 @@ make defconfig
 make menuconfig
 # Target System (Broadcom BCM27xx)
 # Target Profile (Raspberry Pi B/B+/CM/Zero/ZeroW)
-time make
+time make -j
 cp build_dir/target-arm_arm1176jzf-s+vfp_musl-1.1.16_eabi/linux-brcm2708_bcm2708/tmp/lede-brcm2708-bcm2708-rpi-ext4-sdcard.img ~
 \end{lstlisting}
 
@@ -998,7 +1005,6 @@ Its initial public release dates back to 2010 and the latest stable version is 2
 
 \begin{lstlisting}
 sudo apt install make gcc g++ libncurses-dev unzip git gawk flex bison gettext python-dev lzop pkg-config libxml-parser-perl
-
 wget http://public.pengutronix.de/software/ptxdist/ptxdist-2018.01.0.tar.bz2
 tar -xjf ptxdist-2018.01.0.tar.bz2
 cd ptxdist-2018.01.0
@@ -1006,7 +1012,6 @@ cd ptxdist-2018.01.0
 make
 sudo make install
 cd ..
-
 wget http://public.pengutronix.de/software/ptxdist/ptxdist-2016.06.0.tar.bz2
 tar -xjf ptxdist-2016.06.0.tar.bz2
 cd ptxdist-2016.06.0
@@ -1113,7 +1118,7 @@ repo init -u https://github.com/cdynak/yocto-manifest -m $MACHINE.xml
 repo sync
 
 source poky/oe-init-build-env
-MACHINE=wandboard DISTRO=poky source setup-environment build
+%MACHINE=wandboard DISTRO=poky source setup-environment build
 % vi conf/bblayers.conf (...?)
 time bitbake core-image-minimal
 cp tmp/deploy/images/$MACHINE/*img ~
@@ -1247,16 +1252,14 @@ It is also possible to i.e. build new system from within Raspberry Pi using LFS 
     \hline
     release cycle & three month\cite{web:buildroot-releases} & irregular (approx 1 year) & irregular (approx 2 years)\cite{web:ltib-releases} & one month\cite{web:ptxdist-releases} & six months\cite{web:yoctoproject-releases} & irregular\cite{web:clfs-releases}\\
     \hline
-    number of supported packages &  &  &  &  &  & \\
-    \hline
-    number of supported boards &  &  &  &  &  & \\
-    \hline
-    total number of required packages &  &  &  &  &  & \\
-    \hline
-    total size of required packages &  &  &  &  &  & \\
-    \hline
-    name &  &  &  &  &  & \\
-    \hline
+%    number of supported packages &  &  &  &  &  & \\
+%    \hline
+%    number of supported boards &  &  &  &  &  & \\
+%    \hline
+%    total number of required packages &  &  &  &  &  & \\
+%    \hline
+%    total size of required packages &  &  &  &  &  & \\
+%    \hline
   \end{tabular}
   \caption{Embedded Linux build systems overview}
 \end{table}
@@ -1340,19 +1343,16 @@ It is also possible to i.e. build new system from within Raspberry Pi using LFS 
 
 \section{Build servers}
 In Chapter \ref{chapter:build-systems}, only the software requirements for each build system were specified, but because of enormous amount of compilation happening, hardware resources are significant.
-Even if local PC or laptop have very good parameters, it is very hard to provide at home Internet connection with constant bandwidth, which is important to compare time of each build process, because all package sources are being downloaded meanwhile.
+Even if owned PC or laptop have very good parameters, it is very hard to provide at home Internet connection with constant bandwidth, which is important to compare time of each build process, because all package sources are being downloaded meanwhile.
 To have isolated environment with guaranteed parameters it is reasonable to use external hosting service.
 
 I choose OVH, because it is the one, that I~am used to, especially I~enjoy user interface, which is even open sourced at \url{https://github.com/ovh-ux/ovh-manager-web}.
-More reasonable arguments in favor to OVH is that it have data center in Poland (WAW) and enables direct access to OpenStack interface.
-For measure basic compilation time for each board and system respectively I~use dedicated server, which is the most efficient option.
-Nevertheless, I~also made tests with virtual machines through OpenStack, because it is very easy to change their parameters and compare growing build time.
+More reasonable arguments in favor to OVH is that it have data center in Poland (WAW) and enables direct access to OpenStack.
 Initially, I~used ``serwery.pl'' (subsidiary of ``nazwa.pl'' / NetArt) which also provides OpenStack platform, but it was removed in the middle of 2017.
 
 
-\section{OpenStack configuration}
 
-Before instructions for building target OS, presented in Chapter \ref{chapter:build-systems}, could be executed, there is a~need to create and provision virtual machine.
+
 
 % https://github.com/pkgcloud/pkgcloud
 % https://www.alibabacloud.com/
@@ -1365,33 +1365,12 @@ Before instructions for building target OS, presented in Chapter \ref{chapter:bu
 % s1-2 - VCPUs: 1, RAM: 2,000 MB
 % b2-30-flex - VCPUs: 8, RAM: 29.3 GB / 30,000 MB
 
-\subsection*{VM creation}
 
-\begin{enumerate}
-  \item Login to Horizon panel (https://horizon.cloud.ovh.net)
-  \item Select ``instances'' and ``launch instance''
-  \item Choose instance name (build-server), type (c2-30-flex), image (Debian 9)
-  \item Choose or create key pair
-  \item Launch instance
-  \item Select ``volumes'' and ``create volume'' or... just select ``Boot from image (creates a~new volume)'' 
-  \item Choose volume name (build-volume), type (SAS), size (50 GB)
-  \item Create volume
-  \item Attach volume to instance
-\end{enumerate}
-
-\subsection*{VM provisioning}
-
-\begin{enumerate}
-  \item identify (\verb|$HOST_KEYS $HOST_USER $HOST_IP $VOLUME_ID|)
-  \item Login with (\verb|ssh -i $HOST_KEYS $HOST_USER@$HOST_IP|)
-  \item Update system (\verb|sudo apt update && sudo apt upgrade|)
-  \item Create partition on volume (\verb|sudo mkfs.ext4 /dev/sdb|)
-  \item Mount volume (\verb|sudo mount /dev/sdb /mnt/|)
-  \item (\verb|sudo chown debian:debian /mnt/|)
-  \item Navigate to mounted directory (\verb|cd /mnt/|)
-\end{enumerate}
 
 \section{Tests in respect to target OS}
+
+Basic compilation time for each board and system was measured on externally hosted dedicated server with Intel(R) Xeon(R) CPU E3-1270 v6 @ 3.80GHz (8~cores) and 32~GiB RAM.
+Whenever configuration for target device was not available, it was marked by ``-'' signs.
 
 \begin{landscape}
 
@@ -1402,17 +1381,17 @@ Before instructions for building target OS, presented in Chapter \ref{chapter:bu
     \hline
     name & Raspberry Pi 1 & Raspberry Pi 2 & BeagleBone Black & PandaBoard & Wandboard Quad & Asus Eee PC 1215n \\
     \hline
-    real time & 17m33.619s & 20m15.836s & 26m12.604s & 11m41.240s & 11m39.519s &  \\
+    real time & 17m33.619s & 20m15.836s & 26m12.604s & 11m41.240s & 11m39.519s & 17m40.604s \\
     \hline
-    user time & 73m47.968s & 74m30.368s & 55m52.408s & 49m39.200s & 48m33.172s &  \\
+    user time & 73m47.968s & 74m30.368s & 55m52.408s & 49m39.200s & 48m33.172s & 53m31.832s \\
     \hline
-    sys time & 3m54.620s & 3m58.084s & 3m13.860s & 2m31.172s & 2m27.688s &  \\
+    sys time & 3m54.620s & 3m58.084s & 3m13.860s & 2m31.172s & 2m27.688s & 2m30.832s \\
     \hline
-    buildroot-2017.11.1/ & 5.4G & 5.4G & 6.0G & 4.8G & 4.7G & \\
+    buildroot/ & 5.4G & 5.4G & 6.0G & 4.8G & 4.7G & 5.9G \\
     \hline
-    sdcard.img & 93M & 93M & 77M & 69M & 61M & \\
+    sdcard.img & 93M & 93M & 77M & 69M & 61M & 121M \\
     \hline
-    boot time & 4.926830 & 5.575466 & & ... & 3.640106 & \\
+    boot time & 4.926830 & 5.575466 & 4.028472 & 4.926830 & 3.235903 & 19.957294 \\
     \hline
   \end{tabular}
   \caption{Buildroot build comparison}
@@ -1422,19 +1401,19 @@ Before instructions for building target OS, presented in Chapter \ref{chapter:bu
 \begin{table}
   \begin{tabular}{| p{2.5cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} |}
     \hline
-    name & Raspberry Pi 1 (make) & Raspberry Pi 2 & BeagleBone Black & PandaBoard & Wandboard Quad (make -j) & Asus Eee PC 1215n \\
+    name & Raspberry Pi 1 & Raspberry Pi 2 & BeagleBone Black & PandaBoard & Wandboard Quad & Asus Eee PC 1215n \\
     \hline
-    real time & 47m49.305s &  &  &  & 31m32.177s &  \\
+    real time & 12m2.398s & 12m5.585s & 13m19.282s & - & 31m32.177s & 54m22.104s \\
     \hline
-    user time & 36m41.768s &  &  &  & 43m14.808s &  \\
+    user time & 62m52.308s & 62m24.408s & 66m25.504s & - & 43m14.808s & 42m35.520s \\
     \hline
-    sys time & 2m14.996s &  &  &  & 2m33.428s &  \\
+    sys time & 3m19.248s & 3m16.664s & 3m27.880s & - & 2m33.428s & 2m34.988s \\
     \hline
-    openwrt/ & 8.4G &  &  &  & 8.1G &  \\
+    openwrt/ & 8.4G & 8.1G & 8.5G & - & 8.1G & 9.0G \\
     \hline
-    sdcard.img & 285M &  &  &  &  &  \\
+    sdcard.img & 285M & 277M & 254M & - & 273M & 303M \\
     \hline
-    boot time & 8.492709 &  &  &  &  &  \\
+    boot time & 8.492709 & 10.559345 & 7.952850 & - & 6.982082 & 25.640392 \\
     \hline
   \end{tabular}
   \caption{OpenWrt build comparison}
@@ -1446,27 +1425,27 @@ Before instructions for building target OS, presented in Chapter \ref{chapter:bu
 \begin{table}
   \begin{tabular}{| p{2.5cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} |}
     \hline
-    name & Raspberry Pi 1 & Raspberry Pi 2* & BeagleBone Black* & PandaBoard & Wandboard Quad & Asus Eee PC 1215n \\
+    name & Raspberry Pi 1 & Raspberry Pi 2 & BeagleBone Black & PandaBoard & Wandboard Quad & Asus Eee PC 1215n \\
     \hline
-    real time & 27m17.629s & 20m8.447s & 20m8.447s &  &  &  \\
+    real time & 27m17.629s & 20m8.447s & 20m8.447s & - & - & 25m43.452 \\
     \hline
-    user time & 87m36.840s & 74m21.468s & 74m21.468s &  &  &  \\
+    user time & 87m36.840s & 74m21.468s & 74m21.468s & - & - & 81m15.935 \\
     \hline
-    sys time & 9m22.424s & 4m31.152s & 4m31.152s &  &  &  \\
+    sys time & 9m22.424s & 4m31.152s & 4m31.152s & - & - & 7m1.295 \\
     \hline
-    Toolchain & 15G & 15G & 15G &  &  &  \\
+    Toolchain & 15G & 15G & 15G & - & - & 15G \\
     \hline
-    real time & 28m7.177s & 25m44.733s & 25m44.733s &  &  &  \\
+    real time & 28m7.177s & 25m44.733s & 25m44.733s & - & - & 27m42.724 \\
     \hline
-    user time & 60m39.504s & 58m52.088s & 58m52.088s &  &  &  \\
+    user time & 60m39.504s & 58m52.088s & 58m52.088s & - & - & 59m54.615 \\
     \hline
-    sys time & 4m13.768s & 3m59.556s & 3m59.556s &  &  &  \\
+    sys time & 4m13.768s & 3m59.556s & 3m59.556s & - & - & 4m9.943 \\
     \hline
-    DistroKit/ & 5.5G & 4.9G / 7.3G & 4.9G / 7.3G &  &  &  \\
+    DistroKit/ & 5.5G & 7.3G & 7.3G & - & - & 6.1G \\
     \hline
-    sdcard.img & 84M &  &  &  &  &  \\
+    sdcard.img & 84M & 81M & 80M & - & - & 105M \\
     \hline
-    boot time &  &  &  &  &  &  \\
+    boot time & 5.230498 & 5.259048 & 4.98392 & - & - & 20.59385 \\
     \hline
   \end{tabular}
   \caption{PTXdist build comparison}
@@ -1480,17 +1459,17 @@ Before instructions for building target OS, presented in Chapter \ref{chapter:bu
     \hline
     name & Raspberry Pi 1 & Raspberry Pi 2 & BeagleBone Black & PandaBoard & Wandboard Quad & Asus Eee PC 1215n \\
     \hline
-    real time & 34m17.598s & 34m24.622s & 31m25.839s & 19m0.417s & 35m19.749s &  \\
+    real time & 34m17.598s & 34m24.622s & 31m25.839s & 19m0.417s & 35m19.749s & 38m29.501s \\
     \hline
-    user time & 201m14.080s & 201m43.528s & 178m14.064s & 97m14.776s & 0m9.384s &  \\
+    user time & 201m14.080s & 201m43.528s & 178m14.064s & 97m14.776s & 205m9.384s & 239m19.756s \\
     \hline
-    sys time & 14m52.688s & 14m40.556s & 13m8.788s & 9m18.528s & 0m0.868s &  \\
+    sys time & 14m52.688s & 14m40.556s & 13m8.788s & 9m18.528s & 14m0.868s & 13m29.216s \\
     \hline
-    yoctoproject/ & 24G & 24G & 26G &  & 24G &  \\
+    yoctoproject/ & 24G & 24G & 26G & 21G & 24G & 25G \\
     \hline
-    sdcard.img & 53M & 53M &  &  &  &  \\
+    sdcard.img & 53M & 53M & 48M & 49M & 28M & 26M \\
     \hline
-    boot time & 4.983091 & 3.951380 &  &  &  &  \\
+    boot time & 4.983091s & 3.951380s & 4.093724s & 5.159032 & 3.539520 & 25.293039 \\
     \hline
   \end{tabular}
   \caption{Yocto Project build comparison}
@@ -1536,13 +1515,45 @@ Before instructions for building target OS, presented in Chapter \ref{chapter:bu
 % PLOTS !!!
 % flavor (price) / time / total cost
 
-\begin{landscape}
+
 
 
 \section{Tests in respect to host OS}
 % openstack server create --flavor 'c2-30-flex' --image 'Debian 9' --network 'Ext-Net' --key-name 'cdynak-devmaszyna' 'os.builder'
+% \section{OpenStack configuration}
 
+Second set of tests is focused on build process scalability in terms of hardware resources.
+Tests were executed on virtual machines through OpenStack, because it is very easy to change their parameters and compare growing build time.
+Basic configuration used here was Buildroot and first version of Raspberry Pi.
+Before tests could be executed, there is a~need to create and initially configure (``provision'') virtual machine:
 
+\subsection*{VM creation}
+
+\begin{enumerate}
+  \item Login to Horizon panel (https://horizon.cloud.ovh.net)
+  \item Select ``instances'' and ``launch instance''
+  \item Choose instance name (build-server), type (c2-30-flex), image (Debian 9)
+  \item Choose or create key pair
+  \item Launch instance
+  \item Select ``volumes'' and ``create volume'' % or... just select ``Boot from image (creates a~new volume)'' 
+  \item Choose volume name (build-volume), type (SAS), size (50 GB)
+  \item Create volume
+  \item Attach volume to instance
+\end{enumerate}
+
+\subsection*{VM provisioning}
+
+\begin{enumerate}
+  \item identify (\verb|$HOST_KEYS $HOST_USER $HOST_IP $VOLUME_ID|)
+  \item Login with (\verb|ssh -i $HOST_KEYS $HOST_USER@$HOST_IP|)
+  \item Update system (\verb|sudo apt update && sudo apt upgrade|)
+  \item Create partition on volume (\verb|sudo mkfs.ext4 /dev/sdb|)
+  \item Mount volume (\verb|sudo mount /dev/sdb /mnt/|)
+  \item (\verb|sudo chown debian:debian /mnt/|)
+  \item Navigate to mounted directory (\verb|cd /mnt/|)
+\end{enumerate}
+
+\begin{landscape}
 
 \begin{table}
   \begin{tabular}{| p{2.5cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} |}
@@ -1602,90 +1613,6 @@ Before instructions for building target OS, presented in Chapter \ref{chapter:bu
 % Big Mac Index?
 
 
-%\begin{lstlisting}
-%type | vCPUs | RAM | Disks | Price
-%C2-30 - 8 x 3.1 GHz - 7 GB - 1.542
-%B2-30 - 8 x 2.3 GHz - 30 GB - 1.049
-%C2-15 - 4 x 3.1 GHz - 15 GB - 0.765
-%B2-15 - 4 x 2.3 GHz - 15 GB - 0.519
-%C2-7 - 2 x 3.1 GHz - 7 GB - 0.395
-%B2-7 - 2 x 2.3 GHz - 7 GB - 0.272
-% ---
-%R2-30 - 2 x 2.4 GHz - 30 GB - 0.457
-%R2-15 - 2 x 2.4 GHz - 15 GB - 0.395
-%S1-8 - 2 x 2.4 GHz - 8 GB - 0.148
-%S1-4 - 1 x 2.4 GHz - 4 GB - 0.081
-%S1-2 - 1 x 2.4 GHz - 2 GB - 0.045
-%\end{lstlisting}
-
-%\begin{verbatim}
-%C2-30
-%real	24m13.863s
-%user	73m29.016s
-%sys	    8m11.556s
-%
-%B2-30
-%real    24m52.772s
-%user    75m56.208s
-%sys     9m15.448s
-%
-%C2-15
-%real    34m21.638s
-%user    71m51.860s
-%sys     7m35.004s
-%
-%B2-15
-%real    37m10.730s
-%user    81m13.392s
-%sys     9m39.060s
-%
-%C2-7
-%real    50m4.480s
-%user    72m39.468s
-%sys     7m41.560s
-%
-%B2-7
-%real	57m17.304s
-%user	82m59.928s
-%sys	    9m27.172s
-%
-% ---
-%
-%R2-30
-%real	52m33.380s
-%user	77m29.732s
-%sys	    7m55.024s
-%
-%R2-15
-%real	53m30.474s
-%user	80m41.752s
-%sys	    7m36.960s
-%
-%S1-8
-%real	65m42.849s
-%user	91m34.000s
-%sys	    12m8.204s
-%
-%S1-4
-%real	127m16.353s
-%user	101m2.204s
-%sys	    15m2.652s
-%
-%S1-2
-%\end{verbatim}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1701,24 +1628,62 @@ It could be very fashionable nowadays to run essential parts of IoT applications
 The most important reason for that is having a~possibility to make live updates at any moments, but it results in big maintaining effort after release.
 It could be more convenient to run everything what is possible locally, because it enforces better software quality and protect from Internet connection problems.
 
-As an~example, application from my 2015 engineering project ``System wizualizacji i~sterowania obiektami automatyki'' (eng. ``Visualization and control system of automation objects'') was ported from ANSI C/PHP into easy deployable Node.js framework.\cite{book:cdynak-scada}
+As an~example, application from my 2015 engineering project ``System wizualizacji i~sterowania obiektami automatyki''\cite{book:cdynak-scada} (eng. ``Visualization and control system of automation objects'') was ported from ANSI C/PHP into easy deployable Node.js framework.
+
+%convert 4.png -crop 90%x+300+25 4-web.png
+
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.7\textwidth]{4-web.png}
+    \caption{Web interface - lights}
+  \label{fig:4-web}
+\end{figure}
+
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.7\textwidth]{5-web.png}
+    \caption{Web interface - HVAC}
+  \label{fig:5-web}
+\end{figure}
+
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.7\textwidth]{6-web.png}
+    \caption{Web interface - plot}
+  \label{fig:6-web}
+\end{figure}
+
 
 \subsection*{Building Node.js into target OS}
 
+Before Node.js for target OS could be created, there is a need to compile whole toolchain again, to enable WCHAR (wide characters) support:
+
 \begin{lstlisting}
-cd buildroot-2017.02.4/
-make clean # because of wchar
+cd buildroot-2017.11.1/
+make clean
 make menuconfig
 
 # Toolchain -> Enable WCHAR support
 # Toolchain -> Enable C++ support
 # Target packages
-# Interpreter languages and scripting -> nodejs -> NPM for the target
 # Networking applications -> openssh
 # Networking applications -> ntp -> ntpd
-# Libraries -> Database
-# mysql support -> mysql variant (mariadb) -> mariadb server
+# Interpreter languages and scripting -> nodejs -> NPM for the target
 \end{lstlisting}
+
+% # Libraries -> Database
+% # mysql support -> mysql variant (mariadb) -> mariadb server
+
+%\subsubsection{Menuconfig}
+
+%\subsubsection{BitBake}
+
+
+
+
 
 % buildroot - nodejs - dedyk - undone?
 % real    29m19.687s
@@ -1765,16 +1730,20 @@ While comparing the Linux build systems, the container orchestration topic, that
 
 \subsection*{Docker installation on host OS}
 
+Initial step is installing Docker daemon on host machine, to make any other operations posible.
+Packages from Debian/Ubuntu repositories became outdated, to it is strongly suggested to get install it in the following way:
+
 \begin{lstlisting}
 $ sudo apt install apt-transport-https ca-certificates curl gnupg2 software-properties-common
 $ curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | sudo apt-key add -
 $ sudo apt-key fingerprint 0EBFCD88
 $ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") $(lsb_release -cs) stable"
-$ sudo apt update
-$ sudo apt install docker-ce
+$ sudo apt update && sudo apt install docker-ce
 \end{lstlisting}
 
-% sudo usermod -aG docker $USER (add user to the docker group)
+It is also not possible to run any \verb|docker| commands as non-admin user, until it is addes to propper group: \begin{verbatim}
+sudo usermod -aG docker USER
+\end{verbatim}
 % https://docs.docker.com/engine/installation/linux/linux-postinstall/#manage-docker-as-a-non-root-user
 
 \begin{lstlisting}
@@ -1784,7 +1753,11 @@ $ docker run alpine ls -l
 $ docker run -it alpine sh
 \end{lstlisting}
 
+Finally the easiest way to check this setup is to pull and run small container, like alpine.
+
 \subsection*{Minimal container}
+
+Now it is possible to build docker image, with the use of x86\_64 rootfs produced by any of presented build systems.
 
 \begin{lstlisting}
 $ cd output/images
@@ -1829,8 +1802,8 @@ $ docker run -t -i test/basic-system sh
 
 \section{Possible enhancements}
 
-\subsection*{Including rpm setup}
-The description was simplified to focus only on Debian GNU/Linux, just because of my experience. It should be enhanced also for distributions based on Red Hat packages.
+%\subsection*{Including rpm setup}
+%The description was simplified to focus only on Debian GNU/Linux, just because of my experience. It should be enhanced also for distributions based on Red Hat packages.
 
 
 \subsection*{Regular yearly updates}
