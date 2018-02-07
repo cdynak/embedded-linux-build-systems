@@ -71,11 +71,19 @@
 
 
 \chapter{Introduction}
+
+% TODO-TOD
+% odpowiadający zakończeniu
+% wymienić ... jest ileś, są różne - pierwszy powstał... celem jest praktyczne zbadanie (kilka reprezentatywany na kilka reprezentatywanych) - celem jest pomierzenie...
+
 % important note - idea of this chapter - not goals, but "tasks to be done" / "the main problems to be solved" - explain title, describe it more precisely 
 
 The main task of this work is to describe and compare tools, that help in the process of creating and deploying Linux-based operating system on embedded devices.
 There are many publications, that prioritize one build system or are focused on low-level problems common for all, but there was a~lack of treating them as one type of software.
-I am trying to fill this gap and encourage everybody who is working with embedded Linux, to give a~try for all presented tools.
+% TODO-TODO
+% I am trying to fill this gap and encourage everybody who is working with embedded Linux, to give a~try for all presented tools.
+
+% autorowi pracy jest znanych... kilka (numer) przypadków komercyjnego wdrożenia
 
 It is also worth to emphasize, that this topic is not limited to hobby projects and academic research, but it is essential for commercial and industrial applications.
 Since nowadays micro-controllers are much more powerful and enormously cheaper than yesterdays supercomputers, the main focus has moved from resources optimization to convenient maintaining.
@@ -88,6 +96,10 @@ The overwhelming use of Linux in modern embedded devices, instead of traditional
     \caption{Survey results for Operating Systems used for IoT Devices \cite{web:iot-os}}
   \label{fig:iot-os}
 \end{figure}
+
+
+% TODO-TODO
+% build systems overwiew !!!
 
 
 \section{Basic definitions}
@@ -1367,7 +1379,9 @@ Initially, I~used ``serwery.pl'' (subsidiary of ``nazwa.pl'' / NetArt) which als
 
 
 
-\section{Tests in respect to target OS}
+\section{Tests with respect to the target OS}
+
+% TODO-TODO kilka zdań omówienia
 
 Basic compilation time for each board and system was measured on externally hosted dedicated server with Intel(R) Xeon(R) CPU E3-1270 v6 @ 3.80GHz (8~cores) and 32~GiB RAM.
 Whenever configuration for target device was not available, it was marked by ``-'' signs.
@@ -1518,11 +1532,11 @@ Whenever configuration for target device was not available, it was marked by ``-
 
 
 
-\section{Tests in respect to host OS}
+\section{Tests with respect to the host OS}
 % openstack server create --flavor 'c2-30-flex' --image 'Debian 9' --network 'Ext-Net' --key-name 'cdynak-devmaszyna' 'os.builder'
 % \section{OpenStack configuration}
 
-Second set of tests is focused on build process scalability in terms of hardware resources.
+A second set of tests is focused on build process scalability in terms of hardware resources.
 Tests were executed on virtual machines through OpenStack, because it is very easy to change their parameters and compare growing build time.
 Basic configuration used here was Buildroot and first version of Raspberry Pi.
 Before tests could be executed, there is a~need to create and initially configure (``provision'') virtual machine:
@@ -1619,8 +1633,10 @@ Before tests could be executed, there is a~need to create and initially configur
 
 \chapter{Example use cases}
 
+% TODO - Node.js general description
+% TODO - deployment description
 
-\section{Node.js IoT application}
+\section{The Node.js IoT application}
 
 \subsection*{Application specifications}
 
@@ -1629,6 +1645,7 @@ The most important reason for that is having a~possibility to make live updates 
 It could be more convenient to run everything what is possible locally, because it enforces better software quality and protect from Internet connection problems.
 
 As an~example, application from my 2015 engineering project ``System wizualizacji i~sterowania obiektami automatyki''\cite{book:cdynak-scada} (eng. ``Visualization and control system of automation objects'') was ported from ANSI C/PHP into easy deployable Node.js framework.
+% fix 
 
 %convert 4.png -crop 90%x+300+25 4-web.png
 
@@ -1699,8 +1716,8 @@ make menuconfig
 
 
 
-
-
+% TODO - podsumowanie - przykład starachowic - ograniczenie poolingu
+% TODO - ``przynajmeniej'' tyle, że
 
 
 
@@ -1772,6 +1789,10 @@ $ docker import - test/basic-system < fixup.tar
 $ docker run -t -i test/basic-system sh
 \end{lstlisting}
 
+% TODO-TODO - poprawić wygląd fragmentów kodu... troche grubsze, mniejsze (small?), bliżej siebie
+
+
+
 % --overwrite is missing!
 
 % TODO: \subsection*{Node.js container}
@@ -1799,6 +1820,13 @@ $ docker run -t -i test/basic-system sh
 \chapter{Conclusions}
 \label{chapter:conclusions}
 
+% TODO-TODO
+% udało się zrealizować w cąłości postawione zadanie
+% w wyniku pracy zostało stworzone
+% wynik - najkrótszy czas 
+% czas tworzenia takiego systemu to od 15 min do kilku godzin
+% dwa zastosowania... - wymienić
+
 
 \section{Possible enhancements}
 
@@ -1819,7 +1847,7 @@ Each of build scripts, that are attached in Chapter \ref{chapter:build-systems},
 
 % https://www.google.com/search?q=operating+system+builder
 
-There is a~need for diversity. It is dangerous when one kernel becomes hegemonic. In healthy ecosystem, this project should be just ``embedded unix build systems'' - to also include MINIX, BSD, Darvin and HURD kernels. I~wish I~could name this work in this way one day. I~could compare it to something like Ubuntu Bug \#1: ``Microsoft has a~majority market share''.\cite{web:ubuntu-bug1}
+There is a~need for diversity. It is dangerous when one kernel becomes hegemonic. In a healthy ecosystem, this project should be just ``embedded unix build systems'' - to also include MINIX, BSD, Darvin and HURD kernels. I~wish I~could name this work in this way one day. I~could compare it to something like Ubuntu Bug \#1: ``Microsoft has a~majority market share''.\cite{web:ubuntu-bug1}
 
 %github.com/cdynak/embedded-linux-build-systems
 
