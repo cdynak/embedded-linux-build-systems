@@ -222,6 +222,7 @@ The company BIS-LINUX.COM also offers various paid workshops and consultations.
 From one side there are public events, like Embedded Linux Conferences organized by CELP, from which slides and recordings are available on elinux.org:
 
 \begin{itemize}
+  \itemsep0em
   \item \url{http://elinux.org/Category:ELC} - Embedded Linux Conference (America)
   \item \url{http://elinux.org/Category:ELCE} - Embedded Linux Conference Europe
 \end{itemize}
@@ -326,6 +327,7 @@ This is also available from each embedded Linux build system, where it is possib
 The first process that is evoked by the kernel is called ``init''; Most popular are:
 
 \begin{itemize}
+    \itemsep0em
     \item busybox-init
     \item sysvinit
     \item systemd
@@ -344,6 +346,7 @@ Nevertheless, it is the final product and also other useful semi-finished produc
 It could be grouped in the following way:
 
 \begin{itemize}
+    \itemsep0em
     \item cross-compilation toolchain
     \item compiled kernel
     \item compiled boot loader
@@ -377,6 +380,7 @@ From the beginning of embedded systems history, microprocessor development board
 Usually they were designed and produced by companies that have created certain chip and whole platforms costs a~lot of money, so it was not affordable for hobbyists or students.
 In recent years this state has been changed by a~few factors:
 \begin{itemize}
+  \itemsep0em
   \item the spread of ARM architecture micro-controllers with efficiency comparable to personal computers (1GHz),
   \item creating development boards by community as open hardware, that resulted in cost reduction,
   \item adding peripherals specific not for embedded systems but for personal computers.
@@ -386,6 +390,7 @@ Some of most popular devices with ARM were selected for comparison, but also per
 
 At minimum, each device has:
 \begin{itemize}
+  \itemsep0em
   \item at least one UART, for serial console
   \item at least one Ethernet port, 100~MB/s or higher
   \item at least one USB port, 2.0 or higher
@@ -729,10 +734,10 @@ Source code that do not belong into buildroot core is downloaded during build pr
 
 \subsection*{Host OS requirements}
 
-This initial package requirements for host OS, visible in line~1, are the smallest among all build systems.
-They seems to be obvious, but because they are only a~few, each could be described:
+This initial package requirements for host OS, visible in line~1, are the smallest among all build systems. Because they are only a~few, each could be described:
 
 \begin{itemize}
+    \itemsep0em
     \item \verb|make| - the main build utility, that run commands specified in \verb|Makefile|s
     \item \verb|gcc|, \verb|g++| - C and C++ compilers, that will create a~specific cross-compilation toolchain
     \item \verb|libncurses-dev| - library that makes able to create \verb|menuconfig| GUI in terminal
@@ -1108,6 +1113,7 @@ cp platform-rpi/images/hd.img ~
 For this build system it is not possible to download all its sources, because it is split into 3 parts:
 
 \begin{itemize}
+    \itemsep0em
     \item PTXdist - specific higher level (than i.e. make) build tool, aimed to ``execute documentation''
     \item OSELAS.Toolchain - toolchain suggested by PTXdist
     \item DistroKit - named a~Build Support Package example, it is where default configurations for platforms like i.e. Raspbery Pi came from
@@ -1191,6 +1197,7 @@ cp tmp/deploy/images/$MACHINE/*img ~
 The source code structure of Yocto Project could be named the most complex, because it introduced concept of layers.
 They are divided into several groups:
 \begin{itemize}
+    \itemsep0em
     \item Base - there are only two core layers: \verb|openembedded-core| and \verb|meta-oe|, which need to be included for all projects;
     \item Machine (BSP) - responsibility for certain platforms support is split in this group, i.e. ``meta-ti'' layer provide configuration for both BeagleBone and PandaBoard and it is maintained with the help of Texas Instruments company;
     \item Software - specific pieces of software are divided into layers like ``meta-nodejs'' for nodejs and ``meta-ros'' for Robotic Operating System packages;
@@ -1294,11 +1301,13 @@ It is also possible to i.e. build new system from within Raspberry Pi using LFS 
 % ----------------------------------------------------------------
 
 
+\begin{landscape}
+
 
 
 
 \begin{table}
-  \begin{tabular}{| p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} |}
+  \begin{tabular}{| p{2cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} |}
     \hline
     name & Buildroot & OpenWrt & LTIB & PTXdist & Yocto Project & CLFS \\
     \hline
@@ -1324,7 +1333,7 @@ It is also possible to i.e. build new system from within Raspberry Pi using LFS 
   \caption{Embedded Linux build systems overview}
 \end{table}
 
-
+\end{landscape}
 
 
 
@@ -1592,6 +1601,7 @@ Before tests could be executed, there is a~need to create and initially configur
 \subsection*{VM creation}
 
 \begin{enumerate}
+  \itemsep0em
   \item Login to Horizon panel (https://horizon.cloud.ovh.net)
   \item Select ``instances'' and ``launch instance''
   \item Choose instance name (build-server), type (c2-30-flex), image (Debian 9)
@@ -1606,12 +1616,13 @@ Before tests could be executed, there is a~need to create and initially configur
 \subsection*{VM provisioning}
 
 \begin{enumerate}
+  \itemsep0em
   \item identify (\verb|$HOST_KEYS $HOST_USER $HOST_IP $VOLUME_ID|)
   \item Login with (\verb|ssh -i $HOST_KEYS $HOST_USER@$HOST_IP|)
   \item Update system (\verb|sudo apt update && sudo apt upgrade|)
   \item Create partition on volume (\verb|sudo mkfs.ext4 /dev/sdb|)
   \item Mount volume (\verb|sudo mount /dev/sdb /mnt/|)
-  \item (\verb|sudo chown debian:debian /mnt/|)
+  \item Change ownership (\verb|sudo chown debian:debian /mnt/|)
   \item Navigate to mounted directory (\verb|cd /mnt/|)
 \end{enumerate}
 
@@ -1819,7 +1830,6 @@ $ docker pull apline
 Using default tag: latest
 latest: Pulling from library/alpine
 ff3a5c916c92: Pull complete 
-Digest: sha256:7df6db5aa61a...
 Status: Downloaded newer image for alpine:latest
 $ docker images
 REPOSITORY          TAG                 IMAGE ID              SIZE
@@ -1829,7 +1839,6 @@ $ docker run alpine cat /etc/alpine-release
 $ docker run -it alpine sh
 / # cat /etc/alpine-release
 3.7.0
-/ #
 \end{lstlisting}
 
 Finally the easiest way to check this setup is to pull and run small container, like alpine Linux.
