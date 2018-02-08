@@ -252,9 +252,16 @@ The most valuable source of technical information is and always should be offici
 
 \subsection{Source code}
 
-The key of the Linux great success is the easy accessible source code and the free software license. The possibility to engage unlimited number of people to add new functionality and fix bugs is something closer to science than to merchandising, which is the best way for engineers to get things done. Exactly the same rule apply to creating Linux based OS'es for embedded devices. Because there is a~lot of subtle differences between micro-controllers, it is essential to be able to modify or just analyze every line of code.
+The key of the Linux great success is the easy accessible source code and the free software license.
+The possibility to engage unlimited number of people to add new functionality and fix bugs is something closer to science than to merchandising, which is the best way for engineers to get things done.
+Exactly the same rule apply to creating Linux based OSes for embedded devices. Because there is a~lot of subtle differences between micro-controllers, it is essential to be able to modify or just analyze every line of code.
 
-However, the way of obtaining the whole build system is not that obvious and even differ a~lot from one, to another. The most convenient way seems to be just downloading the archival version as one file through HTTP and then decompress it on our host machine. But in some cases it would be better to get it through a~version control system as it is convenient for browsing history and sharing our changes. It is also worth mentioning that all the described tools are versioned with the use of open source software: mostly git, which itself also came from Linus Torvalds, and sometimes subversion. Things are getting harder when the build system is split into independent parts or additional meta tools are needed to get each of them. This is clarified step by step in Chapter \ref{chapter:build-systems}.
+However, the way of obtaining the whole build system is not that obvious and even differ a~lot from one, to another.
+The most convenient way seems to be just downloading the archival version as one file through HTTP and then decompress it on our host machine.
+But in some cases it would be better to get it through a~version control system as it is convenient for browsing history and sharing our changes.
+It is also worth mentioning that all the described tools are versioned with the use of open source software: mostly git, which itself also came from Linus Torvalds, and sometimes subversion.
+Things are getting harder when the build system is split into independent parts or additional meta tools are needed to get each of them.
+This is clarified step by step in Chapter \ref{chapter:build-systems}.
 
 
 \subsection{Host OS requirements}
@@ -262,18 +269,32 @@ However, the way of obtaining the whole build system is not that obvious and eve
 \paragraph{Host Operating System} is the operating system where the cross-compilation is made.
 
 \subsubsection{Software requirements}
-As it seems obvious, host OS need to be Unix-like, preferably Linux-based and with rpm or deb package manager. Whenever source code is under free licence, it could run anywhere, but it may need some manual tweaking. When running build systems for the first time, Debian or Red Hat or their derivatives, like Ubuntu or Fedora are only reasonable choices. Whenever Host OS is mentioned here, Debian GNU/Linux is the default one and to be precise it is stable version 9 (code name Stretch). Please notice, that all packages are reffered with their deb name as default. In most cases there are equivalents in rpm packages, sometimes with different naming convention like suffix ``-devel'' instead of ``-dev'' for so called ``development packages'', that contain source code.
+As it seems obvious, host OS need to be Unix-like, preferably Linux-based and with rpm or deb package manager.
+Whenever source code is under free license, it could run anywhere, but it may need some manual tweaking.
+When running build systems for the first time, Debian or Red Hat or their derivatives, like Ubuntu or Fedora are only reasonable choices.
+Whenever Host OS is mentioned here, Debian GNU/Linux is the default one and to be precise it is stable version 9 (code name Stretch).
+Please notice, that all packages are referred with their deb name as default.
+In most cases there are equivalents in rpm packages, sometimes with different naming convention like suffix ``-devel'' instead of ``-dev'' for so called ``development packages'', that contain source code.
 
 \subsubsection{Hardware requirements}
-The software requirements are easy to satisfy, because most useful Linux distribution have no costs and could be deployed within minutes on a~virtual machine, but the hardware resources are more crucial. On 10 years old cheap laptop, the compilation of the Linux kernel took a~lot of lime, so It is worth to notice, because it was only kernel compilation, excluding any packages. For modern machines it is not such a~big problem, but anyway most tutorials are suggesting to get away from computer and enjoy a~``large hot drink''. The comparison of resource usage could be found in Chapter \ref{chapter:build-comparison}.
+The software requirements are easy to satisfy, because most useful Linux distribution have no costs and could be deployed within minutes on a~virtual machine, but the hardware resources are more crucial.
+On 10 years old cheap laptop, the compilation of the Linux kernel took a~lot of lime, so It is worth to notice, because it was only kernel compilation, excluding any packages.
+For modern machines it is not such a~big problem, but anyway most tutorials are suggesting to get away from computer and enjoy a~``large hot drink''.
+The comparison of resource usage could be found in Chapter \ref{chapter:build-comparison}.
 
 \subsection{Cross-compilation toolchain}
 % https://toolchains.free-electrons.com
 % https://elinux.org/Toolchains
 
-As mentioned at the beginning of this chapter, cross-compilation is essential for the whole process, because embedded devices have different processor architecture than the host system in all considered cases. Before cross-compilation could start, the cross-compiler must already exist on the system or it will be created at the beginning. It needs to be done only once, but it is treated as part of the complete build process.
+As mentioned at the beginning of this chapter, cross-compilation is essential for the whole process, because embedded devices have different processor architecture than the host system in all considered cases.
+Before cross-compilation could start, the cross-compiler must already exist on the system or it will be created at the beginning.
+It needs to be done only once, but it is treated as part of the complete build process.
 
-The default compiler is obviously GCC in all cases, because it fits perfectly in the open source / Unix-like ecosystem and it is its base building block. There is also a~possibility to select another compiler, like i.e. clang. Different linker could be chosen as well. The default one is the GNU linker (or GNU ld), but because of the enormous number of linking operations, different one like ``gold linker'' could be considered, which seems to be faster. That one is also a~part of GNU Project. The most basic setup was chosen, to make things easily comparable. 
+The default compiler is obviously GCC in all cases, because it fits perfectly in the open source / Unix-like ecosystem and it is its base building block.
+There is also a~possibility to select another compiler, like i.e. clang. Different linker could be chosen as well.
+The default one is the GNU linker (or GNU ld), but because of the enormous number of linking operations, different one like ``gold linker'' could be considered, which seems to be faster.
+That one is also a~part of GNU Project.
+The most basic setup was chosen, to make things easily comparable.
 
 
 \subsection{Target OS configuration}
@@ -281,14 +302,23 @@ The default compiler is obviously GCC in all cases, because it fits perfectly in
 \paragraph{Target Operating System} is the operating system of embedded device.
 
 \subsubsection{Boot loader}
-It is important to notice, that Linux kernel is not invoked directly by micro-controller at power on. The program which purpose it to load another system is called ``boot loader'' and in embedded device or any other device is not limited to have only one boot loader. They could start each other sequentially, so the first one is hard-coded into the micro-controller and it evokes the next one, which reside on the same external memory as Linux distribution. Examples include: coreboot, Libreboot, Das U-Boot and barebox (initially called U-Boot-NG).
+It is important to notice, that Linux kernel is not invoked directly by micro-controller at power on.
+The program which purpose it to load another system is called ``boot loader'' and in embedded device or any other device is not limited to have only one boot loader.
+They could start each other sequentially, so the first one is hard-coded into the micro-controller and it evokes the next one, which reside on the same external memory as Linux distribution.
+Examples include: coreboot, Libreboot, Das U-Boot and barebox (initially called U-Boot-NG).
 
 \subsubsection{Device tree}
-One of the most problematic issues when dealing with embedded device software is handling its hardware diversity. Even if the micro-controller architecture is exactly the same, lets say ARM Cortex-A9 or even the same SoC (System on a~Chip) like TI OMAP4430, but devices differ greatly with issues like IO pins configurations and interfaces. Fortunately, there is an~unified hardware description data structure called the ``device tree''. It was initially developed within the U-Boot project, but currently (as of 2018) it is a~de~facto standard for both boot loaders and the Linux kernel.
+One of the most problematic issues when dealing with embedded device software is handling its hardware diversity.
+Even if the micro-controller architecture is exactly the same, lets say ARM Cortex-A9 or even the same SoC (System on a~Chip) like TI OMAP4430, but devices differ greatly with issues like IO pins configurations and interfaces.
+Fortunately, there is an~unified hardware description data structure called the ``device tree''.
+It was initially developed within the U-Boot project, but currently (as of 2018) it is a~de~facto standard for both boot loaders and the Linux kernel.
 
 \subsubsection{Kernel}
 % https://en.wikipedia.org/wiki/Menuconfig
-Device tree is rescuing Linux kernel from using weird and complicated mechanism of applying patches, but there is much more things to configure there beside hardware. Core security options as well as device drivers could not be provided in upper layers of operating system, but need to be compiled into kernel. Linux has its well established configuration system based on Makefiles, which could be managed text-based or graphically with invoking commands like \verb|make config|, \verb|make menuconfig| or \verb|make xconfig|. This is also available from each embedded Linux build system, where it is possible to choose separate and independently compiled kernel.
+Device tree is rescuing Linux kernel from using weird and complicated mechanism of applying patches, but there is much more things to configure there beside hardware.
+Core security options as well as device drivers could not be provided in upper layers of operating system, but need to be compiled into kernel.
+Linux has its well established configuration system based on Makefiles, which could be managed text-based or graphically with invoking commands like \verb|make config|, \verb|make menuconfig| or \verb|make xconfig|.
+This is also available from each embedded Linux build system, where it is possible to choose separate and independently compiled kernel.
 
 \subsubsection{Init system}
 % TODO: describe each init system
@@ -302,12 +332,16 @@ The first process that is evoked by the kernel is called ``init''; Most popular 
 \end{itemize}
 
 \subsubsection{Software packages}
-The highest layer of target OS configuration is managing software packages and this is where nobleness of described tools is shown. Most of systems borrow the Makefile style from Linux kernel, but Yocto Project is notable exception and is using its own system named ``bitbake''. Every system gives a~possibility to choose from variety of prepared packages, but makes it also quite easy to add own software, which is the essence of whole process.
+The highest layer of target OS configuration is managing software packages and this is where nobleness of described tools is shown.
+Most of systems borrow the Makefile style from Linux kernel, but Yocto Project is notable exception and is using its own system named ``bitbake''.
+Every system gives a~possibility to choose from variety of prepared packages, but makes it also quite easy to add own software, which is the essence of whole process.
 
 \subsection{Produced output}
 % TODO: describe each output
 
-For real-life rapid-prototyping and also for purpose of this publication, the most desired output is just one file with image, that could be flashed to SD card and making our Linux distribution run on target embedded device. Nevertheless, it is the final product and also other useful semi-finished products become available. It could be grouped in the following way:
+For real-life rapid-prototyping and also for purpose of this publication, the most desired output is just one file with image, that could be flashed to SD card and making our Linux distribution run on target embedded device.
+Nevertheless, it is the final product and also other useful semi-finished products become available.
+It could be grouped in the following way:
 
 \begin{itemize}
     \item cross-compilation toolchain
@@ -700,7 +734,7 @@ They seems to be obvious, but because they are only a~few, each could be describ
 
 \begin{itemize}
     \item \verb|make| - the main build utility, that run commands specified in \verb|Makefile|s
-    \item \verb|gcc|, \verb|g++| - C and C++ compilers, that will create a~specyfic cross-compilation toolchain
+    \item \verb|gcc|, \verb|g++| - C and C++ compilers, that will create a~specific cross-compilation toolchain
     \item \verb|libncurses-dev| - library that makes able to create \verb|menuconfig| GUI in terminal
     \item \verb|unzip|, \verb|git| - most basic tools to getting source code and unpack archives
 \end{itemize}
@@ -808,7 +842,7 @@ Since OpenWrt is a~Buildroot-based fork, there is also a~possibility to create o
 \subsection*{Target OS configuration}
 
 Unfortunately, in this build system it is not possible to choose one of available base configurations from command line, so it need to be selected from menuconfig ncurses-based GUI.
-As OprnWrt puts primary focus on routers and other networking devices, it is strongly visible in great availability of related packages.
+As OpenWrt puts primary focus on routers and other networking devices, it is strongly visible in great availability of related packages.
 
 \subsection*{Produced output}
 
@@ -1176,7 +1210,7 @@ It is also possible to only create a~toolchain with command \verb|bitbake meta-t
 
 \subsection*{Target OS configuration}
 Target configuration is something what makes this tool very different from the others.
-It abandons the ``Makefiles'' executed by ``make'', in favor to ``recepies'' executed by python tool ``bitbake''.
+It abandons the ``Makefiles'' executed by ``make'', in favor to ``recipes'' executed by python tool ``bitbake''.
 This concept comes from time before Yocto Project was formed and there exists only OpenEmbedded project, which was not aimed to provide easy support for all groups of layers.
 Because of its well known complexity, but also flexibility, it reshapes common understanding of ``distribution'' term, i.e. popular Angstrom Linux distribution is represented by ``meta-angstrom'' and this is how it is being created for x86\_64 targets.
 
@@ -1583,7 +1617,7 @@ Before tests could be executed, there is a~need to create and initially configur
 
 Obtained results once again confirm great impact of parallel processing.
 While ``user time'' remains similar, ``real time'' grows with decreasing number of cores.
-As it also occurs in other applications, not enough RAM could be a blocking point, while above some treshold it does not give any profits.
+As it also occurs in other applications, not enough RAM could be a blocking point, while above some threshold it does not give any profits.
 Very interesting conclusions can be drown from total cost calculation.
 One may assume that it could be constant, because more expensive machines should make cross-compilation proportionally faster, which is unfortunately not true.
 Shorter time is a feature, that need to be additionally paid, so following only the price, slower and cheaper hardware should be chosen.
@@ -1765,7 +1799,7 @@ While comparing the Linux build systems, the container orchestration topic, that
 
 \subsection*{Docker installation on host OS}
 
-Initial step is installing Docker daemon on host machine, to make any other operations posible.
+Initial step is installing Docker daemon on host machine, to make any other operations possible.
 Packages from Debian/Ubuntu repositories became outdated, so it is strongly suggested to install it in the following way:
 
 \begin{lstlisting}
