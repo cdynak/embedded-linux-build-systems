@@ -14,6 +14,7 @@
 \lstset{
   frame=single,
   numbers=left,
+  basicstyle=\small,
   breaklines=true,
   postbreak=\mbox{$\hookrightarrow$\space}
 }
@@ -69,24 +70,20 @@
 
 
 
+\addcontentsline{toc}{chapter}{Introduction}
+\chapter*{Introduction}
 
-\chapter{Introduction}
-
-% TODO-TOD
-% odpowiadający zakończeniu
-% wymienić ... jest ileś, są różne - pierwszy powstał... celem jest praktyczne zbadanie (kilka reprezentatywany na kilka reprezentatywanych) - celem jest pomierzenie...
-
-% important note - idea of this chapter - not goals, but "tasks to be done" / "the main problems to be solved" - explain title, describe it more precisely 
-
-The main task of this work is to describe and compare tools, that help in the process of creating and deploying Linux-based operating system on embedded devices.
+The main task of this work is to practically examine and compare tools, that help in the process of creating and deploying an Unix-like operating system on embedded devices.
+These tools are popular and publicly available build systems which will be used to cross-compile complete Linux distribution and run it on representative set of microprocessor development boards.
+Parameters to be measured include target device boot time, disk space used and complete build time with relation to both host and target.
+Beside creating basic system, also practical examples of extending and reusing output of this process will be shown.
 There are many publications, that prioritize one build system or are focused on low-level problems common for all, but there was a~lack of treating them as one type of software.
-% TODO-TODO
-% I am trying to fill this gap and encourage everybody who is working with embedded Linux, to give a~try for all presented tools.
+Therefore, this publication aims to provide useful introduction and high-level overview on this topic, as well as bring together the scattered pieces of knowledge.
 
-% autorowi pracy jest znanych... kilka (numer) przypadków komercyjnego wdrożenia
-
-It is also worth to emphasize, that this topic is not limited to hobby projects and academic research, but it is essential for commercial and industrial applications.
-Since nowadays micro-controllers are much more powerful and enormously cheaper than yesterdays supercomputers, the main focus has moved from resources optimization to convenient maintaining.
+It is also worth to emphasize, that issues raised here are not limited to hobby projects and academic research, but they are essential for industrial and multimedia applications.
+The author of this work was participating in several commercial implementations, that are based on tools described here.
+This includes Audio/Video processing, Human Machine Interface devices and so called ``IoT gateways'', that are collecting data and transmitting it to the Internet.
+Since nowadays micro-controllers are much more powerful and enormously cheaper than yesterday supercomputers, the main focus has moved from resources optimization to convenient maintaining.
 Growing costs of employment are also forcing companies to shorten time to market with the use of existing software components, especially free and open source ones.
 The overwhelming use of Linux in modern embedded devices, instead of traditional bare-metal programming, is shown on the Figure \ref{fig:iot-os}.
 
@@ -98,18 +95,33 @@ The overwhelming use of Linux in modern embedded devices, instead of traditional
 \end{figure}
 
 
-% TODO-TODO
-% build systems overwiew !!!
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Build systems overview}
 
 \section{Basic definitions}
 % TODO: add bibliography sources
 
 Despite that every aspect of computing could be described by numbers and mathematical operations, there could be plenty of definitions for one and the same thing.
-Unfortunately the naming conventions are sometimes misleading and it also applies to the area which I~am describing.
+Unfortunately the naming conventions are sometimes misleading and it also applies to the area, that is being described.
 People understand the word ``Linux'' differently in different contexts, as there is also the never ending debate about the term ``GNU/Linux''.\cite{web:gnu-linux}
 Buzzwords like ``cloud'' and ``Internet of Things'' (IoT) are strongly promoted due to commercial issues, which makes common understanding even more unclear.
-Therefore, I~would like to explain how to interpret the key wording.
+Therefore, it should be explained how to interpret the key wording.
 
 \paragraph{Operating system} is a~software that manages hardware resources and provides interface to run other programs.\cite{web:def-os}
 
@@ -132,10 +144,13 @@ Therefore, I~would like to explain how to interpret the key wording.
 
 The umbrella them ``Embedded Linux build system'' is not widely in use, but despite the similarities between described tools, no other was proposed. Different projects identify themselves as ``distribution creators'' or ``executable documentation'', but they share the same goal and they need to be compared in one place.
 
+
+% TODO: build system (in general) definition
+
 \section{Sources of knowledge}
 \label{section:sources-of-knowledge}
 
-There are two important issues, that I~faced while trying to make literature review: firstly what kind of materials should I~analyze and secondly how to extend my searches, to get a~full overview of current state of knowledge on this topic.
+Two important issues occurred, while trying to make literature review: firstly what kind of materials should be analyzed and secondly how to extend searches, to get a~full overview of current state of knowledge on this topic.
 
 The first issue was very clear in the previous (20th) century - making literature review was mostly limited to analyzing two kind of printed materials: longer ones which were just scientific books and shorter ones which were peer reviewed articles in technical journals.
 Right now they are also available and easy accessible in electronic form and still they are the most reliable sources for literature review, but not every IT engineer is using it.
@@ -143,7 +158,7 @@ Open Source Software and Open Source Hardware movement, beside creating lot of t
 Because they are all available via Internet, there exists one unified way to reference them: Unified Resource Locator (URL) also known as web address or link.
 Because of that, this and most of other bibliographies are filled with URLs, not ISBNs.
 
-The second thing is how to be sure that I~covered every aspect, at least by mentioning. Search results are personalized, both by behavior of searcher, that is choosing keywords and also Search Engine Optimization.
+The second thing is how to be sure that every aspect was covered, at least by mentioning. Search results are personalized, both by behavior of searcher, that is choosing keywords and also Search Engine Optimization.
 Nobody could tell, that this is complete, but sources are cross referenced, so after some research, the loop closes.
 Most important factor for choosing materials is their universality and chance that they will be not so fast outdated.
 
@@ -167,7 +182,7 @@ CELP is also the coordinator of other important Embedded Linux activities.
 % http://dbpedia.org/page/Linux_on_embedded_systems
 
 Wikipedia allows anyone to edit articles, so professionalism of every page can not be assured, but it is the largest and most popular general reference work on the Internet.
-The most important thing from my point of view, is that it redirects and groups abstract entities on a~high level.
+The most important thing, is that it redirects and groups abstract entities on a~high level.
 The Table \ref{table:wikipedia} summarizes pages that are most relevant for this work.
 
 \begin{table}
@@ -192,7 +207,7 @@ The Table \ref{table:wikipedia} summarizes pages that are most relevant for this
 %    \url{https://en.wikipedia.org/wiki/Embedded_Linux_build_systems} & \\
 %    \hline
   \end{tabular}
-  \caption{The Wikipedia articles, that I~both learned from and extended}
+  \caption{The Wikipedia articles, that were used and extended}
   \label{table:wikipedia}
 \end{table}
 
@@ -213,7 +228,7 @@ From one side there are public events, like Embedded Linux Conferences organized
 
 Embedded Linux issues connected to build systems are also present on Linux Sessions \cite{web:sesja-linuksowa} coordinated by Academic IT Association from Wroclaw University of Science \& Technology.
 
-From another side, private companies make mostly interactive workshops. The paid ones are organized i.e. by Marcin Bis \cite{web:bis-szkolenia}. There are also free of charge workshops i.e. ones organized by EBV in Poland in 2016, in which I~was participating.
+From another side, private companies make mostly interactive workshops. The paid ones are organized i.e. by Marcin Bis \cite{web:bis-szkolenia}. There are also free of charge workshops i.e. ones organized by EBV in Poland in 2016, in which the author was participating.
 
 \subsection*{scholar.google.com}
 The phrase ``embedded linux build systems'' gives only 2~results  \cite{web:scholar-1}. First of them is the presentation ``Embedded Linux system development'' by Thomas Petazzoni from year~2004. It describes Open Embedded which is currently included as part of the Yocto Project. The second one is the book ``Mastering embedded Linux programming'' by Chris Simmonds from year~2015. It differentiates only Buildroot and Yocto Project.
@@ -224,7 +239,7 @@ The phrase ``embedded linux build system'' gives 24 results \cite{web:scholar-2}
 
 There are some very inspiring materials, that could be found with the help of search engines like Google or DuckDuckGo and they do not fit into any previous categories.
 Most of them, like blog and forum posts, are focused on one specific technical problem.
-In this section I~would like to mention one article, that both covers the entire topic and also make use of the term ``Embedded Linux build systems'': \url{https://www.embarcados.com.br/embedded-linux-build-systems/}
+One interesting short article should be mentioned, that both covers the entire topic and also make use of the term ``Embedded Linux build systems'': \url{https://www.embarcados.com.br/embedded-linux-build-systems/}
 
 \subsection*{Official documentation}
 % TODO: URLs are placed in the table...
@@ -239,7 +254,7 @@ The most valuable source of technical information is and always should be offici
 
 The key of the Linux great success is the easy accessible source code and the free software license. The possibility to engage unlimited number of people to add new functionality and fix bugs is something closer to science than to merchandising, which is the best way for engineers to get things done. Exactly the same rule apply to creating Linux based OS'es for embedded devices. Because there is a~lot of subtle differences between micro-controllers, it is essential to be able to modify or just analyze every line of code.
 
-However, the way of obtaining the whole build system is not that obvious and even differ a~lot from one, to another. The most convenient way seems to be just downloading the archival version as one file through HTTP and then decompress it on our host machine. But in some cases it would be better to get it through a~version control system as it is convenient for browsing history and sharing our changes. It is also worth mentioning that all the tools I~am describing are versioned also with the use of open source software tools: mostly git, which itself also came from Linus Torvalds, and sometimes subversion. Things are getting harder when the build system is split into independent parts or additional meta tools ar needed to get each of them. I~am clarifying it step by step in Chapter \ref{chapter:build-systems}.
+However, the way of obtaining the whole build system is not that obvious and even differ a~lot from one, to another. The most convenient way seems to be just downloading the archival version as one file through HTTP and then decompress it on our host machine. But in some cases it would be better to get it through a~version control system as it is convenient for browsing history and sharing our changes. It is also worth mentioning that all the described tools are versioned with the use of open source software: mostly git, which itself also came from Linus Torvalds, and sometimes subversion. Things are getting harder when the build system is split into independent parts or additional meta tools are needed to get each of them. This is clarified step by step in Chapter \ref{chapter:build-systems}.
 
 
 \subsection{Host OS requirements}
@@ -247,18 +262,18 @@ However, the way of obtaining the whole build system is not that obvious and eve
 \paragraph{Host Operating System} is the operating system where the cross-compilation is made.
 
 \subsubsection{Software requirements}
-As it seems obvious, host OS need to be Unix-like, preferably Linux-based and with rpm or deb package manager. Whenever source code is under free licence, you could run it anywhere, but it may need some manual tweaking. When running build systems for the first time, Debian or Red Hat or their derivatives, like Ubuntu or Fedora are only reasonable choices. Whenever I~am mentioning Host OS here, I~mean Debian GNU/Linux, because that is the one, that I~am most familiar with and to be precise it is stable version 9 (code name Stretch). As a~result, please notice, that I~refer to all packages with their deb name as default. In most cases there are equivalents in rpm packages, sometimes with different naming convention like suffix ``-devel'' instead of ``-dev'' for so called ``development packages'', that contain source code.
+As it seems obvious, host OS need to be Unix-like, preferably Linux-based and with rpm or deb package manager. Whenever source code is under free licence, it could run anywhere, but it may need some manual tweaking. When running build systems for the first time, Debian or Red Hat or their derivatives, like Ubuntu or Fedora are only reasonable choices. Whenever Host OS is mentioned here, Debian GNU/Linux is the default one and to be precise it is stable version 9 (code name Stretch). Please notice, that all packages are reffered with their deb name as default. In most cases there are equivalents in rpm packages, sometimes with different naming convention like suffix ``-devel'' instead of ``-dev'' for so called ``development packages'', that contain source code.
 
 \subsubsection{Hardware requirements}
-The software requirements are easy to satisfy, because most useful Linux distribution have no costs and could be deployed within minutes on a~virtual machine, but the hardware resources are more crucial. I~prefer to use cheap laptops and the last time I~tried, the compilation of the Linux kernel took a~lot of lime, so It is worth to notice, because it was only kernel compilation, excluding any packages. For modern machines it is not such a~big problem, but anyway most tutorials are suggesting to get away from computer and enjoy a~``large hot drink''. The comparison of resource usage could be found in Chapter \ref{chapter:build-comparison}.
+The software requirements are easy to satisfy, because most useful Linux distribution have no costs and could be deployed within minutes on a~virtual machine, but the hardware resources are more crucial. On 10 years old cheap laptop, the compilation of the Linux kernel took a~lot of lime, so It is worth to notice, because it was only kernel compilation, excluding any packages. For modern machines it is not such a~big problem, but anyway most tutorials are suggesting to get away from computer and enjoy a~``large hot drink''. The comparison of resource usage could be found in Chapter \ref{chapter:build-comparison}.
 
 \subsection{Cross-compilation toolchain}
 % https://toolchains.free-electrons.com
 % https://elinux.org/Toolchains
 
-As mentioned at the beginning of this chapter, cross-compilation is essential for the whole process, because embedded devices have different processor architecture than the host system in all considered cases. Before cross-compilation could start, the cross-compiler must already exist on the system or it will be created at the beginning. It needs to be done only once, but I~am treating it as part of the complete build process.
+As mentioned at the beginning of this chapter, cross-compilation is essential for the whole process, because embedded devices have different processor architecture than the host system in all considered cases. Before cross-compilation could start, the cross-compiler must already exist on the system or it will be created at the beginning. It needs to be done only once, but it is treated as part of the complete build process.
 
-The default compiler is obviously GCC in all cases, because it fits perfectly in the open source / Unix-like ecosystem and it is its base building block. There is also a~possibility to select another compiler, like i.e. clang. Different linker could be chosen as well. The default one is the GNU linker (or GNU ld), but because of the enormous number of linking operations, different one like ``gold linker'' could be considered, which seems to be faster. That one is also a~part of GNU Project. At the beginning I~will choose the most basic setup, to make things easily comparable. 
+The default compiler is obviously GCC in all cases, because it fits perfectly in the open source / Unix-like ecosystem and it is its base building block. There is also a~possibility to select another compiler, like i.e. clang. Different linker could be chosen as well. The default one is the GNU linker (or GNU ld), but because of the enormous number of linking operations, different one like ``gold linker'' could be considered, which seems to be faster. That one is also a~part of GNU Project. The most basic setup was chosen, to make things easily comparable. 
 
 
 \subsection{Target OS configuration}
@@ -333,7 +348,7 @@ In recent years this state has been changed by a~few factors:
   \item adding peripherals specific not for embedded systems but for personal computers.
 \end{itemize}
 This led to discovering totally new use cases for development boards which explode due to widespread success of Raspberry Pi platform.
-I have selected some of most popular devices with ARM to compare them, but also included my personal laptop computer as a~reference for x86 architecture. Because of very low popularity, I~have not investigated other chips with SPARC or Power Architecture.
+Some of most popular devices with ARM were selected for comparison, but also personal laptop computer is included as a~reference for x86 architecture. Because of very low popularity, other chips with SPARC or Power Architecture were not investigated.
 
 At minimum, each device has:
 \begin{itemize}
@@ -477,7 +492,7 @@ Many aspects and examples compatible with this board were described in ``Linux w
 \section{x86\_64 (Asus Eee PC 1215n)}
 % https://www.asus.com/Laptops/Eee_PC_1215N/
 
-There is nothing special about this laptop, I~choose it mostly because that is the x86\_64 device that I~own. Because it is quite old and not aiming to be very powerful, its performance is comparable to development boards, like i.e. Wadnboard Quad. Fortunately it also have a~SD card slot, so could be booted in the same way as others.
+There is nothing special about this laptop, it was chosen just as the sample x86\_64 device. Because it is quite old and not aiming to be very powerful, its performance is comparable to development boards, like i.e. Wadnboard Quad. Fortunately it also have a~SD card slot, so could be booted in the same way as others.
 
 \begin{figure}[htbp]
   \centering
@@ -589,7 +604,7 @@ There is nothing special about this laptop, I~choose it mostly because that is t
 
 
 
-In this chapter I~will describe all embedded Linux build systems in order of rising complexity.
+In this chapter all embedded Linux build systems are described in the order of rising complexity.
 Since there is nothing more practical than a~good example, the list of all shell commands that are essential to run complete build process is presented on the beginning of each section.
 It will be then discussed line by line, in a~reference to OS build systems structure presented in Section \ref{section:builders-structure}.
 Suggested way is not to copy and paste entire script, but rather execute commands line by line.
@@ -611,7 +626,7 @@ sudo apt install make gcc g++ libncurses-dev unzip git \
 
 At the end of each script, the final image is being copied to home directory, to highlight its location.
 It could be especially useful when running build on special server and then downloading it to local machine in order to deploy it on real SD card.
-It could be done in many ways, even on Windows systems, but below I~present the one that is most convenient for me:
+It could be done in many ways, even on Windows systems, but below the most convenient one is presented:
 
 \begin{lstlisting}
 pv sdcard.img | sudo dd of=/dev/sdb bs=4M oflag=dsync
@@ -843,7 +858,7 @@ Linux LEDE 4.4.92 #0 Wed Oct 24 12:00:00 2017 armv6l GNU/Linux
 % http://ltib.org/home-intro 
 % http://ltib.org/pages/LTIB_generic_v1.4_-_version_6.4.1.pdf
 % http://www.bitshrine.org/autodocs/LtibFaq.html#ref_10
-% What is required on your host before installing LTIB
+% What is required on host before installing LTIB
 
 
 
@@ -974,7 +989,7 @@ Unfortunately this build system is so old, that it could support only first vers
 % https://ptxdist.org/doc/user_manual_section.html
 
 % https://www.mail-archive.com/ptxdist@pengutronix.de/msg10260.html
-% Difference between DIstroKit and OSELAS.BSP-Pengutronix-Generic
+% Difference between DistroKit and OSELAS.BSP-Pengutronix-Generic
 
 
 
@@ -1104,7 +1119,7 @@ For ARMv7 devices, target configuration it grouped under \verb|platform-v7a|, so
 \end{figure}
 % http://www.yoctoproject.org/docs/current/yocto-project-qs/figures/yocto-project-transp.png
 
-The Yocto Project is named an~open source collaboration project that provides templates, tools and methods to help you create custom Linux-based systems for embedded products. Its name came from the smallest metric system unit prefix ``yocto'' that emphasize possibility to create tiny distributions.
+The Yocto Project is named an~open source collaboration project that provides templates, tools and methods that helps to create custom Linux-based systems for embedded products. Its name came from the smallest metric system unit prefix ``yocto'' that emphasize possibility to create tiny distributions.
 
 The project under its current name was formed in 2010-2011 and the latest stable version is 2.4 ``Rocko'' released at October~2017. The Yocto Project is a~lab workgroup of the Linux Foundation and its developed and maintained by the group of major companies, including: Intel, Texas Instruments, NXP, Xilinx, LG, Dell and AMD.\cite{web:yoctoproject-participants}\cite{web:yoctoproject-leadership}
 
@@ -1205,7 +1220,7 @@ Linux raspberrypi 4.4.50 #1 Wed Jan 24 12:00:00 UTC 2018 armv6l GNU/Linux
 % http://intestinate.com/pilfs/
 % https://raspberrypi.stackexchange.com/questions/25/is-there-a-linux-from-scratch-lfs-arm-equivalent
 
-In the beginning, there was just LFS project that provided step-by-step instructions for building your own custom Linux system, entirely from source code.
+In the beginning, there was just LFS project that provided step-by-step instructions for building custom Linux system, entirely from source code.
 Its name came from Linux From Scratch.
 Its initial release was made in December~1999 and its latest stable version is 8.1 from September~2017. The project was initiated by Gerard Beekmans and gained support from many open source enthusiasts.
 
@@ -1234,7 +1249,7 @@ It is also possible to i.e. build new system from within Raspberry Pi using LFS 
 
 % \section{Non-free and closed Source}
 
-% Horrible, awkward situation - like you need to call a~special service to fix your hammer, instead of making it yourself.
+% Horrible, awkward situation - like need to call a~special service to fix a hammer, instead of making it at home.
 % There is a~lot of companies, that provides commercial support like: free-electrons, ...
 
 % \subsection*{Wind River Linux}
@@ -1247,10 +1262,9 @@ It is also possible to i.e. build new system from within Raspberry Pi using LFS 
 
 
 
-\begin{landscape}
 
 \begin{table}
-  \begin{tabular}{| p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} |}
+  \begin{tabular}{| p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} |}
     \hline
     name & Buildroot & OpenWrt & LTIB & PTXdist & Yocto Project & CLFS \\
     \hline
@@ -1262,7 +1276,7 @@ It is also possible to i.e. build new system from within Raspberry Pi using LFS 
     \hline
     last stable release date & 2017.11 & 2017.01 & 2013.02 & 2018.01 & 2017.10 & 2014.10\\
     \hline
-    release cycle & three month\cite{web:buildroot-releases} & irregular (approx 1 year) & irregular (approx 2 years)\cite{web:ltib-releases} & one month\cite{web:ptxdist-releases} & six months\cite{web:yoctoproject-releases} & irregular\cite{web:clfs-releases}\\
+    release cycle & three month\cite{web:buildroot-releases} & irregular (approx 1~year) & irregular (approx 2~years)\cite{web:ltib-releases} & one month\cite{web:ptxdist-releases} & six months\cite{web:yoctoproject-releases} & irregular\cite{web:clfs-releases}\\
     \hline
 %    number of supported packages &  &  &  &  &  & \\
 %    \hline
@@ -1282,8 +1296,6 @@ It is also possible to i.e. build new system from within Raspberry Pi using LFS 
 
 % required packages - on freshly installed debian system
 
-
-% TODO: table
 
 % os requirements / packages + hardware requirements + download rates! + google analitics popularity! + how did they name themselves... + nr of packages available + main site + documentation site
 % notes about release process / release cycles / frequency?
@@ -1330,7 +1342,6 @@ It is also possible to i.e. build new system from within Raspberry Pi using LFS 
 
 
 
-\end{landscape}
 
 
 
@@ -1358,9 +1369,9 @@ In Chapter \ref{chapter:build-systems}, only the software requirements for each 
 Even if owned PC or laptop have very good parameters, it is very hard to provide at home Internet connection with constant bandwidth, which is important to compare time of each build process, because all package sources are being downloaded meanwhile.
 To have isolated environment with guaranteed parameters it is reasonable to use external hosting service.
 
-I choose OVH, because it is the one, that I~am used to, especially I~enjoy user interface, which is even open sourced at \url{https://github.com/ovh-ux/ovh-manager-web}.
+OVH was chosen, because it is the one, with very user-friendly web interface, which is even open sourced at \url{https://github.com/ovh-ux/ovh-manager-web}.
 More reasonable arguments in favor to OVH is that it have data center in Poland (WAW) and enables direct access to OpenStack.
-Initially, I~used ``serwery.pl'' (subsidiary of ``nazwa.pl'' / NetArt) which also provides OpenStack platform, but it was removed in the middle of 2017.
+Initially, ``serwery.pl'' was used (a subsidiary of ``nazwa.pl'' / NetArt) which also provides OpenStack platform, but it was shut down in the middle of 2017.
 
 
 
@@ -1381,17 +1392,22 @@ Initially, I~used ``serwery.pl'' (subsidiary of ``nazwa.pl'' / NetArt) which als
 
 \section{Tests with respect to the target OS}
 
-% TODO-TODO kilka zdań omówienia
+% TODO: kilka zdań omówienia
 
 Basic compilation time for each board and system was measured on externally hosted dedicated server with Intel(R) Xeon(R) CPU E3-1270 v6 @ 3.80GHz (8~cores) and 32~GiB RAM.
 Whenever configuration for target device was not available, it was marked by ``-'' signs.
 
-\begin{landscape}
+The large difference between ``real time'' and ``user time'', shows that every build is heavy parallel and make use of multiple cores.
+It is especially important, that cross-compilation could proceed while downloading sources.
+Measured times differs significantly within builders and platform, so it could be assumed that default configurations are not not unified and there is a lot of optimization possibilities.
+Many Gigabytes of disk space are being used and it is critical to not run out of it, because all of results would not be useful.
+
+Buildroot have not only lowest software requirements for host OS, but it also needs much less disk space than its main rival Yocto Project. OpenWrt large SD card images are result of handling many so called ``feeds'' witch are networking packages essential for this build system main purpose. The explicit split between toolchain, that is installed globally and Board Support Package is characteristic property of PTXdist. There is no support provided for ARM Cortex-A9 boards and images for both ARM Cortex-A8 platform are created during the same build process and differs only in Device Tree file.
 
 
 
 \begin{table}
-  \begin{tabular}{| p{2.5cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} |}
+  \begin{tabular}{| p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} |}
     \hline
     name & Raspberry Pi 1 & Raspberry Pi 2 & BeagleBone Black & PandaBoard & Wandboard Quad & Asus Eee PC 1215n \\
     \hline
@@ -1413,7 +1429,7 @@ Whenever configuration for target device was not available, it was marked by ``-
 
 
 \begin{table}
-  \begin{tabular}{| p{2.5cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} |}
+  \begin{tabular}{| p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} |}
     \hline
     name & Raspberry Pi 1 & Raspberry Pi 2 & BeagleBone Black & PandaBoard & Wandboard Quad & Asus Eee PC 1215n \\
     \hline
@@ -1437,7 +1453,7 @@ Whenever configuration for target device was not available, it was marked by ``-
 
 
 \begin{table}
-  \begin{tabular}{| p{2.5cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} |}
+  \begin{tabular}{| p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} |}
     \hline
     name & Raspberry Pi 1 & Raspberry Pi 2 & BeagleBone Black & PandaBoard & Wandboard Quad & Asus Eee PC 1215n \\
     \hline
@@ -1469,7 +1485,7 @@ Whenever configuration for target device was not available, it was marked by ``-
 
 
 \begin{table}
-  \begin{tabular}{| p{2.5cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} |}
+  \begin{tabular}{| p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} |}
     \hline
     name & Raspberry Pi 1 & Raspberry Pi 2 & BeagleBone Black & PandaBoard & Wandboard Quad & Asus Eee PC 1215n \\
     \hline
@@ -1489,8 +1505,6 @@ Whenever configuration for target device was not available, it was marked by ``-
   \caption{Yocto Project build comparison}
 \end{table}
 
-
-\end{landscape}
 
 
 
@@ -1567,24 +1581,31 @@ Before tests could be executed, there is a~need to create and initially configur
   \item Navigate to mounted directory (\verb|cd /mnt/|)
 \end{enumerate}
 
-\begin{landscape}
+Obtained results once again confirm great impact of parallel processing.
+While ``user time'' remains similar, ``real time'' grows with decreasing number of cores.
+As it also occurs in other applications, not enough RAM could be a blocking point, while above some treshold it does not give any profits.
+Very interesting conclusions can be drown from total cost calculation.
+One may assume that it could be constant, because more expensive machines should make cross-compilation proportionally faster, which is unfortunately not true.
+Shorter time is a feature, that need to be additionally paid, so following only the price, slower and cheaper hardware should be chosen.
+
+
 
 \begin{table}
-  \begin{tabular}{| p{2.5cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} | p{3cm} |}
+  \begin{tabular}{| p{2.5cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} |}
     \hline
     name & C2-30 & B2-30 & C2-15 & B2-15 & C2-7 & B2-7 \\
     \hline
-    vCPUs & 8 x 3.1 GHz & 8 x 2.3 GHz & 4 x 3.1 GHz & 4 x 2.3 GHz & 2 x 3.1 GHz & 2 x 2.3 GHz \\
+    vCPUs & 8 x 3.1GHz & 8 x 2.3GHz & 4 x 3.1GHz & 4 x 2.3GHz & 2 x 3.1GHz & 2 x 2.3GHz \\
     \hline
     RAM & 30 GB & 30 GB & 15 GB & 15 GB & 7 GB & 7 GB \\
     \hline
     price & 1.542 & 1.049 & 0.765 & 0.519 & 0.395 & 0.272 \\
     \hline
-    real & 24m13.863s & 24m52.772s & 34m21.638s & 37m10.730s & 50m4.480s & 57m17.304s \\
+    real time & 24m13.863s & 24m52.772s & 34m21.638s & 37m10.730s & 50m4.480s & 57m17.304s \\
     \hline
-    user & 73m29.016s & 75m56.208s & 71m51.860s & 81m13.392s & 72m39.468s & 82m59.928s \\
+    user time & 73m29.016s & 75m56.208s & 71m51.860s & 81m13.392s & 72m39.468s & 82m59.928s \\
     \hline
-    sys & 8m11.556s & 9m15.448s & 7m35.004s & 9m39.060s & 7m41.560s & 9m27.172s \\
+    sys time & 8m11.556s & 9m15.448s & 7m35.004s & 9m39.060s & 7m41.560s & 9m27.172s \\
     \hline
     total cost & 0.62 PLN & 0.42 PLN & 0.43 PLN & 0.32 PLN & 0.33 PLN & 0.26 PLN \\
     \hline
@@ -1599,17 +1620,17 @@ Before tests could be executed, there is a~need to create and initially configur
     \hline
     name & R2-30 & R2-15 & S1-8 & S1-4 \\
     \hline
-    vCPUs & 2 x 2.4 GHz & 2 x 2.4 GHz & 2 x 2.4 GHz & 1 x 2.4 GHz \\
+    vCPUs & 2 x 2.4GHz & 2 x 2.4GHz & 2 x 2.4GHz & 1 x 2.4GHz \\
     \hline
     RAM & 30 GB & 15 GB & 8 GB & 4 GB \\
     \hline
     price PLN/h& 0.457 & 0.395 & 0.148 & 0.081 \\
     \hline
-    real & 52m33.380s & 53m30.474s & 65m42.849s & 127m16.353s \\
+    real time & 52m33.380s & 53m30.474s & 65m42.849s & 127m16.353s \\
     \hline
-    user & 77m29.732s & 80m41.752s & 91m34.000s & 101m2.204s \\
+    user time & 77m29.732s & 80m41.752s & 91m34.000s & 101m2.204s \\
     \hline
-    sys & 7m55.024s & 7m36.960s & 12m8.204s & 15m2.652s \\
+    sys time & 7m55.024s & 7m36.960s & 12m8.204s & 15m2.652s \\
     \hline
     total cost & 0.4 PLN & 0.35 PLN & 0.16 PLN & 0.17 PLN \\
     \hline
@@ -1620,8 +1641,6 @@ Before tests could be executed, there is a~need to create and initially configur
 %  & 1 x 2.4 GHz
 %  & 2 GB
 %  & 0.045
-
-\end{landscape}
 
 
 % Big Mac Index?
@@ -1644,39 +1663,42 @@ It could be very fashionable nowadays to run essential parts of IoT applications
 The most important reason for that is having a~possibility to make live updates at any moments, but it results in big maintaining effort after release.
 It could be more convenient to run everything what is possible locally, because it enforces better software quality and protect from Internet connection problems.
 
-As an~example, application from my 2015 engineering project ``System wizualizacji i~sterowania obiektami automatyki''\cite{book:cdynak-scada} (eng. ``Visualization and control system of automation objects'') was ported from ANSI C/PHP into easy deployable Node.js framework.
-% fix 
-
-%convert 4.png -crop 90%x+300+25 4-web.png
+As an~example, application from authors 2015 engineering project ``System wizualizacji i~sterowania obiektami automatyki''\cite{book:cdynak-scada} (eng. ``Visualization and control system of automation objects'') was ported from ANSI C/PHP into easy deployable Node.js framework.
+Its internal architecture is very simple, because it is just connecting to automation systems with TCP/IP socket and displaying its entities to user through website, with possibility to change states.
+Practically resources like lights, gates and HVAC (Heating, Ventilation, Air Condition) objects are available as well as charts of historical data.
 
 
 \begin{figure}[htbp]
   \centering
     \includegraphics[width=0.7\textwidth]{4-web.png}
-    \caption{Web interface - lights}
+    \caption{Web interface - projection with lights and gates}
   \label{fig:4-web}
 \end{figure}
+% convert 4.png -crop 90%x+300+25 4-web.png
 
 
 \begin{figure}[htbp]
   \centering
     \includegraphics[width=0.7\textwidth]{5-web.png}
-    \caption{Web interface - HVAC}
+    \caption{Web interface - HVAC objects}
   \label{fig:5-web}
 \end{figure}
+% convert 5.png -crop 90%x+300+25 5-web.png
 
 
 \begin{figure}[htbp]
   \centering
     \includegraphics[width=0.7\textwidth]{6-web.png}
-    \caption{Web interface - plot}
+    \caption{Web interface - plot of temperature and thermostat state}
   \label{fig:6-web}
 \end{figure}
+% convert 6.png -crop 90%x+300+25 6-web.png
 
 
 \subsection*{Building Node.js into target OS}
 
-Before Node.js for target OS could be created, there is a need to compile whole toolchain again, to enable WCHAR (wide characters) support:
+\subsubsection{Menuconfig}
+Before Node.js for target OS could be created with Menuconfig-based configurators, there is a need to compile whole toolchain again, to enable WCHAR (wide characters) support:
 
 \begin{lstlisting}
 cd buildroot-2017.11.1/
@@ -1691,38 +1713,37 @@ make menuconfig
 # Interpreter languages and scripting -> nodejs -> NPM for the target
 \end{lstlisting}
 
-% # Libraries -> Database
-% # mysql support -> mysql variant (mariadb) -> mariadb server
 
-%\subsubsection{Menuconfig}
+\subsubsection{BitBake}
 
-%\subsubsection{BitBake}
-
-
-
-
-
-% buildroot - nodejs - dedyk - undone?
-% real    29m19.687s
-% user    132m13.816s
-% sys     6m28.088s
-
-
-% \subsection*{Deploying application on embedded device}
+For Yocto project, which uses BitBake, there exists separate `meta-nodejs` layer.
+It should be added to EXTRALAYERS variable in conf/bblayers.conf. For example:
+\begin{lstlisting}
+EXTRALAYERS +=" \
+    ${TOPDIR}/sources/meta-nodejs \
+"
+\end{lstlisting}
 
 
 
+\subsection*{Deploying application on embedded device}
 
+Luckily, when Node.js is already available on the target, this application does not require cross-compilation itself.
+Files just need to be copied into home directory and the only remaining task is to install dependencies and set process to run at system start up.
 
+\begin{lstlisting}
+npm install
+npm start &
+npm install -g pm2
+pm2 save
+\end{lstlisting}
 
+First two commands makes described application up and running, while the two others installs \verb|pm2| process manager which recognize Node.js process and create proper init scripts.
 
-% TODO - podsumowanie - przykład starachowic - ograniczenie poolingu
-% TODO - ``przynajmeniej'' tyle, że
-
-
-
-
-
+From that step there are no more differences between server and embedded deployment.
+Because web server just provide files to the browser, the most complex operations are executed on client side.
+Even though, some awareness of limited hardware resources is needed.
+In real life scenario, with multiple TCP/IP connections, pooling frequency need to be reduced because it consumes to much CPU.
 
 
 
@@ -1730,51 +1751,60 @@ make menuconfig
 
 \section{Building containers}
 
-% https://docs.docker.com/engine/userguide/eng-image/baseimages/
-% http://michaelcoyote.github.io/2015/08/02/lean-container-tricks/
-% https://blog.docker.com/2013/06/create-light-weight-docker-containers-buildroot/
-% https://gist.github.com/jpetazzo/b932fb0c753e69c73d31
+
 
 \subsection*{Containerization basics}
 
-% containers implementation comparison - w00t?! - so many scientific papers with comparison (mostly about performance)
+
 
 In terms of software development, container is an~instance of isolated user-space, that shares the kernel with its host operating system.\cite{web:what-container}
 It could be described as lightweight virtual machine, because while VMs are realizing concepts of hardware abstraction, containers are abstraction for application layer.
-There is no need to emulate whole operating system layer, so they could use even 100-1000 times less disk space.
-There are various implementations of container engines, like LXC or CoreOS rkt, but as for 2018 the most reasonable choice is Docker, which is most popular, mature and stable.\cite{web:why-docker}
-While comparing the Linux build systems, the container orchestration topic, that is essential in real deployments\cite{web:container-orchestration}, will not be touched, but the produced containers are fully compatible with orchestration tools.
+There is no need to emulate whole operating system, so they could use even 100-1000 times less disk space.
+There are various implementations of container engines, like LXC or CoreOS rkt, but as of 2018 the only reasonable choice is Docker, which is most popular, mature and stable.\cite{web:why-docker}
+While comparing the Linux build systems, the container orchestration topic, that is essential in real deployments\cite{web:container-orchestration}, will not be touched, but the produced containers are fully compatible with orchestration tools like Kubernetes.
 
 \subsection*{Docker installation on host OS}
 
 Initial step is installing Docker daemon on host machine, to make any other operations posible.
-Packages from Debian/Ubuntu repositories became outdated, to it is strongly suggested to get install it in the following way:
+Packages from Debian/Ubuntu repositories became outdated, so it is strongly suggested to install it in the following way:
 
 \begin{lstlisting}
 $ sudo apt install apt-transport-https ca-certificates curl gnupg2 software-properties-common
 $ curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | sudo apt-key add -
 $ sudo apt-key fingerprint 0EBFCD88
 $ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") $(lsb_release -cs) stable"
-$ sudo apt update && sudo apt install docker-ce
+$ sudo apt update
+$ sudo apt install docker-ce
+$ sudo usermod -aG docker $USER
 \end{lstlisting}
 
-It is also not possible to run any \verb|docker| commands as non-admin user, until it is addes to propper group: \begin{verbatim}
-sudo usermod -aG docker USER
-\end{verbatim}
-% https://docs.docker.com/engine/installation/linux/linux-postinstall/#manage-docker-as-a-non-root-user
+It is also not possible to run any \verb|docker| commands as non-admin user, until it is added to proper group as shown in line 7. \cite{web:docker-permissions}
 
 \begin{lstlisting}
 $ docker pull apline
+Using default tag: latest
+latest: Pulling from library/alpine
+ff3a5c916c92: Pull complete 
+Digest: sha256:7df6db5aa61a...
+Status: Downloaded newer image for alpine:latest
 $ docker images
-$ docker run alpine ls -l
+REPOSITORY          TAG                 IMAGE ID              SIZE
+alpine              latest              3fd9065eaf02          4.15MB
+$ docker run alpine cat /etc/alpine-release
+3.7.0
 $ docker run -it alpine sh
+/ # cat /etc/alpine-release
+3.7.0
+/ #
 \end{lstlisting}
 
-Finally the easiest way to check this setup is to pull and run small container, like alpine.
+Finally the easiest way to check this setup is to pull and run small container, like alpine Linux.
+This one is available from official Docker Hub repository, so no additional prefixes are needed.
+In line 10 simple command is invoked, while in line 12 the same command is invoked from within container while running its shell in interactive mode (as declared by \verb|-it| flag).
 
 \subsection*{Minimal container}
 
-Now it is possible to build docker image, with the use of x86\_64 rootfs produced by any of presented build systems.
+Now it is possible to build docker image, with the use of x86\_64 rootfs produced by any of presented build systems and \verb|docker import| command\cite{web:docker-baseimages}, although a few things needs to be fixed before.\cite{web:docker-creating} \cite{web:docker-lightweight} Docker daemon is dynamically linked with containers, so it is necessary to add there proper libraries. Because it shares the same kernel and local network with host, \verb|init| and \verb|resolv.conf| will be managed separately and should be removed from root file system.
 
 \begin{lstlisting}
 $ cd output/images
@@ -1786,18 +1816,16 @@ $ cp /lib64/ld-linux-x86-64.so.2 extra/lib64
 $ cp rootfs.tar fixup.tar
 $ tar rvf --overwrite fixup.tar -C extra .
 $ docker import - test/basic-system < fixup.tar
-$ docker run -t -i test/basic-system sh
+$ docker run -it test/basic-system sh
 \end{lstlisting}
 
-% TODO-TODO - poprawić wygląd fragmentów kodu... troche grubsze, mniejsze (small?), bliżej siebie
 
 
-
-% --overwrite is missing!
+% containers implementation comparison - there are many scientific papers with comparison (mostly about performance)
 
 % TODO: \subsection*{Node.js container}
 
-% mention the alpinelinux performance case...
+% alpine linux (musl) / debian-based nodejs containers performance case
 
 
 
@@ -1817,25 +1845,30 @@ $ docker run -t -i test/basic-system sh
 
 
 
-\chapter{Conclusions}
+\chapter{Summary}
 \label{chapter:conclusions}
 
-% TODO-TODO
-% udało się zrealizować w cąłości postawione zadanie
-% w wyniku pracy zostało stworzone
-% wynik - najkrótszy czas 
-% czas tworzenia takiego systemu to od 15 min do kilku godzin
-% dwa zastosowania... - wymienić
+\section{Outcome}
+
+All of the tasks assigned for this thesis have been successfully completed.
+As a result four embedded Linux build systems were used to create complete Linux distribution for six selected hardware platforms.
+Every device and tool was described, explicit instructions of how to use it.
+Depending on selected target and used builder, whole process takes typically not less than 10 minutes and not more than 1 hour.
+From around 5GB minimum to over 25GB free space is needed on host operating system, where cross-compilation is executed.
+The target operating system, without any extensions or optimization, takes tens of Megabytes and boots on embedded devices in under 10 seconds.
+When having properly configured base system, it is pretty straightforward to create useful applications, because all described builders provide mechanisms to add own software or use existing packages.
+As an example, the Node.js run-time environment was chosen to deploy industrial web application written in  JavaScript on mentioned ARM-based devices.
+It was also presented how to use output for x86 architecture to create minimal, but fully functional Docker containers.
 
 
 \section{Possible enhancements}
 
-%\subsection*{Including rpm setup}
-%The description was simplified to focus only on Debian GNU/Linux, just because of my experience. It should be enhanced also for distributions based on Red Hat packages.
+\subsection*{Including rpm setup}
+The description was simplified to focus only on Debian GNU/Linux, just because of authors experience. It should be enhanced also for distributions based on Red Hat packages.
 
 
 \subsection*{Regular yearly updates}
-Source code development and evolution of standards is so rapid nowadays, that only plain ANSI C, without any libraries, could be considered truly as portable and stable in longer period (\verb|cc -ansi -pedantic|).
+Source code development and evolution of standards is so rapid nowadays, that only plain ANSI C (\verb|cc -ansi -pedantic|) without any libraries could be considered as truly portable and stable in longer period .
 The same issue is happening here, in the area of embedded Linux distributions development tools.
 The only way to make this publication usable for others is to update it constantly in yearly or even bi-yearly circles.
 
@@ -1843,11 +1876,23 @@ The only way to make this publication usable for others is to update it constant
 According to previous statement, it will be reasonable to include modern development practices, like Continuous Integration (CI), to make things easier to maintain.
 Each of build scripts, that are attached in Chapter \ref{chapter:build-systems}, should be executed on CI server whenever new stable version of particular tool is released, including new versions of host OS.
 
-\section{Summary}
+\section{Conclusions}
+
+A lot of software developers work with described tools, but sometimes without participating in whole build process and in most cases they use only one build system, without comparing to others.
+The goal of this thesis was also to encourage everybody who is working with embedded Linux, to give a~try for all of them. 
+
+There is also a~need for even more diversity. It is dangerous when one kernel becomes hegemonic, like it is happening with Linux right now. Ironically, situation in embedded development could be compared to Ubuntu Bug \#1: ``Microsoft has a~majority market share''.\cite{web:ubuntu-bug1} If it were a healthy ecosystem, this project would be named just ``Embedded Unix build systems'' and include also MINIX, BSD, Darvin and HURD kernels. Hopefully one day the title of this work will be changes accordingly.
+
+
+
+
+
+
+
+
+
 
 % https://www.google.com/search?q=operating+system+builder
-
-There is a~need for diversity. It is dangerous when one kernel becomes hegemonic. In a healthy ecosystem, this project should be just ``embedded unix build systems'' - to also include MINIX, BSD, Darvin and HURD kernels. I~wish I~could name this work in this way one day. I~could compare it to something like Ubuntu Bug \#1: ``Microsoft has a~majority market share''.\cite{web:ubuntu-bug1}
 
 %github.com/cdynak/embedded-linux-build-systems
 
@@ -1856,10 +1901,6 @@ There is a~need for diversity. It is dangerous when one kernel becomes hegemonic
 % cdynak.github.io/elbs, github.com/elbs, http://os.builders
 
 % mark all parts / fields that could gone outdated and need to be updated each year...
-
-
-
-
 
 % maybe make a~course out of that...?
 
@@ -1910,7 +1951,10 @@ There is a~need for diversity. It is dangerous when one kernel becomes hegemonic
 % ---
 
 %\chapter{POSIX Test Suites}
-%https://www.linuxbase.org/download/
+
+% https://stackoverflow.com/questions/21565865/filesystem-test-suites
+
+% https://www.linuxbase.org/download/
 %
 %\url{https://en.wikipedia.org/wiki/Linux_Standard_Base}
 %\url{https://en.wikipedia.org/wiki/Single_UNIX_Specification}
