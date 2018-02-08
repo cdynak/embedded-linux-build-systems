@@ -1,4 +1,4 @@
-\documentclass[printmode]{mgr}
+\documentclass[printmode,en]{mgr}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -1986,6 +1986,18 @@ There is also a~need for even more diversity. It is dangerous when one kernel be
 %\chapter{MIPI CSI and OpenCV}
 
 %\chapter{Real time / Xenomai}
+
+% http://henryomd.blogspot.com/2017/12/xenomai-on-raspberry-pi.html
+
+
+%>>> linux 7dc3bd00d62130ef7f09759a8c0ec9d65f58c987 Extracting
+%gzip -d -c /home/cdynak/buildroot-2017.11.1/dl/linux-7dc3bd00d62130ef7f09759a8c0ec9d65f58c987.tar.gz | tar --strip-components=1 -C /home/cdynak/buildroot-2017.11.1/output/build/linux-7dc3bd00d62130ef7f09759a8c0ec9d65f58c987   -xf -
+%>>> linux 7dc3bd00d62130ef7f09759a8c0ec9d65f58c987 Patching
+%/home/cdynak/buildroot-2017.11.1/output/build/xenomai-3.0.6/scripts/prepare-kernel.sh --linux=/home/cdynak/buildroot-2017.11.1/output/build/linux-7dc3bd00d62130ef7f09759a8c0ec9d65f58c987 --arch=arm --default --verbose
+%Preparing kernel 4.9.52 in /home/cdynak/buildroot-2017.11.1/output/build/linux-7dc3bd00d62130ef7f09759a8c0ec9d65f58c987...
+%prepare-kernel.sh: no I-pipe support found.
+%I-pipe patch:
+
 
 % meta-eldk/linux-xenomai
 % \url{https://layers.openembedded.org/layerindex/recipe/8333/}

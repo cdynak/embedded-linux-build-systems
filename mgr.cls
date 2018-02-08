@@ -22,6 +22,8 @@
 \newif\if@mainmatter \@mainmattertrue
 \newif\if@archive \@archivefalse
 \newif\if@eng \@engfalse
+\newif\if@pl \@pltrue
+\newif\if@en \@enfalse
 \DeclareOption{8pt}{\renewcommand\@ptsize{8}}
 \DeclareOption{10pt}{\renewcommand\@ptsize{0}}
 \DeclareOption{11pt}{\renewcommand\@ptsize{1}}
@@ -41,6 +43,10 @@
         \@openrightfalse \@archivetrue%
         \setlength\overfullrule{0pt}}
 \DeclareOption{eng}{\@engtrue}
+%warianty jezykowe
+\DeclareOption{pl}{\@pltrue \@enfalse}
+\DeclareOption{en}{\@entrue \@plfalse}
+
 \DeclareOption{draft}{\setlength\overfullrule{5pt}}
 \DeclareOption{final}{\setlength\overfullrule{0pt}}
 \DeclareOption{openbib}{%
@@ -229,13 +235,27 @@
 \textheight 25cm 
 
 %definicje danych do utworzenia strony tyułowej
+\if@pl
 \newcommand{\@naglowek}{PRACA DYPLOMOWA \\ MAGISTERSKA}
 \newcommand{\@napisProwadzacy}{Prowadz\k{a}cy prac\k{e}:}
 \newcommand{\@napisOcena}{Ocena pracy:}
+\fi
+\if@en
+\newcommand{\@naglowek}{MASTER OF SCIENCE THESIS}
+\newcommand{\@napisProwadzacy}{Supervisor:}
+\newcommand{\@napisOcena}{Grade:}
+\fi
+
 \if@eng
-\renewcommand{\@naglowek}{PROJEKT IN\.ZYNIERSKI}
-\renewcommand{\@napisProwadzacy}{Prowadz\k{a}cy projekt:}
-\renewcommand{\@napisOcena}{Ocena projektu:}
+\if@pl
+\renewcommand{\@naglowek}{PRACA DYPLOMOWA \\ IN\.ZYNIERSKA}
+\fi
+\if@en
+\renewcommand{\@naglowek}{ENGINEERING THESIS}
+\fi
+
+%\renewcommand{\@napisProwadzacy}{Prowadz\k{a}cy prac\k{e}:}
+%\renewcommand{\@napisOcena}{Ocena pracy:}
 \fi
 
 \renewcommand{\@author}{Brak autora\typeout{MGR.cls Warning: Brak podanego nazwiska autora, uzyj polecenia author}}
@@ -396,6 +416,29 @@
 \@tempevensidemargin=\evensidemargin
 \evensidemargin=-1in
 
+\if@pl
+\newcommand{\@university}{%
+  \LARGE  POLITECHNIKA WROC\L{}AWSKA \\[0mm] %
+  WYDZIA\L{} ELEKTRONIKI            %
+  \vspace{-6mm}%
+}
+\newcommand{\@fieldtext}{\Large\sc Kierunek:}
+\newcommand{\@specialisationtext}{\Large\sc Specjalno\'s\'c:}
+\newcommand{\@authortext}{\Large{\sc Autor:}}
+\fi
+\if@en
+\newcommand{\@university}{%
+  \Large  \mbox{\hspace{-3mm}WROC\L{}AW UNIVERSITY OF SCIENCE AND TECHNOLOGY}\\[0mm]%
+  FACULTY OF ELECTRONICS%
+  \vspace{-6mm}%
+}
+\newcommand{\@fieldtext}{\Large\sc Field:}
+\newcommand{\@specialisationtext}{\Large\sc Specialization:}
+\newcommand{\@authortext}{\Large{\sc Author:}}
+\fi
+
+
+
 %właściwe składanie strony tytułowej
 \begin{titlepage}% 
 
@@ -404,9 +447,7 @@
 \begin{minipage}[c][63mm]{\textwidth} %górna ramka z uczelnią, wydziałem, kierunkiem i specjalnością oraz tekst "PRACA DYPLOMOWA MAGISTERSKA" zdefiniowane z pływającymi odległościami i z możliwością wielolinijkowych kierunek i specjalność
 \begin{center}\begin{minipage}[c][17mm]{16cm}
      \begin{center}                              %
-         \LARGE  POLITECHNIKA WROC\L{}AWSKA \\[0mm] %
-                  WYDZIA\L{} ELEKTRONIKI            %
-         \vspace{-6mm}                           %
+         \@university%
      \end{center}                                %
    \mbox{}\hrulefill\mbox{}              %
 \end{minipage}\\[11mm]
@@ -416,25 +457,25 @@
 %korekcja rozmieszczenia napisów Kierunek: i Specjalność: w zależności od wysokości (ilości linijek) w nazwie kierunku lub specjalności
 \newlength{\@tempheightkier}
 \newlength{\@tempheighttkier}
-\settoheight{\@tempheighttkier}{\vbox{\Large\sc Kierunek:}}
+\settoheight{\@tempheighttkier}{\vbox{\@fieldtext}}
 \settoheight{\@tempheightkier}{\vbox{\large \vrule height \@tempheighttkier width 0pt \@field}}
 \settodepth{\@tempheighttkier}{\vbox{\large \vrule height \@tempheighttkier width 0pt \@field}}
 \addtolength{\@tempheightkier}{\@tempheighttkier}
-\settoheight{\@tempheighttkier}{\vbox{\Large\sc Kierunek:}}
+\settoheight{\@tempheighttkier}{\vbox{\@fieldtext}}
 \addtolength{\@tempheightkier}{-\@tempheighttkier}
 %
 \newlength{\@tempheightspec}
 \newlength{\@tempheighttspec}
-\settoheight{\@tempheighttspec}{\vbox{\Large\sc Specjalno\'s\'c:}}
+\settoheight{\@tempheighttspec}{\vbox{\@specialisationtext}}
 \settoheight{\@tempheightspec}{\vbox{\large \vrule height \@tempheighttspec width 0pt \@specialisation}}
 \settodepth{\@tempheighttspec}{\vbox{\large \vrule height \@tempheighttspec width 0pt \@specialisation}}
 \addtolength{\@tempheightspec}{\@tempheighttspec}
-\settoheight{\@tempheighttspec}{\vbox{\Large\sc Specjalno\'s\'c:}}
+\settoheight{\@tempheighttspec}{\vbox{\@specialisationtext}}
 \addtolength{\@tempheightspec}{-\@tempheighttspec}
 %tabelka składająca kierunek i specjalność
 \begin{tabular}{p{4.5cm}p{10.5cm}}
-\parbox{4.5cm}{\Large\sc Kierunek: \vrule depth \@tempheightkier width 0pt} & \parbox{10cm}{\large \vrule height \@tempheighttkier width 0pt \@field}\\
-\parbox{4.5cm}{\Large\sc Specjalno\'s\'c: \vrule depth \@tempheightspec width 0pt } & \parbox{10cm}{\large \vrule height \@tempheighttspec width 0pt \@specialisation} 
+\parbox{4.5cm}{\@fieldtext \vrule depth \@tempheightkier width 0pt} & \parbox{10cm}{\large \vrule height \@tempheighttkier width 0pt \@field}\\
+\parbox{4.5cm}{\@specialisationtext \vrule depth \@tempheightspec width 0pt } & \parbox{10cm}{\large \vrule height \@tempheighttspec width 0pt \@specialisation} 
 \end{tabular}\mbox{}\\[5mm] \vfill
 \begin{center}
 \LARGE\bf \@naglowek
@@ -452,11 +493,18 @@
 \begin{minipage}[c][7.3cm][c]{10.6cm}
 \begin{center}
 \vfil
+\if@pl
 \large \@title
 \vfil
 \large \@engtitle
+\fi
+\if@en
+\large \@engtitle
 \vfil
-\Large{\sc Autor:}\\
+\large \@title
+\fi
+\vfil
+\@authortext\\
 \large \@author
 \vfil\mbox{}
 \end{center}
@@ -819,7 +867,6 @@
 \newlength\belowcaptionskip
 \setlength\abovecaptionskip{10\p@}
 \setlength\belowcaptionskip{0\p@}
-\def\fnum@table{Tabela.~\thetable} %zmiana nazwy w caption w otoczeniu table
 %tutaj jest zmiana, zostały usunięte dwukropki
 \long\def\@makecaption#1#2{%
   \vskip\abovecaptionskip
